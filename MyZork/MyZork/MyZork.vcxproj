@@ -10,9 +10,22 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="exits.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="player.cpp" />
+    <ClCompile Include="rooms.cpp" />
+    <ClCompile Include="world.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="exits.h" />
+    <ClInclude Include="player.h" />
+    <ClInclude Include="rooms.h" />
+    <ClInclude Include="world.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{01F45622-E521-41AD-B18B-E0F96775E1FA}</ProjectGuid>
-    <RootNamespace>ZorkRooms</RootNamespace>
+    <ProjectGuid>{7FC602B5-F1E2-431C-89CB-BF5DC1094EA2}</ProjectGuid>
+    <RootNamespace>MyZork</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -63,13 +76,6 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="main.c" />
-    <ClCompile Include="rooms.c" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="rooms.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
