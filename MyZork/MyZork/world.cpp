@@ -3,20 +3,22 @@
 #include<string.h>
 #include<stdlib.h>
 
+#define NUM_ROOMS 13
+#define NUM_EXITS 19
 
 World::World()
 {
-	rooms = new Room[13];
+	rooms = new Room[NUM_ROOMS];
 	player = new Player;
-	exits = new Exit[13];
+	exits = new Exit[NUM_EXITS];
 }
 
 void World::CreateWorld() const
 {
 	int  i;
 	//ROOMS: NAMES and DESCRIPTIONS
-	char *names[] = { "Bedroom", "Grimgar", "Tavern", "Lake", "Cliff", "Super Generator", "Portal Room", "Underwater Cave", "Dragon Chamber", "Floor 1", "Floor 2", "Treasure Chamber", "Rakdos Throne Room" };
-	for (i = 0; i < 13; i++)
+	char *names[] = { "BEDROOM", "GRIMGAR", "TAVERN", "LAKE", "CLIFF", "SUPER GENERATOR", "PORTAL ROOM", "UNDERWATER CAVE", "DRAGON CHAMBER", "FLOOR 1", "FLOOR 2", "TREASURE CHAMBER", "RAKDOS THRONE ROOM" };
+	for (i = 0; i < NUM_ROOMS; i++)
 	{
 	strcpy_s((rooms+i)->name, names[i]);
 	}
@@ -42,7 +44,7 @@ char *descriptions[] =
 	"Yeah! Simon, this is the final room before the ultimate battle.\nThere is a key on the ground, and seems to fit the lock of these two big chests in front of us.\n",
 	"What a big chamber!\nSimon, Rakdos is there, let's fight and defeat him!\n" };
 
-for (i = 0; i < 13; i++)
+for (i = 0; i < NUM_ROOMS; i++)
 {
 	strcpy_s((rooms + i)->description, descriptions[i]);
 }
@@ -52,6 +54,7 @@ for (i = 0; i < 13; i++)
 	printf("%i) %s\n\n", i, (rooms + i)->description);
 }*/
 
+/*
 //CARDINAL POINTS OF ROOMS
 //Bedroom
 strcpy_s((rooms + 0)->north, "-");
@@ -156,47 +159,71 @@ strcpy_s((rooms + 12)->east, names[0]);
 strcpy_s((rooms + 12)->west, "-");
 strcpy_s((rooms + 12)->up, "-");
 strcpy_s((rooms + 12)->down, "-");
+*/
 
-/*for (i = 1; i < 5; i++)
-{
-	printf("%s\n", (rooms + i)->name);
-	printf("North: %s\nSouth: %s\nEast: %s\nWest: %s\n", (rooms + i)->north, (rooms + i)->south, (rooms + i)->east, (rooms + i)->west);
-}*/
+/*CREATE EXITS*/
 
-/*
-//EXITS: connections
-//Bedroom->Aincrad
-strcpy_s((exits + 0)->to, names[1]);
-strcpy_s((exits + 0)->from, names[0]);
+//PORTAL
+strcpy((exits + 0)->name, "PORTAL");
+strcpy((exits + 0)->description, "A nice Portal");
+(exits + 0)->src = rooms + 0;
+(exits + 0)->dst = rooms + 1;
+(exits + 0)->direction = down;
 
-//Aincrad->tavern/lake/cliff
-for (i = 1; i < 4; i++)
-{
-	strcpy_s((exits + i)->to, names[i + 1]);
-	strcpy_s((exits + i)->from, names[1]);
+//FOREST
+strcpy((exits + 1)->name, "FOREST\n");
+strcpy((exits + 1)->description, "It's a big forest.\n");
+(exits + 1)->src = rooms + 1;
+(exits + 1)->dst = rooms + 3;
+(exits + 1)->direction = west;
+
+//SAND PATH
+strcpy((exits + 2)->name, "SAND PATH\n");
+strcpy((exits + 2)->description, "A long path that connects this big lake with Grimgar.\n");
+(exits + 2)->src = rooms + 3;
+(exits + 2)->dst = rooms + 1;
+(exits + 2)->direction = east;
+
+//TAVERN ENTRANCE
+strcpy((exits + 3)->name, "TAVERN ENTRACE\n");
+strcpy((exits + 3)->description, "A big door to enter to the tavern.\n");
+(exits + 3)->src = rooms + 1;
+(exits + 3)->dst = rooms + 2;
+(exits + 3)->direction = west;
+
+//TAVERN EXIT
+strcpy((exits + 4)->name, "TAVERN EXIT\n");
+strcpy((exits + 4)->description, "The big door to exit to the tavern.\n");
+(exits + 4)->src = rooms + 2;
+(exits + 4)->dst = rooms + 1;
+(exits + 4)->direction = east;
+
+//STONE PATH
+strcpy((exits + 5)->name, "STONE PATH\n");
+strcpy((exits + 5)->description, "At the end of this path you can see the hill.\n");
+(exits + 5)->src = rooms + 1;
+(exits + 5)->dst = rooms + 4;
+(exits + 5)->direction = north;
+
+//STONE PATH
+strcpy((exits + 6)->name, "STONE PATH\n");
+strcpy((exits + 6)->description, "At the end of this path you can see Grimgar.\n");
+(exits + 6)->src = rooms + 4;
+(exits + 6)->dst = rooms + 5;
+(exits + 6)->direction = north;
+
+//
+strcpy((exits + 7)->name, "\n");
+strcpy((exits + 7)->description, "At the end of this path you can see Grimgar.\n");
+(exits + 7)->src = rooms + 4;
+(exits + 7)->dst = rooms + 1;
+(exits + 7)->direction = south;
+
+
+
 }
 
-//Tavern/lake/cliff->Aincrad
-for (i = 4; i < 7; i++)
-{
-	strcpy_s((exits + i)->to, names[1]);
-	strcpy_s((exits + i)->from, names[i - 2]);
-}
-
-//Cliff<->Generator
-strcpy_s((exits + 7)->to, names[5]);
-strcpy_s((exits + 7)->from, names[4]);
-strcpy_s((exits + 8)->to, names[4]);
-strcpy_s((exits + 8)->from, names[5]);
-
-for (i = 0; i < 9; i++)
-{
-	printf("From %s to %s\n", (exits + i)->from, (exits + i)->to);
-}*/
-
-}
-
-void World::Movement(int *j)
+void World::Movement(int *num)
 {
 	int i;
 	char direction;
@@ -206,19 +233,19 @@ void World::Movement(int *j)
 	{
 	case 'n':
 	{
-		printf("You are in %s\n", (rooms + *j)->name);
-		printf("North is %s\n", (rooms + *j)->north);
-		if (strcmp((rooms + *j)->north, "-") == 0)
+		printf("You are in %s\n", (rooms + *num)->name);
+		printf("North is %s\n", (rooms + *num)->north);
+		if (strcmp((rooms + *num)->north, "-") == 0)
 		{
 			printf("You can't go that way.\n");
 		}
 		else
 		{
-			for (i = 0; i < 13; i++)
+			for (i = 0; i < NUM_ROOMS; i++)
 			{
-				if (strcmp((rooms + i)->name, (rooms + *j)->north) == 0)
+				if (strcmp((rooms + i)->name, (rooms + *num)->north) == 0)
 				{
-					*j = i;
+					*num = i;
 					break;
 				}
 			}
@@ -227,19 +254,19 @@ void World::Movement(int *j)
 	}
 	case 's':
 	{
-		printf("You are in %s\n", (rooms + *j)->name);
-		printf("South is %s\n", (rooms + *j)->south);
-		if (strcmp((rooms + *j)->south, "-") == 0)
+		printf("You are in %s\n", (rooms + *num)->name);
+		printf("South is %s\n", (rooms + *num)->south);
+		if (strcmp((rooms + *num)->south, "-") == 0)
 		{
 			printf("You can't go that way.\n");
 		}
 		else
 		{
-			for (i = 0; i < 13; i++)
+			for (i = 0; i < NUM_ROOMS; i++)
 			{
-				if (strcmp((rooms + i)->name, (rooms + *j)->south) == 0)
+				if (strcmp((rooms + i)->name, (rooms + *num)->south) == 0)
 				{
-					*j = i;
+					*num = i;
 					break;
 				}
 			}
@@ -248,19 +275,19 @@ void World::Movement(int *j)
 	}
 	case 'e':
 	{
-		printf("You are in %s\n", (rooms + *j)->name);
-		printf("East is %s\n", (rooms + *j)->east);
-		if (strcmp((rooms + *j)->east, "-") == 0)
+		printf("You are in %s\n", (rooms + *num)->name);
+		printf("East is %s\n", (rooms + *num)->east);
+		if (strcmp((rooms + *num)->east, "-") == 0)
 		{
 			printf("You can't go that way.\n");
 		}
 		else
 		{
-			for (i = 0; i < 13; i++)
+			for (i = 0; i < NUM_ROOMS; i++)
 			{
-				if (strcmp((rooms + i)->name, (rooms + *j)->east) == 0)
+				if (strcmp((rooms + i)->name, (rooms + *num)->east) == 0)
 				{
-					*j = i;
+					*num = i;
 					break;
 				}
 			}
@@ -269,19 +296,19 @@ void World::Movement(int *j)
 	}
 	case 'w':
 	{
-		printf("You are in %s\n", (rooms + *j)->name);
-		printf("West is %s\n", (rooms + *j)->west);
-		if (strcmp((rooms + *j)->west, "-") == 0)
+		printf("You are in %s\n", (rooms + *num)->name);
+		printf("West is %s\n", (rooms + *num)->west);
+		if (strcmp((rooms + *num)->west, "-") == 0)
 		{
 			printf("You can't go that way.\n");
 		}
 		else
 		{
-			for (i = 0; i < 13; i++)
+			for (i = 0; i < NUM_ROOMS; i++)
 			{
-				if (strcmp((rooms + i)->name, (rooms + *j)->west) == 0)
+				if (strcmp((rooms + i)->name, (rooms + *num)->west) == 0)
 				{
-					*j = i;
+					*num = i;
 					break;
 				}
 			}
@@ -291,19 +318,19 @@ void World::Movement(int *j)
 
 	case 'u':
 	{
-		printf("You are in %s\n", (rooms + *j)->name);
-		printf("Up is %s\n", (rooms + *j)->up);
-		if (strcmp((rooms + *j)->up, "-") == 0)
+		printf("You are in %s\n", (rooms + *num)->name);
+		printf("Up is %s\n", (rooms + *num)->up);
+		if (strcmp((rooms + *num)->up, "-") == 0)
 		{
 			printf("You can't go that way.\n");
 		}
 		else
 		{
-			for (i = 0; i < 13; i++)
+			for (i = 0; i < NUM_ROOMS; i++)
 			{
-				if (strcmp((rooms + i)->name, (rooms + *j)->up) == 0)
+				if (strcmp((rooms + i)->name, (rooms + *num)->up) == 0)
 				{
-					*j = i;
+					*num = i;
 					break;
 				}
 			}
@@ -312,19 +339,19 @@ void World::Movement(int *j)
 	}
 	case 'd':
 	{
-		printf("You are in %s\n", (rooms + *j)->name);
-		printf("Down is %s\n", (rooms + *j)->down);
-		if (strcmp((rooms + *j)->down, "-") == 0)
+		printf("You are in %s\n", (rooms + *num)->name);
+		printf("Down is %s\n", (rooms + *num)->down);
+		if (strcmp((rooms + *num)->down, "-") == 0)
 		{
 			printf("You can't go that way.\n");
 		}
 		else
 		{
-			for (i = 0; i < 13; i++)
+			for (i = 0; i < NUM_ROOMS; i++)
 			{
-				if (strcmp((rooms + i)->name, (rooms + *j)->down) == 0)
+				if (strcmp((rooms + i)->name, (rooms + *num)->down) == 0)
 				{
-					*j = i;
+					*num = i;
 					break;
 				}
 			}
@@ -340,9 +367,18 @@ void World::Movement(int *j)
 }
 
 
-void World::Look(int j)const
+void World::Look(int num)const
 {
-	printf("%s", (rooms + j)->description);
+	printf("%s\n%s", (rooms + num)->name, (rooms + num)->description);
+}
+
+void World::Help()const
+{
+	printf("Welcome to my Zork!\nThis is an interactive textual adventure where you are the protagonist.\n");
+	printf("OBJECTIVE:\nExplore Aincrad and fight enemies to find the magical stones.\nThese powerful items will give you enough power to defeat Rakdos, the Devil King, and save the world.");
+	printf("INSTRUCTIONS:\nYou can move or look through the entire map using commands 'go'/'look' combined with 'north','south','east','west'.\n");
+	
+
 }
 
 World::~World()

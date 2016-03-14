@@ -1,11 +1,12 @@
 #ifndef _WORLD_
 #define  _WORLD_
 
-
 #include"rooms.h"
 #include"player.h"
 #include"exits.h"
 
+// Now, if you include "world.h" in other files,
+// you are including these other headers too.
 
 class World
 {
@@ -20,6 +21,7 @@ public:
 	void CreateWorld() const;
 	void Movement(int*);
 	void Look(int) const;
+	void Help() const;
 
 	~World();
 };

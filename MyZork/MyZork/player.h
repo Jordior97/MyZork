@@ -6,8 +6,7 @@ class Player
 {
 public:
 
-	
-
+	Room* player_pos;
 
 };
 
