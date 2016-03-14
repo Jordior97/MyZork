@@ -83,7 +83,7 @@ for (i = 0; i < 13; i++)
 /* CREATE EXITS */
 
 //PORTAL
-strcpy_s((exits)->name, "PORTAL\n");
+strcpy_s((exits)->name, "PORTAL");
 strcpy_s((exits)->description, "What an strange Portal, let's cross it.\n");
 (exits)->src = rooms + 0;
 (exits)->dst = rooms + 1;
@@ -147,7 +147,7 @@ strcpy_s((exits + 8)->description, "You have to climb this steep path if you wan
 
 //THE BIG ENTRANCE
 strcpy_s((exits + 9)->name, "THE BIG ENTRANCE\n");
-strcpy_s((exits + 9)->description, "Wow, this door is too big, and scary...\nAre you sure you want to enter?\n");
+strcpy_s((exits + 9)->description, "You have to climb this steep path if you want to return to the high cliff.\n");
 (exits + 9)->src = rooms + 5;
 (exits + 9)->dst = rooms + 9;
 (exits + 9)->direction = west;
@@ -214,7 +214,7 @@ strcpy_s((exits + 17)->description, "This tunnel accessible through the portal c
 
 for (i = 0; i < NUM_EXITS; i++)
 {
-	printf("%i) %s", i, (exits + i)->name);
+	printf("%i) %s\n", i, (exits + i)->name);
 	printf("%s\n\n",(exits + i)->description);
 }
 
