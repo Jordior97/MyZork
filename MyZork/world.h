@@ -11,17 +11,15 @@
 class World
 {
 public:
-	
+
 	Room* rooms = nullptr;
 	Player* player = nullptr;
 	Exit* exits = nullptr;
-	
+
 	World();
 
 	void CreateWorld() const;
-	void Movement(int*);
-	void Look(int) const;
-	void Help() const;
+	void Movement(char, int&);
 
 	~World();
 };
