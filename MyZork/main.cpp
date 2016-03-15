@@ -3,6 +3,7 @@
 #include<stdlib.h>
 #include<string.h>
 
+
 int main()
 {
 	char option[20];
@@ -19,16 +20,15 @@ int main()
 		printf("\n> ");
 		gets_s(option, 20);
 
-		if (strcmp(option,"go") == 0 || strcmp(option, "n") == 0 || strcmp(option, "s") == 0 || strcmp(option, "e") == 0 || strcmp(option, "w") == 0 || strcmp(option, "u") == 0 || strcmp(option, "d") == 0
-		|| strcmp(option, "north") == 0 || strcmp(option, "south") == 0 || strcmp(option, "east") == 0 || strcmp(option, "west") == 0 || strcmp(option, "up") == 0 || strcmp(option, "down") == 0 
-		|| strcmp(option, "go north") == 0 || strcmp(option, "go south") == 0 || strcmp(option, "go east") == 0 || strcmp(option, "go west") == 0 || strcmp(option, "go up") == 0 || strcmp(option, "go down") == 0)
+
+		if (GetCommand(option) == go || GetCommand(option) == go_north || GetCommand(option) == go_south || GetCommand(option) == go_east || GetCommand(option) == go_west || GetCommand(option) == go_up || GetCommand(option) == go_down)
 		{
-			w.Movement(position,option);
+			w.Movement(position, GetCommand(option));
 		}
 
-		else if (strcmp(option, "look") == 0 || strcmp(option, "look north") == 0 || strcmp(option, "look south") == 0 || strcmp(option, "look east") == 0 || strcmp(option, "look west") == 0 || strcmp(option, "look up") == 0 || strcmp(option, "look down") == 0)
+		else if (GetCommand(option) == look || GetCommand(option) == look_north || GetCommand(option) == look_south || GetCommand(option) == look_east || GetCommand(option) == look_west || GetCommand(option) == look_up || GetCommand(option) == look_down)
 		{
-			w.Look(position,option);
+			w.Look(position, GetCommand(option));
 		}
 
 		else if (strcmp(option, "help") == 0)
@@ -36,21 +36,24 @@ int main()
 			w.Help();
 		}
 
-		else if (strcmp(option, "open door") == 0 || strcmp(option, "open north door") == 0 || strcmp(option, "open south door") == 0 || strcmp(option, "open east door") == 0 || strcmp(option, "open west door") == 0 || strcmp(option, "open up door") == 0 || strcmp(option, "open down door") == 0)
+		else if (GetCommand(option) == open_door || GetCommand(option) == open_north || GetCommand(option) == open_south || GetCommand(option) == open_east || GetCommand(option) == open_west || GetCommand(option) == open_up || GetCommand(option) == open_down)
 		{
-			w.Open(position,option);
+			w.Open(position, GetCommand(option));
 		}
 
-		else if (strcmp(option, "close door") == 0 || strcmp(option, "close north door") == 0 || strcmp(option, "close south door") == 0 || strcmp(option, "close east door") == 0 || strcmp(option, "close west door") == 0 || strcmp(option, "close up door") == 0 || strcmp(option, "close down door") == 0)
+		else if (GetCommand(option) == close_door || GetCommand(option) == close_north || GetCommand(option) == close_south || GetCommand(option) == close_east || GetCommand(option) == close_west || GetCommand(option) == close_up || GetCommand(option) == close_down)
 		{
-			w.Close(position, option);
+			w.Close(position, GetCommand(option));
+		}
+		else if (GetCommand(option) == 100)
+		{
+			printf("Invalid command.\n");
 		}
 
 
-	} while (1);
+	} while (GetCommand(option)!= EXIT);
 
 
-	getchar();
 	return 0;
 }
 

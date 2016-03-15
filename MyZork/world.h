@@ -4,6 +4,11 @@
 #include"rooms.h"
 #include"player.h"
 #include"exits.h"
+#include"Functions.h"
+
+#define EXIT 200
+#define NUM_ROOMS 13
+#define NUM_EXITS 18
 
 // Now, if you include "world.h" in other files,
 // you are including these other headers too.
@@ -19,11 +24,11 @@ public:
 	World();
 
 	void CreateWorld() const;
-	void Movement(int&,char[]);
-	void Look(int,char[]) const;
+	void Movement(int&,int);
+	void Look(int,int) const;
 	void Help();
-	void Open(int,char[]);
-	void Close(int, char[]);
+	void Open(int,int);
+	void Close(int,int);
 
 	~World();
 };
