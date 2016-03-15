@@ -19,7 +19,8 @@ public:
 	World();
 
 	void CreateWorld() const;
-	void Movement(char, int&);
+	void Movement(int&);
+	void Look(int&);
 
 	~World();
 };

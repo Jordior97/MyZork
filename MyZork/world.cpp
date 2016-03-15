@@ -207,14 +207,18 @@ void World::CreateWorld() const
 
 }
 
-void World::Movement(char option, int &pos)
+void World::Movement(int &pos)
 {
-	
-	int i,j;
+	fflush(stdin);
+	int i, j;
+	char option_move;
+	printf("Which direction do you want to move?");
+	scanf_s("%c", &option_move);
+
 	printf("%You are in %s\n", (rooms + pos)->name);
 	player->player_pos = (rooms + pos);
 
-	switch (option)
+	switch (option_move)
 	{
 	case 'n':
 	{
@@ -343,10 +347,109 @@ void World::Movement(char option, int &pos)
 	}
 
 	}
-	
+
 
 
 }
+
+
+void World::Look(int &pos)
+{
+	int i, j;
+	char direction;
+	player->player_pos = (rooms + pos);
+	printf("%s\n%s", (rooms + pos)->name, (rooms + pos)->description);
+	printf("Which direction do you want to look? ");
+	scanf_s("%c", &direction);
+
+	switch (direction)
+	{
+	case 'n':
+	{
+		for (i = 0; i < NUM_EXITS; i++)
+		{
+			if ((exits + i)->src == player->player_pos && (exits + i)->direction == north)
+			{
+				printf("%s%s\n", (exits + i)->name, (exits + i)->description);
+				return;
+			}
+		}
+		printf("There's nothing to look here.\n");
+		break;
+	}
+	case 's':
+	{
+		for (i = 0; i < NUM_EXITS; i++)
+		{
+			if ((exits + i)->src == player->player_pos && (exits + i)->direction == south)
+			{
+				printf("%s%s\n", (exits + i)->name, (exits + i)->description);
+				return;
+			}
+		}
+		printf("There's nothing to look here.\n");
+		break;
+	}
+	case 'e':
+	{
+		for (i = 0; i < NUM_EXITS; i++)
+		{
+			if ((exits + i)->src == player->player_pos && (exits + i)->direction == east)
+			{
+				printf("%s%s\n", (exits + i)->name, (exits + i)->description);
+				return;
+			}
+		}
+		printf("There's nothing to look here.\n");
+		break;
+	}
+	case 'w':
+	{
+		for (i = 0; i < NUM_EXITS; i++)
+		{
+			if ((exits + i)->src == player->player_pos && (exits + i)->direction == west)
+			{
+				printf("%s%s\n", (exits + i)->name, (exits + i)->description);
+				return;
+			}
+		}
+		printf("There's nothing to look here.\n");
+		break;
+	}
+	case 'u':
+	{
+		for (i = 0; i < NUM_EXITS; i++)
+		{
+			if ((exits + i)->src == player->player_pos && (exits + i)->direction == up)
+			{
+				printf("%s%s\n", (exits + i)->name, (exits + i)->description);
+				return;
+			}
+		}
+		printf("There's nothing to look here.\n");
+		break;
+	}
+	case 'd':
+	{
+		for (i = 0; i < NUM_EXITS; i++)
+		{
+			if ((exits + i)->src == player->player_pos && (exits + i)->direction == down)
+			{
+				printf("%s%s\n", (exits + i)->name, (exits + i)->description);
+				return;
+			}
+		}
+		printf("There's nothing to look here.\n");
+		break;
+	}
+	default:
+	{
+		printf("Invalid command.\n");
+		break;
+	}
+	}
+}
+
 
 World::~World()
 {

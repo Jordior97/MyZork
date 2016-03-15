@@ -6,25 +6,31 @@
 int main()
 {
 	char option[20];
-	//int room_num = 0; //Sets initial position to rooms[0] (BEDROOM)
-	char option_move;
-	int position = 0;
+	int position = 0; //Sets initial position to rooms[0](BEDROOM)
 
 	World w;
 
 	w.CreateWorld();
 
 
-
 	do
 	{
 		fflush(stdin);
-		printf("Which direction do you want to move?");
-		scanf_s("%c", &option_move);
-		w.Movement(option_move, position);
+		printf("> ");
+		gets_s(option, 20);
+
+		if (strcmp(option, "move") == 0)
+		{
+			w.Movement(position);
+		}
+		else if (strcmp(option, "look") == 0)
+		{
+			w.Look(position);
+		}
+
 		getchar();
 
-	} while (strcmp(option, "quit") != 0);
+	} while (1);
 
 
 	getchar();
