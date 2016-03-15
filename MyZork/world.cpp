@@ -99,13 +99,17 @@ void World::CreateWorld() const
 	(exits + 3)->src = rooms + 1;
 	(exits + 3)->dst = rooms + 2;
 	(exits + 3)->direction = east;
+	(exits + 3)->door = true;
+	(exits + 3)->open = false;
 
 	//TAVERN EXIT
 	strcpy_s((exits + 4)->name, "TAVERN EXIT\n");
-	strcpy_s((exits + 4)->description, "The big door to exit to the tavern.\n");
+	strcpy_s((exits + 4)->description, "A little wood door to exit the tavern (I don't understand why\nthere is a door to enter and another different one to exit...)\n");
 	(exits + 4)->src = rooms + 2;
 	(exits + 4)->dst = rooms + 1;
 	(exits + 4)->direction = west;
+	(exits + 4)->door = true;
+	(exits + 4)->open = false;
 
 	//STONE PATH
 	strcpy_s((exits + 5)->name, "STONE PATH\n");
@@ -141,6 +145,8 @@ void World::CreateWorld() const
 	(exits + 9)->src = rooms + 5;
 	(exits + 9)->dst = rooms + 9;
 	(exits + 9)->direction = west;
+	(exits + 9)->door = true;
+	(exits + 9)->open = false;
 
 	//CHALLENGE 1
 	strcpy_s((exits + 10)->name, "THE STONE DOOR\n");
@@ -148,6 +154,8 @@ void World::CreateWorld() const
 	(exits + 10)->src = rooms + 9;
 	(exits + 10)->dst = rooms + 10;
 	(exits + 10)->direction = up;
+	(exits + 10)->door = true;
+	(exits + 10)->open = false;
 
 	//CHALLENGE 2
 	strcpy_s((exits + 11)->name, "INVISIBLE STAIRS\n");
@@ -155,7 +163,8 @@ void World::CreateWorld() const
 	(exits + 11)->src = rooms + 10;
 	(exits + 11)->dst = rooms + 11;
 	(exits + 11)->direction = up;
-
+	(exits + 11)->door = true;
+	(exits + 11)->open = false;
 
 	//FINAL DOOR
 	strcpy_s((exits + 12)->name, "THE FINAL DOOR\n");
@@ -163,6 +172,8 @@ void World::CreateWorld() const
 	(exits + 12)->src = rooms + 11;
 	(exits + 12)->dst = rooms + 12;
 	(exits + 12)->direction = east;
+	(exits + 12)->door = true;
+	(exits + 12)->open = false;
 
 	//TELEPORTER
 	strcpy_s((exits + 13)->name, "TELEPORTER\n");
@@ -191,6 +202,7 @@ void World::CreateWorld() const
 	(exits + 16)->src = rooms + 8;
 	(exits + 16)->dst = rooms + 6;
 	(exits + 16)->direction = south;
+
 
 
 	//MAGIC TUNNEL
@@ -228,14 +240,22 @@ void World::Movement(int &pos,char option_move[])
 				{
 					if ((exits + i)->dst == (rooms + j))
 					{
-						pos = j;
-						printf("\n%s\n%s\n", (rooms + j)->name, (rooms + j)->description);
-						return;
+						if ((exits + i)->door == true && (exits + i)->open == false)
+						{
+							printf("\nThere's a door locked here.\n");
+							return;
+						}
+						else
+						{
+							pos = j;
+							printf("\n%s\n%s\n", (rooms + j)->name, (rooms + j)->description);
+							return;
+						}
 					}
 				}
 			}
 		}
-		printf("\nYou can't move that way.\n");
+		printf("\nYou can't move into that direction.\n");
 	}
 
 	else if (strcmp(option_move, "s") == 0 || strcmp(option_move, "south") == 0 || strcmp(option_move, "go south") == 0)
@@ -249,14 +269,22 @@ void World::Movement(int &pos,char option_move[])
 				{
 					if ((exits + i)->dst == (rooms + j))
 					{
-						pos = j;
-						printf("\n%s\n%s\n", (rooms + j)->name, (rooms + j)->description);
-						return;
+						if ((exits + i)->door == true && (exits + i)->open == false)
+						{
+							printf("\nThere's a door locked here.\n");
+							return;
+						}
+						else
+						{
+							pos = j;
+							printf("\n%s\n%s\n", (rooms + j)->name, (rooms + j)->description);
+							return;
+						}
 					}
 				}
 			}
 		}
-		printf("\nYou can't move that way.\n");
+		printf("\nYou can't move into that way.\n");
 	}
 
 	else if (strcmp(option_move, "e") == 0 || strcmp(option_move, "east") == 0 || strcmp(option_move, "go east") == 0)
@@ -270,14 +298,22 @@ void World::Movement(int &pos,char option_move[])
 				{
 					if ((exits + i)->dst == (rooms + j))
 					{
-						pos = j;
-						printf("\n%s\n%s\n", (rooms + j)->name, (rooms + j)->description);
-						return;
+						if ((exits + i)->door == true && (exits + i)->open == false)
+						{
+							printf("\nThere's a door locked here.\n");
+							return;
+						}
+						else
+						{
+							pos = j;
+							printf("\n%s\n%s\n", (rooms + j)->name, (rooms + j)->description);
+							return;
+						}
 					}
 				}
 			}
 		}
-		printf("\nYou can't move that way.\n");
+		printf("\nYou can't move into that direction.\n");
 	}
 
 	else if (strcmp(option_move, "w") == 0 || strcmp(option_move, "west") == 0 || strcmp(option_move, "go west") == 0)
@@ -291,14 +327,22 @@ void World::Movement(int &pos,char option_move[])
 				{
 					if ((exits + i)->dst == (rooms + j))
 					{
-						pos = j;
-						printf("\n%s\n%s\n", (rooms + j)->name, (rooms + j)->description);
-						return;
+						if ((exits + i)->door == true && (exits + i)->open == false)
+						{
+							printf("\nThere's a door locked here.\n");
+							return;
+						}
+						else
+						{
+							pos = j;
+							printf("\n%s\n%s\n", (rooms + j)->name, (rooms + j)->description);
+							return;
+						}
 					}
 				}
 			}
 		}
-		printf("\nYou can't move that way.\n");
+		printf("\nYou can't move into that way.\n");
 	}
 
 	else if (strcmp(option_move, "d") == 0 || strcmp(option_move, "down") == 0 || strcmp(option_move, "go down") == 0)
@@ -312,14 +356,22 @@ void World::Movement(int &pos,char option_move[])
 				{
 					if ((exits + i)->dst == (rooms + j))
 					{
-						pos = j;
-						printf("\n%s\n%s\n", (rooms + j)->name, (rooms + j)->description);
-						return;
+						if ((exits + i)->door == true && (exits + i)->open == false)
+						{
+							printf("\nThere's a door locked here.\n");
+							return;
+						}
+						else
+						{
+							pos = j;
+							printf("\n%s\n%s\n", (rooms + j)->name, (rooms + j)->description);
+							return;
+						}
 					}
 				}
 			}
 		}
-		printf("\nYou can't move that way.\n");
+		printf("\nYou can't move into that direction.\n");
 	}
 
 	else if (strcmp(option_move, "u") == 0 || strcmp(option_move, "up") == 0 || strcmp(option_move, "go up") == 0)
@@ -333,18 +385,26 @@ void World::Movement(int &pos,char option_move[])
 				{
 					if ((exits + i)->dst == (rooms + j))
 					{
-						pos = j;
-						printf("\n%s\n%s\n", (rooms + j)->name, (rooms + j)->description);
-						return;
+						if ((exits + i)->door == true && (exits + i)->open == false)
+						{
+							printf("\nThere's a door locked here.\n");
+							return;
+						}
+						else
+						{
+							pos = j;
+							printf("\n%s\n%s\n", (rooms + j)->name, (rooms + j)->description);
+							return;
+						}
 					}
 				}
 			}	
 		}
-		printf("\nYou can't move that way.\n");
+		printf("\nYou can't move into that way.\n");
 	}
 }
 
-void World::Look(int &pos, char direction[])
+void World::Look(int pos, char direction[]) const
 {
 	int i, j;
 	player->player_pos = (rooms + pos);
@@ -448,6 +508,198 @@ void World::Help()
 	printf("The commands that you can enter are: go/look/open/close/help/quit.\n");
 	printf("To specify the direction you want: north/south/east/west/up/down\n");
 }
+
+
+void World::Open(int pos, char open[])
+{
+	int i;
+	player->player_pos = (rooms + pos);
+	if (strcmp(open, "open door") == 0)
+	{
+		printf("Which door do you want to open? ");
+		gets_s(open, 20);
+	}
+
+	if (strcmp(open, "north") == 0 || strcmp(open, "open north door") == 0)
+	{
+		for (i = 0; i < NUM_EXITS; i++)
+		{
+			if ((exits + i)->src == player->player_pos && (exits + i)->direction == north && (exits + i)->open == false)
+			{
+				(exits + i)->open = true;
+				printf("You opened the door.\n");
+				return;
+			}
+		}
+		printf("\nThere's nothing to open here.\n");
+	}
+
+	else if (strcmp(open, "south") == 0 || strcmp(open, "open south door") == 0)
+	{
+		for (i = 0; i < NUM_EXITS; i++)
+		{
+			if ((exits + i)->src == player->player_pos && (exits + i)->direction == south && (exits + i)->open == false)
+			{
+				(exits + i)->open = true;
+				printf("You opened the door.\n");
+				return;
+			}
+		}
+		printf("\nThere's nothing to open here.\n");
+	}
+
+	else if (strcmp(open, "east") == 0 || strcmp(open, "open east door") == 0 )
+	{
+		for (i = 0; i < NUM_EXITS; i++)
+		{
+			if ((exits + i)->src == player->player_pos && (exits + i)->direction == east && (exits + i)->open == false)
+			{
+				(exits + i)->open = true;
+				printf("You opened the door.\n");
+				return;
+			}
+		}
+		printf("\nThere's nothing to open here.\n");
+	}
+
+	else if (strcmp(open, "west") == 0 || strcmp(open, "open west door") == 0)
+	{
+		for (i = 0; i < NUM_EXITS; i++)
+		{
+			if ((exits + i)->src == player->player_pos && (exits + i)->direction == west && (exits + i)->open == false)
+			{
+				(exits + i)->open = true;
+				printf("You opened the door.\n");
+				return;
+			}
+		}
+		printf("\nThere's nothing to open here.\n");
+	}
+
+	else if (strcmp(open, "up") == 0 || strcmp(open, "open up door") == 0)
+	{
+		for (i = 0; i < NUM_EXITS; i++)
+		{
+			if ((exits + i)->src == player->player_pos && (exits + i)->direction == up && (exits + i)->open == false)
+			{
+				(exits + i)->open = true;
+				printf("You opened the door.\n");
+				return;
+			}
+		}
+		printf("\nThere's nothing to open here.\n");
+	}
+
+	else if (strcmp(open, "down") == 0 || strcmp(open, "open down door") == 0)
+	{
+		for (i = 0; i < NUM_EXITS; i++)
+		{
+			if ((exits + i)->src == player->player_pos && (exits + i)->direction == down && (exits + i)->open == false)
+			{
+				(exits + i)->open = true;
+				printf("You opened the door.\n");
+				return;
+			}
+		}
+		printf("\nThere's nothing to open here.\n");
+	}
+}
+
+void World::Close(int pos, char close[])
+{
+	int i;
+	player->player_pos = (rooms + pos);
+	if (strcmp(close, "close door") == 0)
+	{
+		printf("Which door do you want to close? ");
+		gets_s(close, 20);
+	}
+
+	if (strcmp(close, "north") == 0 || strcmp(close, "close north door") == 0)
+	{
+		for (i = 0; i < NUM_EXITS; i++)
+		{
+			if ((exits + i)->src == player->player_pos && (exits + i)->direction == north && (exits + i)->open == true && (exits + i)->door == true)
+			{
+				(exits + i)->open = false;
+				printf("You closed the door.\n");
+				return;
+			}
+		}
+		printf("\nThere's nothing to close here.\n");
+	}
+
+	else if (strcmp(close, "south") == 0 || strcmp(close, "close south door") == 0)
+	{
+		for (i = 0; i < NUM_EXITS; i++)
+		{
+			if ((exits + i)->src == player->player_pos && (exits + i)->direction == south && (exits + i)->open == true && (exits + i)->door == true)
+			{
+				(exits + i)->open = false;
+				printf("You closed the door.\n");
+				return;
+			}
+		}
+		printf("\nThere's nothing to close here.\n");
+	}
+
+	else if (strcmp(close, "east") == 0 || strcmp(close, "close east door") == 0)
+	{
+		for (i = 0; i < NUM_EXITS; i++)
+		{
+			if ((exits + i)->src == player->player_pos && (exits + i)->direction == east && (exits + i)->open == true && (exits + i)->door == true)
+			{
+				(exits + i)->open = false;
+				printf("You closed the door.\n");
+				return;
+			}
+		}
+		printf("\nThere's nothing to close here.\n");
+	}
+
+	else if (strcmp(close, "west") == 0 || strcmp(close, "close west door") == 0)
+	{
+		for (i = 0; i < NUM_EXITS; i++)
+		{
+			if ((exits + i)->src == player->player_pos && (exits + i)->direction == west && (exits + i)->open == true && (exits + i)->door == true)
+			{
+				(exits + i)->open = false;
+				printf("You closed the door.\n");
+				return;
+			}
+		}
+		printf("\nThere's nothing to close here.\n");
+	}
+
+	else if (strcmp(close, "up") == 0 || strcmp(close, "close up door") == 0)
+	{
+		for (i = 0; i < NUM_EXITS; i++)
+		{
+			if ((exits + i)->src == player->player_pos && (exits + i)->direction == up && (exits + i)->open == true && (exits + i)->door == true)
+			{
+				(exits + i)->open = false;
+				printf("You closed the door.\n");
+				return;
+			}
+		}
+		printf("\nThere's nothing to close here.\n");
+	}
+
+	else if (strcmp(close, "down") == 0 || strcmp(close, "close down door") == 0)
+	{
+		for (i = 0; i < NUM_EXITS; i++)
+		{
+			if ((exits + i)->src == player->player_pos && (exits + i)->direction == down && (exits + i)->open == true && (exits + i)->door == true)
+			{
+				(exits + i)->open = false;
+				printf("You closed the door.\n");
+				return;
+			}
+		}
+		printf("\nThere's nothing to close here.\n");
+	}
+}
+
 
 
 World::~World()

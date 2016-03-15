@@ -20,8 +20,10 @@ public:
 
 	void CreateWorld() const;
 	void Movement(int&,char[]);
-	void Look(int&,char[]);
+	void Look(int,char[]) const;
 	void Help();
+	void Open(int,char[]);
+	void Close(int, char[]);
 
 	~World();
 };

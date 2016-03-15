@@ -25,13 +25,25 @@ int main()
 		{
 			w.Movement(position,option);
 		}
+
 		else if (strcmp(option, "look") == 0 || strcmp(option, "look north") == 0 || strcmp(option, "look south") == 0 || strcmp(option, "look east") == 0 || strcmp(option, "look west") == 0 || strcmp(option, "look up") == 0 || strcmp(option, "look down") == 0)
 		{
 			w.Look(position,option);
 		}
+
 		else if (strcmp(option, "help") == 0)
 		{
 			w.Help();
+		}
+
+		else if (strcmp(option, "open door") == 0 || strcmp(option, "open north door") == 0 || strcmp(option, "open south door") == 0 || strcmp(option, "open east door") == 0 || strcmp(option, "open west door") == 0 || strcmp(option, "open up door") == 0 || strcmp(option, "open down door") == 0)
+		{
+			w.Open(position,option);
+		}
+
+		else if (strcmp(option, "close door") == 0 || strcmp(option, "close north door") == 0 || strcmp(option, "close south door") == 0 || strcmp(option, "close east door") == 0 || strcmp(option, "close west door") == 0 || strcmp(option, "close up door") == 0 || strcmp(option, "close down door") == 0)
+		{
+			w.Close(position, option);
 		}
 
 
