@@ -16,16 +16,15 @@ World::World()
 void World::CreateWorld() const
 {
 	int  i;
+
 	/* CREATE ROOMS: NAMES & DESCRIPTIONS */
-
-
 	//BEDROOM
 	strcpy_s((rooms)->name, "BEDROOM");
 	strcpy_s((rooms)->description, "This is my room, what a mess.\nI can hear a very strange noise coming from under my bed.\nI should take a look.\n");
 
 	//GRIMGAR
 	strcpy_s((rooms + 1)->name, "GRIMGAR");
-	strcpy_s((rooms + 1)->description, "We are in Grimgar, Simon.\nIt's the capital city of Aincrad, this beautiful fantasy world.\n");
+	strcpy_s((rooms + 1)->description, "We are in Grimgar, Simon.\nIt's the capital city of Aincrad, this beautiful fantasy world.\nThis world is living a nightmare since the arrival of Rakdos, lord of the desolation.");
 
 	//TAVERN
 	strcpy_s((rooms + 2)->name, "TAVERN");
@@ -70,8 +69,6 @@ void World::CreateWorld() const
 	//RAKDOS THRONE ROOM
 	strcpy_s((rooms + 12)->name, "RAKDOS THRONE ROOM");
 	strcpy_s((rooms + 12)->description, "What a big chamber!\nSimon, Rakdos is there, let's fight and defeat him!\n");
-
-
 
 
 	/* CREATE EXITS */
@@ -207,20 +204,20 @@ void World::CreateWorld() const
 
 }
 
-void World::Movement(int &pos)
+void World::Movement(int &pos,char option_move[])
 {
 	fflush(stdin);
 	int i, j;
-	char option_move;
-	printf("Which direction do you want to move?");
-	scanf_s("%c", &option_move);
 
-	printf("%You are in %s\n", (rooms + pos)->name);
 	player->player_pos = (rooms + pos);
 
-	switch (option_move)
+	if (strcmp(option_move, "go") == 0)
 	{
-	case 'n':
+		printf("Which direction do you want to go? ");
+		gets_s(option_move, 20);
+	}
+
+	if (strcmp(option_move, "n") == 0 || strcmp(option_move, "north") == 0 || strcmp(option_move, "go north") == 0)
 	{
 		for (i = 0; i < NUM_EXITS; i++)
 		{
@@ -232,15 +229,16 @@ void World::Movement(int &pos)
 					if ((exits + i)->dst == (rooms + j))
 					{
 						pos = j;
-						printf("Now, you are in %s\n", player->player_pos);
+						printf("\n%s\n%s\n", (rooms + j)->name, (rooms + j)->description);
 						return;
 					}
 				}
 			}
 		}
-		break;
+		printf("\nYou can't move that way.\n");
 	}
-	case 's':
+
+	else if (strcmp(option_move, "s") == 0 || strcmp(option_move, "south") == 0 || strcmp(option_move, "go south") == 0)
 	{
 		for (i = 0; i < NUM_EXITS; i++)
 		{
@@ -252,15 +250,16 @@ void World::Movement(int &pos)
 					if ((exits + i)->dst == (rooms + j))
 					{
 						pos = j;
-						printf("Now, you are in %s\n", player->player_pos);
+						printf("\n%s\n%s\n", (rooms + j)->name, (rooms + j)->description);
 						return;
 					}
 				}
 			}
 		}
-		break;
+		printf("\nYou can't move that way.\n");
 	}
-	case 'e':
+
+	else if (strcmp(option_move, "e") == 0 || strcmp(option_move, "east") == 0 || strcmp(option_move, "go east") == 0)
 	{
 		for (i = 0; i < NUM_EXITS; i++)
 		{
@@ -272,15 +271,16 @@ void World::Movement(int &pos)
 					if ((exits + i)->dst == (rooms + j))
 					{
 						pos = j;
-						printf("Now, you are in %s\n", player->player_pos);
+						printf("\n%s\n%s\n", (rooms + j)->name, (rooms + j)->description);
 						return;
 					}
 				}
 			}
 		}
-		break;
+		printf("\nYou can't move that way.\n");
 	}
-	case 'w':
+
+	else if (strcmp(option_move, "w") == 0 || strcmp(option_move, "west") == 0 || strcmp(option_move, "go west") == 0)
 	{
 		for (i = 0; i < NUM_EXITS; i++)
 		{
@@ -292,15 +292,16 @@ void World::Movement(int &pos)
 					if ((exits + i)->dst == (rooms + j))
 					{
 						pos = j;
-						printf("Now, you are in %s\n", player->player_pos);
+						printf("\n%s\n%s\n", (rooms + j)->name, (rooms + j)->description);
 						return;
 					}
 				}
 			}
 		}
-		break;
+		printf("\nYou can't move that way.\n");
 	}
-	case 'd':
+
+	else if (strcmp(option_move, "d") == 0 || strcmp(option_move, "down") == 0 || strcmp(option_move, "go down") == 0)
 	{
 		for (i = 0; i < NUM_EXITS; i++)
 		{
@@ -312,15 +313,16 @@ void World::Movement(int &pos)
 					if ((exits + i)->dst == (rooms + j))
 					{
 						pos = j;
-						printf("Now, you are in %s\n", player->player_pos);
+						printf("\n%s\n%s\n", (rooms + j)->name, (rooms + j)->description);
 						return;
 					}
 				}
 			}
 		}
-		break;
+		printf("\nYou can't move that way.\n");
 	}
-	case 'u':
+
+	else if (strcmp(option_move, "u") == 0 || strcmp(option_move, "up") == 0 || strcmp(option_move, "go up") == 0)
 	{
 		for (i = 0; i < NUM_EXITS; i++)
 		{
@@ -332,122 +334,119 @@ void World::Movement(int &pos)
 					if ((exits + i)->dst == (rooms + j))
 					{
 						pos = j;
-						printf("Now, you are in %s\n", player->player_pos);
+						printf("\n%s\n%s\n", (rooms + j)->name, (rooms + j)->description);
 						return;
 					}
 				}
-			}
+			}	
 		}
-		break;
+		printf("\nYou can't move that way.\n");
 	}
-	default:
-	{
-		printf("Invalid command\n");
-		break;
-	}
-
-	}
-
-
-
 }
 
-
-void World::Look(int &pos)
+void World::Look(int &pos, char direction[])
 {
 	int i, j;
-	char direction;
 	player->player_pos = (rooms + pos);
-	printf("%s\n%s", (rooms + pos)->name, (rooms + pos)->description);
-	printf("Which direction do you want to look? ");
-	scanf_s("%c", &direction);
-
-	switch (direction)
+	if (strcmp(direction, "look") == 0)
 	{
-	case 'n':
+		printf("\n%s\n%s", (rooms + pos)->name, (rooms + pos)->description);
+		printf("\nWhich direction do you want to look? ");
+		gets_s(direction, 20);
+	}
+
+	if (strcmp(direction, "look north") == 0 || strcmp(direction, "north") == 0)
 	{
 		for (i = 0; i < NUM_EXITS; i++)
 		{
 			if ((exits + i)->src == player->player_pos && (exits + i)->direction == north)
 			{
-				printf("%s%s\n", (exits + i)->name, (exits + i)->description);
+				printf("\n%s%s", (exits + i)->name, (exits + i)->description);
 				return;
 			}
 		}
-		printf("There's nothing to look here.\n");
-		break;
+		printf("\nThere's nothing to look here.\n");
 	}
-	case 's':
+
+	else if (strcmp(direction, "look south") == 0 || strcmp(direction, "south") == 0)
 	{
 		for (i = 0; i < NUM_EXITS; i++)
 		{
 			if ((exits + i)->src == player->player_pos && (exits + i)->direction == south)
 			{
-				printf("%s%s\n", (exits + i)->name, (exits + i)->description);
+				printf("\n%s%s", (exits + i)->name, (exits + i)->description);
 				return;
 			}
 		}
-		printf("There's nothing to look here.\n");
-		break;
+		printf("\nThere's nothing to look here.\n");
 	}
-	case 'e':
+
+	else if (strcmp(direction, "look east") == 0 || strcmp(direction, "east") == 0)
 	{
 		for (i = 0; i < NUM_EXITS; i++)
 		{
 			if ((exits + i)->src == player->player_pos && (exits + i)->direction == east)
 			{
-				printf("%s%s\n", (exits + i)->name, (exits + i)->description);
+				printf("\n%s%s", (exits + i)->name, (exits + i)->description);
 				return;
 			}
 		}
-		printf("There's nothing to look here.\n");
-		break;
+		printf("\nThere's nothing to look here.\n");
 	}
-	case 'w':
+
+	else if (strcmp(direction, "look west") == 0 || strcmp(direction, "west") == 0)
 	{
 		for (i = 0; i < NUM_EXITS; i++)
 		{
 			if ((exits + i)->src == player->player_pos && (exits + i)->direction == west)
 			{
-				printf("%s%s\n", (exits + i)->name, (exits + i)->description);
+				printf("\n%s%s", (exits + i)->name, (exits + i)->description);
 				return;
 			}
 		}
-		printf("There's nothing to look here.\n");
-		break;
+		printf("\nThere's nothing to look here.\n");
 	}
-	case 'u':
+
+	else if (strcmp(direction, "look up") == 0 || strcmp(direction, "up") == 0)
 	{
 		for (i = 0; i < NUM_EXITS; i++)
 		{
 			if ((exits + i)->src == player->player_pos && (exits + i)->direction == up)
 			{
-				printf("%s%s\n", (exits + i)->name, (exits + i)->description);
+				printf("\n%s%s", (exits + i)->name, (exits + i)->description);
 				return;
 			}
 		}
-		printf("There's nothing to look here.\n");
-		break;
+		printf("\nThere's nothing to look here.\n");
 	}
-	case 'd':
+
+	else if (strcmp(direction, "look down") == 0 || strcmp(direction, "down") == 0)
 	{
 		for (i = 0; i < NUM_EXITS; i++)
 		{
 			if ((exits + i)->src == player->player_pos && (exits + i)->direction == down)
 			{
-				printf("%s%s\n", (exits + i)->name, (exits + i)->description);
+				printf("\n%s%s", (exits + i)->name, (exits + i)->description);
 				return;
 			}
 		}
-		printf("There's nothing to look here.\n");
-		break;
+		printf("\nThere's nothing to look here.\n");
 	}
-	default:
+
+	else
 	{
-		printf("Invalid command.\n");
-		break;
+		printf("\nInvalid command.\n");
 	}
-	}
+	
+}
+
+void World::Help()
+{
+	printf("\nThis is 'Simon & Baxter: the magical stones'\nIt's an interactive textual game in which you have to explore\n");
+	printf("a fantasy world full of enemies and challenges to get\nmagical stones. Whith their power you will be able to defeat Rakdos, the Devil King.\n");
+	printf("\nINSTRUCTIONS:\n");
+	printf("The commands that you can enter are: go/look/open/close/help/quit.\n");
+	printf("To specify the direction you want: north/south/east/west/up/down\n");
 }
 
 
