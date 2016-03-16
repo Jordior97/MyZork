@@ -102,12 +102,12 @@ void World::CreateWorld() const
 
 	//TAVERN EXIT
 	strcpy_s((exits + 4)->name, "TAVERN EXIT\n");
-	strcpy_s((exits + 4)->description, "A little wood door to exit the tavern (I don't understand why\nthere is a door to enter and another different one to exit...)\n");
+	strcpy_s((exits + 4)->description, "It's the big door to exit the tavern.\n");
 	(exits + 4)->src = rooms + 2;
 	(exits + 4)->dst = rooms + 1;
 	(exits + 4)->direction = west;
 	(exits + 4)->door = true;
-	(exits + 4)->open = false;
+	(exits + 4)->open = true;
 
 	//STONE PATH
 	strcpy_s((exits + 5)->name, "STONE PATH\n");
