@@ -8,9 +8,9 @@ Whith their power you will be able to defeat Rakdos, the Devil King
 
 INSTRUCTIONS:
 
-The commands that you can enter:\ngo / look / open (direction) door / close (direction) door / help / quit.
+The commands that you can enter: go / look / open (direction) door / close (direction) door / help / quit.
 
-To specify the direction you want:\nnorth(n) / south(s) / east(e) / west(w) / up(u) / down(d)
+To specify the direction you want: north(n) / south(s) / east(e) / west(w) / up(u) / down(d)
 
 * There's a picture of the map in the release to see all the rooms and exits you can interact with.
 
