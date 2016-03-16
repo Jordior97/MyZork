@@ -13,9 +13,8 @@ World::World()
 
 void World::CreateWorld() const
 {
-	int  i;
+	/* CREATE ROOMS: names & descriptions */
 
-	/* CREATE ROOMS: NAMES & DESCRIPTIONS */
 	//BEDROOM
 	strcpy_s((rooms)->name, "BEDROOM");
 	strcpy_s((rooms)->description, "This is my room, what a mess.\nI can hear a very strange noise coming from under my bed.\nI should take a look.\n");
@@ -69,7 +68,8 @@ void World::CreateWorld() const
 	strcpy_s((rooms + 12)->description, "What a big chamber!\nSimon, Rakdos is there, let's fight and defeat him!\n");
 
 
-	/* CREATE EXITS */
+
+	/* CREATE EXITS: names & descriptions */
 	//PORTAL
 	strcpy_s((exits)->name, "PORTAL\n");
 	strcpy_s((exits)->description, "What an strange Portal, let's cross it.\n");
@@ -201,8 +201,6 @@ void World::CreateWorld() const
 	(exits + 16)->dst = rooms + 6;
 	(exits + 16)->direction = south;
 
-
-
 	//MAGIC TUNNEL
 	strcpy_s((exits + 17)->name, "MAGIC TUNNEL\n");
 	strcpy_s((exits + 17)->description, "This tunnel accessible through the portal connects with Grimgar.\n");
@@ -210,14 +208,16 @@ void World::CreateWorld() const
 	(exits + 17)->dst = rooms + 1;
 	(exits + 17)->direction = south;
 
-
-
 }
+
+
+/* MOVEMENT FUNCTION */
 
 void World::Movement(int &pos,int option_move)
 {
 	fflush(stdin);
-	int i, j;
+
+	int i, j; //counters that consider the correct room/exit when you move.
 
 	player->player_pos = (rooms + pos);
 
@@ -238,12 +238,12 @@ void World::Movement(int &pos,int option_move)
 				{
 					if ((exits + i)->dst == (rooms + j))
 					{
-						if ((exits + i)->door == true && (exits + i)->open == false)
+						if ((exits + i)->door == true && (exits + i)->open == false)  //Case 1: the exit has a closed door you have to open first
 						{
 							printf("\nThere's a door locked here.\n");
 							return;
 						}
-						else
+						else  //Case 2: there is a room in the chosen direction and there isn't a closed door (sets a new position for the player).
 						{
 							pos = j;
 							printf("\n%s\n%s", (rooms + j)->name, (rooms + j)->description);
@@ -253,7 +253,7 @@ void World::Movement(int &pos,int option_move)
 				}
 			}
 		}
-		printf("\nYou can't move into that direction.\n");
+		printf("\nYou can't move into that direction.\n");  //Case 3: there isn't any room in the chosen direction
 	}
 
 	else if (option_move == go_south)
@@ -404,25 +404,25 @@ void World::Movement(int &pos,int option_move)
 
 void World::Look(int pos, int direction) const
 {
-	int i, j;
+	int i; //Countes to consider the correct room/exit when you are looking
 	player->player_pos = (rooms + pos);
 
-	if (direction == look)
+	if (direction == look) //Case 1: name and description of the room you are.
 	{
 		printf("\n%s\n%s", (rooms + pos)->name, (rooms + pos)->description);
 	}
 
-	else if (direction == look_north)
+	else if (direction == look_north) 
 	{
 		for (i = 0; i < NUM_EXITS; i++)
 		{
-			if ((exits + i)->src == player->player_pos && (exits + i)->direction == north)
+			if ((exits + i)->src == player->player_pos && (exits + i)->direction == north) //Case 2: name and description of the exit placed in the chosen direction
 			{
 				printf("\n%s%s", (exits + i)->name, (exits + i)->description);
 				return;
 			}
 		}
-		printf("\nThere's nothing to look here.\n");
+		printf("\nThere's nothing to look here.\n");  //Case 3: there's no exit placed in the chosen direction
 	}
 
 	else if (direction == look_south)
@@ -491,24 +491,24 @@ void World::Look(int pos, int direction) const
 	}
 }
 
-void World::Help()
+void World::Help() const
 {
-	printf("\nThis is 'Simon & Baxter: the magical stones'\nIt's an interactive textual game in which you have to explore\n");
-	printf("a fantasy world full of enemies and challenges to get\nmagical stones. Whith their power you will be able to defeat Rakdos, the Devil King.\n");
+	printf("\nThis is 'Simon & Baxter: the magical stones'\n\nIt's an interactive textual game in which you have to explore\n");
+	printf("a fantasy world full of enemies and challenges to get\nmagical stones. Whith their power you will be able to defeat Rakdos,\nthe Devil King.\n");
 	printf("\nINSTRUCTIONS:\n");
-	printf("The commands that you can enter are: go/look/open/close/help/quit.\n");
-	printf("To specify the direction you want: north/south/east/west/up/down\n");
+	printf("The commands that you can enter:\ngo / look / open _ door / close _ door / help / quit.\n\n");
+	printf("To specify the direction you want:\nnorth(n) / south(s) / east(e) / west(w) / up(u) / down(d)\n");
 }
 
 
-void World::Open(int pos, int open)
+void World::Open(int pos, int open) const
 {
-	int i;
+	int i;  //Counter to consider the correct exit
 	player->player_pos = (rooms + pos);
 
 	if (open == open_door)
 	{
-		printf("You have to specify which door you want to open.\n");
+		printf("\nYou have to specify which door you want to open.\n");
 		return;
 	}
 
@@ -516,9 +516,10 @@ void World::Open(int pos, int open)
 	{
 		for (i = 0; i < NUM_EXITS; i++)
 		{
+			//OPEN CONDITION: the exit you want to "open" has a door, and its door is closed
 			if ((exits + i)->src == player->player_pos && (exits + i)->direction == north && (exits + i)->open == false)
 			{
-				(exits + i)->open = true;
+				(exits + i)->open = true;   
 				printf("\nYou opened the door.\n");
 				return;
 			}
@@ -597,7 +598,7 @@ void World::Open(int pos, int open)
 	}
 }
 
-void World::Close(int pos, int close)
+void World::Close(int pos, int close) const
 {
 	int i;
 	player->player_pos = (rooms + pos);
@@ -611,6 +612,7 @@ void World::Close(int pos, int close)
 
 	if (close == close_north)
 	{
+		//CLOSE CONDITION: the exit you want to "close" has a door, and its door is opened
 		for (i = 0; i < NUM_EXITS; i++)
 		{
 			if ((exits + i)->src == player->player_pos && (exits + i)->direction == north && (exits + i)->open == true && (exits + i)->door == true)
@@ -693,7 +695,6 @@ void World::Close(int pos, int close)
 		printf("\nThere's nothing to close here.\n");
 	}
 }
-
 
 
 World::~World()

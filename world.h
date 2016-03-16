@@ -9,9 +9,10 @@
 #define EXIT 200
 #define NUM_ROOMS 13
 #define NUM_EXITS 18
+#define INVALID_COMMAND 100
 
 // Now, if you include "world.h" in other files,
-// you are including these other headers too.
+// you are including these other headers and MACROS too.
 
 class World
 {
@@ -26,9 +27,9 @@ public:
 	void CreateWorld() const;
 	void Movement(int&,int);
 	void Look(int,int) const;
-	void Help();
-	void Open(int,int);
-	void Close(int,int);
+	void Help() const;
+	void Open(int,int) const;
+	void Close(int,int) const;
 
 	~World();
 };

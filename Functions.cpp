@@ -127,15 +127,15 @@ int GetCommand(char option[])
 		return close_down;
 	}
 
+	//'QUIT' COMMANDS
 	else if (strcmp(option, "quit") == 0 || strcmp(option, "q") == 0)
 	{
 		return EXIT;
 	}
+
+	//'INCORRECT' COMMANDS
 	else
 	{
-		return 100;
+		return INVALID_COMMAND;
 	}
-
-		
-
 }
