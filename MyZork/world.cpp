@@ -125,7 +125,7 @@ void World::CreateWorld() const
 
 	//TENEBROUS PATH
 	strcpy_s((exits + 7)->name, "TENEBROUS PATH\n");
-	strcpy_s((exits + 7)->description, "This road leads to the entrance of the towe,\nwhere the super-generator is installed\n");
+	strcpy_s((exits + 7)->description, "This road leads to the entrance of the tower,\nwhere the super-generator is installed\n");
 	(exits + 7)->src = rooms + 4;
 	(exits + 7)->dst = rooms + 5;
 	(exits + 7)->direction = north;
