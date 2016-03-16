@@ -23,7 +23,9 @@ WIKI: https://github.com/Jordior97/MyZork/wiki
 
 WEBPAGE: http://jordior97.github.io/MyZork/
 
-P.D.:	- En un dels commits que vaig realitzar, el nom i el correu que estaven establerts eren erronis, d'un altre usuari.
+P.D.:	
+- En un dels commits que vaig realitzar, el nom i el correu que estaven establerts eren erronis, d'un altre usuari.
 	
-	- In the final room (Rakdos Throne Room), you can cross it to return to the bedroom without doing anything. I want to implement, in the future,
-	  a 'win condition' to detect if you defeated Rakdos. Then, you can return to the real world.
+- In the final room (Rakdos Throne Room), you can cross it to return to the bedroom without doing anything. 
+  I want to implement, in the future, a 'win condition' to detect if you defeated Rakdos. 
+  Then, you can return to the real world.
