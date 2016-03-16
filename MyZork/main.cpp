@@ -6,7 +6,7 @@
 
 int main()
 {
-	char option[20];
+	char option[70];
 	int position = 0; //Sets initial position to rooms[0](BEDROOM)
 
 	World w;
@@ -19,7 +19,7 @@ int main()
 	{
 		fflush(stdin);
 		printf("\n> ");
-		gets_s(option, 20);
+		gets_s(option, 70);
 
 		//Goes to Movement Function Member
 		if (GetCommand(option) >= go && GetCommand(option) <= go_down)
