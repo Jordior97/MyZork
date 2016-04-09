@@ -5,6 +5,7 @@
 #include"player.h"
 #include"exits.h"
 #include"Functions.h"
+#include"Entity.h"
 
 #define EXIT 200
 #define NUM_ROOMS 13
