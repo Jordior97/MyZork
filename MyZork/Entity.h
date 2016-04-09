@@ -1,12 +1,12 @@
 #ifndef _ENTITY_ 
 #define _ENTITY_
-
+#include"MyString.h"
 
 class Entity
 {
 public:
-	char name[30];
-	char description[200];
+	MyString name;
+	MyString description;
 };
 
 

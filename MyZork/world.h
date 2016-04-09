@@ -6,6 +6,7 @@
 #include"exits.h"
 #include"Functions.h"
 #include"Entity.h"
+#include"MyString.h"
 
 #define EXIT 200
 #define NUM_ROOMS 13

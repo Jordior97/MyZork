@@ -14,6 +14,7 @@
     <ClCompile Include="exits.cpp" />
     <ClCompile Include="Functions.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MyString.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="rooms.cpp" />
     <ClCompile Include="world.cpp" />
@@ -22,6 +23,7 @@
     <ClInclude Include="Entity.h" />
     <ClInclude Include="exits.h" />
     <ClInclude Include="Functions.h" />
+    <ClInclude Include="MyString.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="rooms.h" />
     <ClInclude Include="world.h" />
