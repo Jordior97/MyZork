@@ -5,130 +5,130 @@
 
 
 
-int GetCommand(char option[])
+int GetCommand(MyString &option)
 {
 	//'GO' COMMANDS
-	if (strcmp(option, "go") == 0 )
+	if (option == "go")
 	{
 		return go;
 	}
-	else if (strcmp(option, "n") == 0 || strcmp(option, "north") == 0 || strcmp(option, "go north") == 0 || strcmp(option, "go n") == 0)
+	else if ((option == "n") || (option == "north") || (option == "go north") || (option == "go n"))
 	{
 		return go_north;
 	}
-	else if (strcmp(option, "s") == 0 || strcmp(option, "south") == 0 || strcmp(option, "go south") == 0 || strcmp(option, "go s") == 0)
+	else if ((option == "s") || (option == "south") || (option == "go south") || (option == "go s"))
 	{
 		return go_south;
 	}
-	else if (strcmp(option, "e") == 0 || strcmp(option, "east") == 0 || strcmp(option, "go east") == 0 || strcmp(option, "go e") == 0)
+	else if ((option == "e") || (option == "east") || (option == "go east") || (option == "go e"))
 	{
 		return go_east;
 	}
-	else if (strcmp(option, "w") == 0 || strcmp(option, "west") == 0 || strcmp(option, "go west") == 0  || strcmp(option, "go w") == 0)
+	else if ((option == "w") || (option == "west") || (option == "go west") || (option == "go w"))
 	{
 		return go_west;
 	}
-	else if (strcmp(option, "u") == 0 || strcmp(option, "up") == 0 || strcmp(option, "go up") == 0 || strcmp(option, "go u") == 0)
+	else if ((option == "u") || (option == "up") || (option == "go up") || (option == "go u"))
 	{
 		return go_up;
 	}
-	else if (strcmp(option, "d") == 0 || strcmp(option, "down") == 0 || strcmp(option, "go down") == 0 || strcmp(option, "go d") == 0)
+	else if ((option == "d") || (option == "down") || (option == "go down") || (option == "go d"))
 	{
 		return go_down;
 	}
 
 	//'LOOK' COMMANDS
-	else if (strcmp(option, "look") == 0)
+	else if (option == "look")
 	{
 		return look;
 	}
-	else if (strcmp(option, "look n") == 0 || strcmp(option, "look north") == 0)
+	else if (option == "look n" || option == "look north")
 	{
 		return look_north;
 	}
-	else if (strcmp(option, "look s") == 0 || strcmp(option, "look south") == 0)
+	else if (option == "look s" || option == "look south")
 	{
 		return look_south;
 	}
-	else if (strcmp(option, "look e") == 0 || strcmp(option, "look east") == 0)
+	else if (option == "look e" || option == "look east")
 	{
 		return look_east;
 	}
-	else if (strcmp(option, "look w") == 0 || strcmp(option, "look west") == 0)
+	else if (option == "look w" || option == "look west")
 	{
 		return look_west;
 	}
-	else if (strcmp(option, "look u") == 0 || strcmp(option, "look up") == 0)
+	else if (option == "look u" || option == "look up")
 	{
 		return look_up;
 	}
-	else if (strcmp(option, "look d") == 0 || strcmp(option, "look down") == 0)
+	else if (option == "look d" || option == "look down")
 	{
 		return look_down;
 	}
 
 	//'OPEN' COMMANDS
-	else if (strcmp(option, "open door") == 0)
+	else if (option == "open door")
 	{
 		return open_door;
 	}
-	else if (strcmp(option, "open n door") == 0 || strcmp(option, "open north door") == 0)
+	else if (option == "open n door"|| option == "open north door")
 	{
 		return open_north;
 	}
-	else if (strcmp(option, "open s door") == 0 || strcmp(option, "open south door") == 0)
+	else if (option == "open s door" || option == "open south door")
 	{
 		return open_south;
 	}
-	else if (strcmp(option, "open e door") == 0 || strcmp(option, "open east door") == 0)
+	else if (option == "open e door" || option == "open east door")
 	{
 		return open_east;
 	}
-	else if (strcmp(option, "open w door") == 0 || strcmp(option, "open west door") == 0)
+	else if (option == "open w door" || option == "open west door")
 	{
 		return open_west;
 	}
-	else if (strcmp(option, "open u door") == 0 || strcmp(option, "open up door") == 0)
+	else if (option == "open u door" || option == "open up door")
 	{
 		return open_up;
 	}
-	else if (strcmp(option, "open d door") == 0 || strcmp(option, "open down door") == 0)
+	else if (option == "open d door" || option == "open down door")
 	{
 		return open_down;
 	}
 
 	//'CLOSE' COMMANDS
-	else if (strcmp(option, "close door") == 0)
+	else if (option == "close door")
 	{
 		return close_door;
 	}
-	else if (strcmp(option, "close n door") == 0 || strcmp(option, "close north door") == 0)
+	else if (option == "close n door" || option == "close north door")
 	{
 		return close_north;
 	}
-	else if (strcmp(option, "close s door") == 0 || strcmp(option, "close south door") == 0)
+	else if (option == "close s door" || option == "close south door")
 	{
 		return close_south;
 	}
-	else if (strcmp(option, "close e door") == 0 || strcmp(option, "close east door") == 0)
+	else if (option == "close e door" || option == "close east door")
 	{
 		return close_east;
 	}
-	else if (strcmp(option, "close w door") == 0 || strcmp(option, "close west door") == 0)
+	else if (option == "close w door" || option == "close west door")
 	{
 		return close_west;
 	}
-	else if (strcmp(option, "close u door") == 0 || strcmp(option, "close up door") == 0)
+	else if (option == "close u door" || option == "close up door")
 	{
 		return close_up;
 	}
-	else if (strcmp(option, "close d door") == 0 || strcmp(option, "close down door") == 0)
+	else if (option == "close d door" || option == "close down door")
 	{
 		return close_down;
 	}
 
 	//'QUIT' COMMANDS
-	else if (strcmp(option, "quit") == 0 || strcmp(option, "q") == 0)
+	else if (option == "quit" || option == "q")
 	{
 		return EXIT;
 	}

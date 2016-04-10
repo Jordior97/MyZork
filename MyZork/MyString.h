@@ -145,6 +145,17 @@ public:
 			buffer = temp;
 		}
 	}
+
+	void set(char *command)
+	{
+		if (max_size < strlen(command) + 1)
+		{
+			delete[] buffer;
+			max_size = strlen(command) + 1;
+			buffer = new char[max_size];
+		}
+		strcpy_s(buffer, max_size, command);
+	}
 };
 
 

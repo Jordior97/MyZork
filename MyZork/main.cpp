@@ -6,7 +6,8 @@
 
 int main()
 {
-	char option[70];
+	MyString option;
+	char command[70];
 	int position = 0; //Sets initial position to rooms[0](BEDROOM)
 
 	World w;
@@ -19,7 +20,8 @@ int main()
 	{
 		fflush(stdin);
 		printf("\n> ");
-		gets_s(option, 70);
+		gets_s(command, 70);
+		option.set(command);
 
 		//Goes to Movement Function Member
 		if (GetCommand(option) >= go && GetCommand(option) <= go_down)
@@ -34,7 +36,7 @@ int main()
 		}
 
 		//Goes to Help Function Member
-		else if (strcmp(option, "help") == 0)
+		else if (option == "help")
 		{
 			w.Help();
 		}

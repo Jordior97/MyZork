@@ -8,6 +8,6 @@ enum option_close { close_door = 21, close_north, close_south, close_east, close
 
 //I have to set different values to the inital elements of each enum to differentiate them.
 
-int GetCommand(char[]);
+int GetCommand(MyString&);
 
 #endif
