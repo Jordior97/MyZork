@@ -9,6 +9,7 @@ World::World()
 	rooms = new Room[NUM_ROOMS];
 	player = new Player;
 	exits = new Exit[NUM_EXITS];
+	items = new Item[NUM_ITEMS];
 }
 
 void World::CreateWorld() const
@@ -21,7 +22,7 @@ void World::CreateWorld() const
 
 	//GRIMGAR
 	(rooms + 1)->name = "GRIMGAR";
-	(rooms + 1)->description = "We are in Grimgar, Simon.\nIt's the capital city of Aincrad, this beautiful fantasy world.\nThis world is living a nightmare since the arrival of Rakdos, lord of the desolation.";
+	(rooms + 1)->description = "We are in Grimgar, Simon.\nIt's the capital city of Aincrad, this beautiful fantasy world.\nThis world is living a nightmare since the arrival of Rakdos, lord of the desolation.\n";
 
 	//TAVERN
 	(rooms + 2)->name = "TAVERN";
@@ -208,11 +209,20 @@ void World::CreateWorld() const
 	(exits + 17)->dst = rooms + 1;
 	(exits + 17)->direction = south;
 
+	/* CREATE ITEMS: names & descriptions */
+	(items)->name = "SWORD\n";
+	(items)->description = "A nice sowrd.\n";
+	(items)->src = rooms + 1;
+
+	(items + 1)->name = "SHIELD\n";
+	(items + 1)->description = "A nice shield.\n";
+	(items + 1)->src = rooms + 2;
+
+
 }
 
 
 /* MOVEMENT FUNCTION */
-
 void World::Movement(int &pos,int option_move)
 {
 	fflush(stdin);
@@ -409,7 +419,14 @@ void World::Look(int pos, int direction) const
 
 	if (direction == look) //Case 1: name and description of the room you are.
 	{
-		printf("\n%s\n%s", (rooms + pos)->name.c_str(), (rooms + pos)->description.c_str());
+		(rooms + pos)->Look();
+		for (i = 0; i < NUM_ITEMS; i++)
+		{
+			if (player->player_pos == (items + i)->src)
+			{
+				(items + i)->Look();
+			}
+		}
 	}
 
 	else if (direction == look_north) 
@@ -418,7 +435,7 @@ void World::Look(int pos, int direction) const
 		{
 			if ((exits + i)->src == player->player_pos && (exits + i)->direction == north) //Case 2: name and description of the exit placed in the chosen direction
 			{
-				printf("\n%s%s", (exits + i)->name.c_str(), (exits + i)->description.c_str());
+				(exits + i)->Look();
 				return;
 			}
 		}
@@ -431,7 +448,7 @@ void World::Look(int pos, int direction) const
 		{
 			if ((exits + i)->src == player->player_pos && (exits + i)->direction == south)
 			{
-				printf("\n%s%s", (exits + i)->name.c_str(), (exits + i)->description.c_str());
+				(exits + i)->Look();
 				return;
 			}
 		}
@@ -444,7 +461,7 @@ void World::Look(int pos, int direction) const
 		{
 			if ((exits + i)->src == player->player_pos && (exits + i)->direction == east)
 			{
-				printf("\n%s%s", (exits + i)->name.c_str(), (exits + i)->description.c_str());
+				(exits + i)->Look();
 				return;
 			}
 		}
@@ -457,7 +474,7 @@ void World::Look(int pos, int direction) const
 		{
 			if ((exits + i)->src == player->player_pos && (exits + i)->direction == west)
 			{
-				printf("\n%s%s", (exits + i)->name.c_str(), (exits + i)->description.c_str());
+				(exits + i)->Look();
 				return;
 			}
 		}
@@ -470,7 +487,7 @@ void World::Look(int pos, int direction) const
 		{
 			if ((exits + i)->src == player->player_pos && (exits + i)->direction == up)
 			{
-				printf("\n%s%s", (exits + i)->name.c_str(), (exits + i)->description.c_str());
+				(exits + i)->Look();
 				return;
 			}
 		}
@@ -483,7 +500,7 @@ void World::Look(int pos, int direction) const
 		{
 			if ((exits + i)->src == player->player_pos && (exits + i)->direction == down)
 			{
-				printf("\n%s%s", (exits + i)->name.c_str(), (exits + i)->description.c_str());
+				(exits + i)->Look();
 				return;
 			}
 		}
@@ -702,6 +719,7 @@ World::~World()
 	delete[] rooms;
 	delete player;
 	delete[] exits;
+	delete[] items;
 }
 
 

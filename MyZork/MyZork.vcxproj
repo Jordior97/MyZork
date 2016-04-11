@@ -13,6 +13,7 @@
   <ItemGroup>
     <ClCompile Include="exits.cpp" />
     <ClCompile Include="Functions.cpp" />
+    <ClCompile Include="items.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MyString.cpp" />
     <ClCompile Include="player.cpp" />
@@ -23,6 +24,7 @@
     <ClInclude Include="Entity.h" />
     <ClInclude Include="exits.h" />
     <ClInclude Include="Functions.h" />
+    <ClInclude Include="items.h" />
     <ClInclude Include="MyString.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="rooms.h" />

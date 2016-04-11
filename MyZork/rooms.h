@@ -6,6 +6,7 @@
 class Room:public Entity
 {
 public:
+	void Look()const;
 	
 };
 

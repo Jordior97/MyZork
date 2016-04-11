@@ -7,10 +7,12 @@
 #include"Functions.h"
 #include"Entity.h"
 #include"MyString.h"
+#include"items.h"
 
 #define EXIT 200
 #define NUM_ROOMS 13
 #define NUM_EXITS 18
+#define NUM_ITEMS 2
 #define INVALID_COMMAND 100
 
 // Now, if you include "world.h" in other files,
@@ -23,6 +25,7 @@ public:
 	Room* rooms = nullptr;
 	Player* player = nullptr;
 	Exit* exits = nullptr;
+	Item* items = nullptr;
 
 	World();
 

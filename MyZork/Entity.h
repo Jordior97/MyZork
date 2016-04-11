@@ -7,6 +7,7 @@ class Entity
 public:
 	MyString name;
 	MyString description;
+	virtual void Look() const{};
 };
 
 
