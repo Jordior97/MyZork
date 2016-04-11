@@ -133,6 +133,16 @@ int GetCommand(MyString &option)
 		return EXIT;
 	}
 
+	else if (option == "SWORD")
+	{
+		return 333;
+	}
+
+	else if (option == "drop sword")
+	{
+		return 666;
+	}
+
 	//'INCORRECT' COMMANDS
 	else
 	{

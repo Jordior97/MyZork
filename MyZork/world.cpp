@@ -210,11 +210,11 @@ void World::CreateWorld() const
 	(exits + 17)->direction = south;
 
 	/* CREATE ITEMS: names & descriptions */
-	(items)->name = "SWORD\n";
-	(items)->description = "A nice sowrd.\n";
+	(items)->name = "SWORD";
+	(items)->description = "A nice sword.\n";
 	(items)->src = rooms + 1;
 
-	(items + 1)->name = "SHIELD\n";
+	(items + 1)->name = "SHIELD";
 	(items + 1)->description = "A nice shield.\n";
 	(items + 1)->src = rooms + 2;
 
@@ -714,12 +714,44 @@ void World::Close(int pos, int close) const
 }
 
 
+void World::Pick(char* item)
+{
+	for (int i = 0; i < NUM_ITEMS; i++)
+	{
+		if ((items + i)->name == item && (items + i)->src == player->player_pos && (items + i)->picked == false)
+		{
+			(items + i)->picked = true;
+			player->num_items++;
+			printf("You picked %s", (items + i)->name.c_str());
+			return;
+		}
+	}
+	printf("There's any object with that name here.\n");
+}
+
+/*void World::Drop(char* item)
+{
+	for (int i = 0; i < NUM_ITEMS; i++)
+	{
+		if (strcmp(item,"drop sword") == 0 && (items + i)->picked = true)
+		{
+			(items + i)->picked = false;
+			(items + i)->src = player->player_pos;
+			printf("You droped %s", (items + i)->name.c_str());
+			return;
+		}
+	}
+	printf("There's any object with that name here.\n");
+}*/
+
+
 World::~World()
 {
 	delete[] rooms;
 	delete player;
 	delete[] exits;
 	delete[] items;
+	delete[] inventory;
 }
 
 

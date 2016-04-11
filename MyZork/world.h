@@ -26,6 +26,7 @@ public:
 	Player* player = nullptr;
 	Exit* exits = nullptr;
 	Item* items = nullptr;
+	Item* inventory = nullptr;
 
 	World();
 
@@ -35,6 +36,8 @@ public:
 	void Help() const;
 	void Open(int,int) const;
 	void Close(int,int) const;
+	void Pick(char*);
+	//void Drop(char*);
 
 	~World();
 };

@@ -9,7 +9,10 @@ class Item :public Entity
 public:
 
 	Room* src; //source room
-	void Look()const;
+	void Look() const;
+	bool picked = false;
+
+
 };
 
 #endif

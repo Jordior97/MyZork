@@ -53,6 +53,16 @@ int main()
 			w.Close(position, GetCommand(option));
 		}
 
+		else if (GetCommand(option) == 333)
+		{
+			w.Pick(command);
+		}
+
+		/*else if (GetCommand(option) == 666)
+		{
+			w.Drop(option);
+		}*/
+
 		//If a command introduced is not valid
 		else if (GetCommand(option) == INVALID_COMMAND)
 		{
