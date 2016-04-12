@@ -7,6 +7,7 @@
 int main()
 {
 	MyString option;
+	MyString commands[10];
 	char command[70];
 	int position = 0; //Sets initial position to rooms[0](BEDROOM)
 
@@ -53,7 +54,7 @@ int main()
 			w.Close(position, GetCommand(option));
 		}
 
-		else if (GetCommand(option) == 333)
+		/*else if (GetCommand(option) == 333)
 		{
 			w.Pick(command);
 		}
@@ -61,13 +62,32 @@ int main()
 		else if (GetCommand(option) == 666)
 		{
 			w.Drop(command);
-		}
+		}*/
 
 		//If a command introduced is not valid
-		else if (GetCommand(option) == INVALID_COMMAND)
+		else if (GetCommand(option) == TOKENIZE)
 		{
-			printf("\nInvalid command.\n");
+			option.Tokenize(commands);
+
+			for (int i = 0; i < 3; i++)
+			{
+				printf("%s\n", commands[i].c_str());
+			}
+
+			if (commands[0] == "pick")
+			{
+				w.Pick(commands[1]);
+			}
+			else if (commands[0] == "drop")
+			{
+				w.Drop(commands[1]);
+			}
+			else
+			{
+				printf("Invalid command\n");
+			}
 		}
+
 
 	} while (GetCommand(option)!= EXIT);
 

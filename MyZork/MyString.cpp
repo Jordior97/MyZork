@@ -63,13 +63,13 @@ bool MyString::empty()const
 //compare 2 string classes
 bool MyString::operator==(const MyString &other) const
 {
-	return strcmp(buffer, other.buffer) == 0;
+	return _stricmp(buffer, other.buffer) == 0;
 }
 
 //compare string(class) - string
 bool MyString::operator==(const char *string) const
 {
-	return strcmp(buffer, string) == 0;
+	return _stricmp(buffer, string) == 0;
 }
 
 //iguala una classe a una altra
@@ -82,6 +82,18 @@ void MyString::operator=(const MyString &other)
 		buffer = new char[max_size];
 	}
 	strcpy_s(buffer, max_size, other.buffer);
+}
+
+void MyString::operator=(const char *other)
+{
+	unsigned int len = strlen(other);
+	if (max_size < len + 1);
+	{
+		delete[] buffer;
+		max_size = len +1;
+		buffer = new char[max_size];
+	}
+	strcpy_s(buffer, max_size, other);
 }
 
 //concatena dues cadenes
@@ -145,5 +157,25 @@ void MyString::set(char *command)
 	}
 	strcpy_s(buffer, max_size, command);
 }
+
+void MyString::Tokenize(MyString *str2)
+{
+	char *token = nullptr;
+	char *save = nullptr;
+	int i = 0;
+
+	/* get the first token */
+	token = strtok_s(buffer, " ", &save);
+
+	/* walk through other tokens */
+	while (token != NULL)
+	{
+		buffer = token;
+		*(str2 + i) = buffer;
+		token = strtok_s(NULL, " ", &save);
+		i++;
+	}
+}
+
 
 

@@ -45,6 +45,7 @@ public:
 
 	//iguala una classe a una altra
 	void operator=(const MyString &other);
+	void operator=(const char *other);
 
 	//concatena dues cadenes
 	void operator+=(const MyString &other);
@@ -59,6 +60,8 @@ public:
 	void shrink_to_fit();
 
 	void set(char *command);
+
+	void Tokenize(MyString *str2);
 };
 
 

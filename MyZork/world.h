@@ -13,7 +13,7 @@
 #define NUM_ROOMS 13
 #define NUM_EXITS 18
 #define NUM_ITEMS 2
-#define INVALID_COMMAND 100
+#define TOKENIZE 100
 
 // Now, if you include "world.h" in other files,
 // you are including these other headers and MACROS too.
@@ -36,8 +36,8 @@ public:
 	void Help() const;
 	void Open(int,int) const;
 	void Close(int,int) const;
-	void Pick(char*);
-	void Drop(char*);
+	void Pick(const MyString&);
+	void Drop(const MyString&);
 
 	~World();
 };

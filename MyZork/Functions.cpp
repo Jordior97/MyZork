@@ -133,7 +133,7 @@ int GetCommand(MyString &option)
 		return EXIT;
 	}
 
-	else if (option == "SWORD")
+	/*else if (option == "SWORD")
 	{
 		return 333;
 	}
@@ -141,11 +141,11 @@ int GetCommand(MyString &option)
 	else if (option == "drop sword")
 	{
 		return 666;
-	}
+	}*/
 
 	//'INCORRECT' COMMANDS
 	else
 	{
-		return INVALID_COMMAND;
+		return TOKENIZE;
 	}
 }

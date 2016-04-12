@@ -715,7 +715,7 @@ void World::Close(int pos, int close) const
 }
 
 
-void World::Pick(char* item)
+void World::Pick(const MyString &item)
 {
 	for (int i = 0; i < NUM_ITEMS; i++)
 	{
@@ -730,11 +730,11 @@ void World::Pick(char* item)
 	printf("There's any object with that name here.\n");
 }
 
-void World::Drop(char* item)
+void World::Drop(const MyString &item)
 {
 	for (int i = 0; i < NUM_ITEMS; i++)
 	{
-		if (strcmp(item,"drop sword") == 0 && (items + i)->picked == true)
+		if ((items + i)->name == item && (items + i)->picked == true)
 		{
 			(items + i)->picked = false;
 			(items + i)->src = player->player_pos;
