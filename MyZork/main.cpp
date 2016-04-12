@@ -58,10 +58,10 @@ int main()
 			w.Pick(command);
 		}
 
-		/*else if (GetCommand(option) == 666)
+		else if (GetCommand(option) == 666)
 		{
-			w.Drop(option);
-		}*/
+			w.Drop(command);
+		}
 
 		//If a command introduced is not valid
 		else if (GetCommand(option) == INVALID_COMMAND)

@@ -3,5 +3,5 @@
 
 void Item::Look()const
 {
-	printf("\nThe items you can find here:\n%s\n%s\n",name.c_str(),description.c_str());
+	printf("%s\n%s\n",name.c_str(),description.c_str());
 }

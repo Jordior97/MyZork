@@ -422,8 +422,9 @@ void World::Look(int pos, int direction) const
 		(rooms + pos)->Look();
 		for (i = 0; i < NUM_ITEMS; i++)
 		{
-			if (player->player_pos == (items + i)->src)
+			if (player->player_pos == (items + i)->src && (items + i)->picked == false)
 			{
+				printf("\nItems you can find here:\n");
 				(items + i)->Look();
 			}
 		}
@@ -729,11 +730,11 @@ void World::Pick(char* item)
 	printf("There's any object with that name here.\n");
 }
 
-/*void World::Drop(char* item)
+void World::Drop(char* item)
 {
 	for (int i = 0; i < NUM_ITEMS; i++)
 	{
-		if (strcmp(item,"drop sword") == 0 && (items + i)->picked = true)
+		if (strcmp(item,"drop sword") == 0 && (items + i)->picked == true)
 		{
 			(items + i)->picked = false;
 			(items + i)->src = player->player_pos;
@@ -742,7 +743,7 @@ void World::Pick(char* item)
 		}
 	}
 	printf("There's any object with that name here.\n");
-}*/
+}
 
 
 World::~World()

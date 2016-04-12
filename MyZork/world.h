@@ -37,7 +37,7 @@ public:
 	void Open(int,int) const;
 	void Close(int,int) const;
 	void Pick(char*);
-	//void Drop(char*);
+	void Drop(char*);
 
 	~World();
 };
