@@ -28,6 +28,7 @@
     <ClInclude Include="MyString.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="rooms.h" />
+    <ClInclude Include="vector.h" />
     <ClInclude Include="world.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

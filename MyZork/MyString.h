@@ -3,6 +3,8 @@
 
 #include<string.h>
 #include<stdio.h>
+#include"vector.h"
+
 
 typedef unsigned int uint;
 
@@ -61,7 +63,7 @@ public:
 
 	void set(char *command);
 
-	void Tokenize(MyString *str2);
+	void Tokenize(const char*,Vector<MyString>&);
 };
 
 

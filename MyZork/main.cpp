@@ -7,7 +7,7 @@
 int main()
 {
 	MyString option;
-	MyString commands[10];
+	Vector<MyString> commands;
 	char command[70];
 	int position = 0; //Sets initial position to rooms[0](BEDROOM)
 
@@ -67,7 +67,7 @@ int main()
 		//If a command introduced is not valid
 		else if (GetCommand(option) == TOKENIZE)
 		{
-			option.Tokenize(commands);
+			option.Tokenize(" ", commands);
 
 			for (int i = 0; i < 3; i++)
 			{

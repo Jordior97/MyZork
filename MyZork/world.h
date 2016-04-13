@@ -8,6 +8,7 @@
 #include"Entity.h"
 #include"MyString.h"
 #include"items.h"
+#include"vector.h"
 
 #define EXIT 200
 #define NUM_ROOMS 13

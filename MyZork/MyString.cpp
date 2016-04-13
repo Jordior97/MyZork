@@ -1,6 +1,7 @@
 #include<string.h>
 #include<stdio.h>
 #include"MyString.h"
+#include"vector.h"
 
 
 //CONSTRUCTORS-DESTRUCTOR
@@ -158,22 +159,18 @@ void MyString::set(char *command)
 	strcpy_s(buffer, max_size, command);
 }
 
-void MyString::Tokenize(MyString *str2)
+void MyString::Tokenize(const char* symbol, Vector<MyString> &commands)
 {
-	char *token = nullptr;
 	char *save = nullptr;
-	int i = 0;
+	char *token = nullptr;
 
-	/* get the first token */
-	token = strtok_s(buffer, " ", &save);
+	token = strtok_s(buffer, symbol, &save);
 
-	/* walk through other tokens */
 	while (token != NULL)
 	{
-		buffer = token;
-		*(str2 + i) = buffer;
-		token = strtok_s(NULL, " ", &save);
-		i++;
+		commands.push_back(token);
+
+		token = strtok_s(NULL,symbol, &save);
 	}
 }
 
