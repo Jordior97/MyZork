@@ -5,7 +5,7 @@
 #include"Entity.h"
 #include"items.h"
 
-class Player: public Entity
+class Player
 {
 public:
 

@@ -23,15 +23,18 @@ class World
 {
 public:
 
-	Room* rooms = nullptr;
+	Vector<Room*> rooms;
+	Vector<Exit*> exits;
+	Vector<Item*> items;
+
+
 	Player* player = nullptr;
-	Exit* exits = nullptr;
-	Item* items = nullptr;
+
 	Item* inventory = nullptr;
 
 	World();
 
-	void CreateWorld() const;
+	void CreateWorld();
 	void Movement(int&,int);
 	void Look(int,int) const;
 	void Help() const;

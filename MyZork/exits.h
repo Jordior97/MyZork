@@ -17,6 +17,9 @@ public:
 	dir direction;
 	void Look()const;
 
+	Exit(const char*, const char*,Room*,Room*,dir,bool,bool);
+	//~Exit();
+
 };
 
 #endif

@@ -6,6 +6,9 @@
 class Room:public Entity
 {
 public:
+	Room(const char*,const char*);
+	//~Room();
+	
 	void Look()const;
 	
 };

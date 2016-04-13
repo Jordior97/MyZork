@@ -11,7 +11,8 @@ public:
 	Room* src; //source room
 	void Look() const;
 	bool picked = false;
-
+	Item(const char*,const char*,Room*,bool);
+	//~Item();
 
 };
 
