@@ -61,9 +61,14 @@ public:
 	//la memòria alocatada s'iguala al nombre de caràcters de la cadena (+1)
 	void shrink_to_fit();
 
-	void set(char *command);
+	//void set(char *command);
 
-	void Tokenize(const char*,Vector<MyString>&);
+	//void Tokenize(const char*,Vector<MyString>&);
+
+	Vector<MyString> SplitString(const char *symbol, char* command);
+
+
+
 };
 
 

@@ -35,13 +35,13 @@ public:
 	World();
 
 	void CreateWorld();
-	void Movement(int&,int);
-	void Look(int,int) const;
+	void Movement(int&, Vector<MyString>&);
+	void Look(int, Vector<MyString>&) const;
 	void Help() const;
-	void Open(int,int) const;
-	void Close(int,int) const;
-	void Pick(const MyString&);
-	void Drop(const MyString&);
+	void Open(int, Vector<MyString>&) const;
+	void Close(int, Vector<MyString>&) const;
+	void Pick(Vector<MyString>&);
+	void Drop(Vector<MyString>&);
 
 	~World();
 };

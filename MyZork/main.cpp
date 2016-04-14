@@ -6,10 +6,6 @@
 
 int main()
 {
-	MyString option;
-	Vector<MyString> commands;
-	char command[70];
-	int position = 0; //Sets initial position to rooms[0](BEDROOM)
 
 	World w;
 
@@ -17,80 +13,78 @@ int main()
 
 	w.Help(); //An introduction to my game with a description and controls 
 
+	MyString option;
+	char command[70];
+	int position = 0; //Sets initial position to rooms[0](BEDROOM)
+
 	do
 	{
+		int opt;
 		fflush(stdin);
 		printf("\n> ");
 		gets_s(command, 70);
-		option.set(command);
-
-		//Goes to Movement Function Member
-		if (GetCommand(option) >= go && GetCommand(option) <= go_down)
+		if (command[0] != NULL && command[0] != ' ')
 		{
-			w.Movement(position, GetCommand(option));
-		}
+			Vector<MyString> commands = option.SplitString(" ", command);
 
-		//Goes to Look Function Member
-		else if (GetCommand(option) >= look && GetCommand(option) <= look_down)
-		{
-			w.Look(position, GetCommand(option));
-		}
-
-		//Goes to Help Function Member
-		else if (option == "help")
-		{
-			w.Help();
-		}
-
-		//Goes to Open Function Member
-		else if (GetCommand(option) >= open_door && GetCommand(option) <= open_down)
-		{
-			w.Open(position, GetCommand(option));
-		}
-
-		//Goes to Close Function Member
-		else if (GetCommand(option) >= close_door && GetCommand(option) <= close_down)
-		{
-			w.Close(position, GetCommand(option));
-		}
-
-		/*else if (GetCommand(option) == 333)
-		{
-			w.Pick(command);
-		}
-
-		else if (GetCommand(option) == 666)
-		{
-			w.Drop(command);
-		}*/
-
-		//If a command introduced is not valid
-		else if (GetCommand(option) == TOKENIZE)
-		{
-			option.Tokenize(" ", commands);
-
-			for (int i = 0; i < 3; i++)
+			for (int i = 0; i < commands.size(); i++)
 			{
 				printf("%s\n", commands[i].c_str());
 			}
 
-			if (commands[0] == "pick")
+			//Goes to Movement Function Member
+			if (GetCommand(commands) == Movement)
 			{
-				w.Pick(commands[1]);
+				w.Movement(position, commands);
 			}
-			else if (commands[0] == "drop")
+
+			//Goes to Look Function Member
+			else if (GetCommand(commands) == Look)
 			{
-				w.Drop(commands[1]);
+				w.Look(position, commands);
 			}
-			else
+
+			//Goes to Open Function Member
+			else if (GetCommand(commands) == Open)
+			{
+				w.Open(position, commands);
+			}
+
+			//Goes to Close Function Member
+			else if (GetCommand(commands) == Close)
+			{
+				w.Close(position, commands);
+			}
+
+			//Goes to Pick Function Member
+			else if (GetCommand(commands) == Pick)
+			{
+				w.Pick(commands);
+			}
+
+			//Goes to Close Function Member
+			else if (GetCommand(commands) == Close)
+			{
+				w.Drop(commands);
+			}
+
+			else if (GetCommand(commands) == Help)
+			{
+				w.Help();
+			}
+
+			else if (GetCommand(commands) == Invalid_command)
 			{
 				printf("Invalid command\n");
 			}
+
+			else if (GetCommand(commands) == Quit)
+			{
+				return 0;
+			}
 		}
 
-
-	} while (GetCommand(option)!= EXIT);
-
+	} while (1);
 
 	return 0;
 }

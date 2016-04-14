@@ -298,7 +298,7 @@ void World::CreateWorld()
 
 
 /* MOVEMENT FUNCTION */
-void World::Movement(int &pos,int option_move)
+void World::Movement(int &pos, Vector<MyString> &commands)
 {
 	fflush(stdin);
 
@@ -306,13 +306,7 @@ void World::Movement(int &pos,int option_move)
 
 	player->player_pos = rooms[pos];
 
-	if (option_move == go)
-	{
-		printf("\nYou have to specify in which direction you want to move.\n");
-		return;
-	}
-
-	else if (option_move == go_north)
+	if (commands.size() == 2 && commands[0] == "go" && (commands[1] == "north" && commands[1] == "n") || commands[0] == "north" || commands[0] == "n")
 	{
 		for (i = 0; i < NUM_EXITS; i++)
 		{
@@ -341,7 +335,7 @@ void World::Movement(int &pos,int option_move)
 		printf("\nYou can't move into that direction.\n");  //Case 3: there isn't any room in the chosen direction
 	}
 
-	else if (option_move == go_south)
+	else if (commands.size() == 2 && commands[0] == "go" && (commands[1] == "south" || commands[1] == "s") || commands[0] == "south" || commands[0] == "s")
 	{
 		for (i = 0; i < NUM_EXITS; i++)
 		{
@@ -370,7 +364,7 @@ void World::Movement(int &pos,int option_move)
 		printf("\nYou can't move into that way.\n");
 	}
 
-	else if (option_move == go_east)
+	else if (commands.size() == 2 && commands[0] == "go" && (commands[1] == "east" || commands[1] == "e") || commands[0] == "east" || commands[0] == "e")
 	{
 		for (i = 0; i < NUM_EXITS; i++)
 		{
@@ -399,7 +393,7 @@ void World::Movement(int &pos,int option_move)
 		printf("\nYou can't move into that direction.\n");
 	}
 
-	else if (option_move == go_west)
+	else if (commands.size() == 2 && commands[0] == "go" && (commands[1] == "west" || commands[1] == "w") || commands[0] == "west" || commands[0] == "w")
 	{
 		for (i = 0; i < NUM_EXITS; i++)
 		{
@@ -428,7 +422,7 @@ void World::Movement(int &pos,int option_move)
 		printf("\nYou can't move into that way.\n");
 	}
 
-	else if (option_move == go_down)
+	else if (commands.size() == 2 && commands[0] == "go" && (commands[1] == "down" || commands[1] == "d") || commands[0] == "down" || commands[0] == "d")
 	{
 		for (i = 0; i < NUM_EXITS; i++)
 		{
@@ -457,7 +451,7 @@ void World::Movement(int &pos,int option_move)
 		printf("\nYou can't move into that direction.\n");
 	}
 
-	else if (option_move == go_up)
+	else if (commands.size() == 2 && commands[0] == "go" && (commands[1] == "up" || commands[1] == "u") || commands[0] == "up" || commands[0] == "u")
 	{
 		for (i = 0; i < NUM_EXITS; i++)
 		{
@@ -485,27 +479,20 @@ void World::Movement(int &pos,int option_move)
 		}
 		printf("\nYou can't move into that way.\n");
 	}
+
+	else
+	{
+		printf("\nYou have to specify in which direction you want to move.\n");
+		return;
+	}
 }
 
-void World::Look(int pos, int direction) const
+void World::Look(int pos, Vector<MyString> &commands) const
 {
 	int i; //Countes to consider the correct room/exit when you are looking
 	player->player_pos = rooms[pos];
 
-	if (direction == look) //Case 1: name and description of the room you are.
-	{
-		rooms[pos]->Look();
-		for (i = 0; i < NUM_ITEMS; i++)
-		{
-			if (player->player_pos == items[i]->src && items[i]->picked == false)
-			{
-				printf("\nItems you can find here:\n");
-				items[i]->Look();
-			}
-		}
-	}
-
-	else if (direction == look_north) 
+	if (commands.size() == 2 && (commands[1] == "north" || commands[1] == "n" ))
 	{
 		for (i = 0; i < NUM_EXITS; i++)
 		{
@@ -518,7 +505,7 @@ void World::Look(int pos, int direction) const
 		printf("\nThere's nothing to look here.\n");  //Case 3: there's no exit placed in the chosen direction
 	}
 
-	else if (direction == look_south)
+	else if (commands.size() == 2 && (commands[1] == "south" || commands[1] == "s"))
 	{
 		for (i = 0; i < NUM_EXITS; i++)
 		{
@@ -531,7 +518,7 @@ void World::Look(int pos, int direction) const
 		printf("\nThere's nothing to look here.\n");
 	}
 
-	else if (direction == look_east)
+	else if (commands.size() == 2 && (commands[1] == "east" || commands[1] == "e"))
 	{
 		for (i = 0; i < NUM_EXITS; i++)
 		{
@@ -544,7 +531,7 @@ void World::Look(int pos, int direction) const
 		printf("\nThere's nothing to look here.\n");
 	}
 
-	else if (direction == look_west)
+	else if (commands.size() == 2 && (commands[1] == "west" || commands[1] == "w"))
 	{
 		for (i = 0; i < NUM_EXITS; i++)
 		{
@@ -557,7 +544,7 @@ void World::Look(int pos, int direction) const
 		printf("\nThere's nothing to look here.\n");
 	}
 
-	else if (direction == look_up)
+	else if (commands.size() == 2 && (commands[1] == "up" || commands[1] == "u"))
 	{
 		for (i = 0; i < NUM_EXITS; i++)
 		{
@@ -570,7 +557,7 @@ void World::Look(int pos, int direction) const
 		printf("\nThere's nothing to look here.\n");
 	}
 
-	else if (direction == look_down)
+	else if (commands.size() == 2 && (commands[1] == "down" || commands[1] == "d"))
 	{
 		for (i = 0; i < NUM_EXITS; i++)
 		{
@@ -581,6 +568,19 @@ void World::Look(int pos, int direction) const
 			}
 		}
 		printf("\nThere's nothing to look here.\n");
+	}
+
+	else //Case 1: name and description of the room you are.
+	{
+		rooms[pos]->Look();
+		for (i = 0; i < NUM_ITEMS; i++)
+		{
+			if (player->player_pos == items[i]->src && items[i]->picked == false)
+			{
+				printf("\nItems you can find here:\n");
+				items[i]->Look();
+			}
+		}
 	}
 }
 
@@ -594,18 +594,18 @@ void World::Help() const
 }
 
 
-void World::Open(int pos, int open) const
+void World::Open(int pos, Vector<MyString>&commands) const
 {
 	int i;  //Counter to consider the correct exit
 	player->player_pos = rooms[pos];
 
-	if (open == open_door)
+	/*if ((commands.size() == 2 && (commands[1] == "north" || commands[1] == "n"))
 	{
 		printf("\nYou have to specify which door you want to open.\n");
 		return;
-	}
+	}*/
 
-	else if (open == open_north)
+	if (commands.size() == 3 && (commands[1] == "north" || commands[1] == "n") && commands[2] == "door")
 	{
 		for (i = 0; i < NUM_EXITS; i++)
 		{
@@ -620,7 +620,7 @@ void World::Open(int pos, int open) const
 		printf("\nThere's nothing to open here.\n");
 	}
 
-	else if (open == open_south)
+	else if (commands.size() == 3 && (commands[1] == "south" || commands[1] == "s"))
 	{
 		for (i = 0; i < NUM_EXITS; i++)
 		{
@@ -634,7 +634,7 @@ void World::Open(int pos, int open) const
 		printf("\nThere's nothing to open here.\n");
 	}
 
-	else if (open == open_east)
+	else if (commands.size() == 3 && (commands[1] == "east" || commands[1] == "e") && commands[2] == "door")
 	{
 		for (i = 0; i < NUM_EXITS; i++)
 		{
@@ -648,7 +648,7 @@ void World::Open(int pos, int open) const
 		printf("\nThere's nothing to open here.\n");
 	}
 
-	else if (open == open_west)
+	else if (commands.size() == 3 && (commands[1] == "west" || commands[1] == "w") && commands[2] == "door")
 	{
 		for (i = 0; i < NUM_EXITS; i++)
 		{
@@ -662,7 +662,7 @@ void World::Open(int pos, int open) const
 		printf("\nThere's nothing to open here.\n");
 	}
 
-	else if (open == open_up)
+	else if (commands.size() == 3 && (commands[1] == "up" || commands[1] == "u") && commands[2] == "door")
 	{
 		for (i = 0; i < NUM_EXITS; i++)
 		{
@@ -676,7 +676,7 @@ void World::Open(int pos, int open) const
 		printf("\nThere's nothing to open here.\n");
 	}
 
-	else if (open == open_down)
+	else if (commands.size() == 3 && (commands[1] == "down" || commands[1] == "d") && commands[2] == "door")
 	{
 		for (i = 0; i < NUM_EXITS; i++)
 		{
@@ -689,21 +689,28 @@ void World::Open(int pos, int open) const
 		}
 		printf("\nThere's nothing to open here.\n");
 	}
+
+	else
+	{
+	printf("\nYou have to specify which door you want to open.\n");
+	return;
+	}
 }
 
-void World::Close(int pos, int close) const
+
+void World::Close(int pos, Vector<MyString> &commands) const
 {
 	int i;
 	player->player_pos = rooms[pos];
 
-	if (close == close_door)
+	/*if (close == close_door)
 	{
 		printf("\nYou have to specify which door you want to close.\n");
 		return;
-	}
+	}*/
 
 
-	if (close == close_north)
+	if (commands.size() == 3 && (commands[1] == "north" || commands[1] == "n") && commands[2] == "door")
 	{
 		//CLOSE CONDITION: the exit you want to "close" has a door, and its door is opened
 		for (i = 0; i < NUM_EXITS; i++)
@@ -718,7 +725,7 @@ void World::Close(int pos, int close) const
 		printf("\nThere's nothing to close here.\n");
 	}
 
-	else if (close == close_south)
+	else if (commands.size() == 3 && (commands[1] == "south" || commands[1] == "s") && commands[2] == "door")
 	{
 		for (i = 0; i < NUM_EXITS; i++)
 		{
@@ -732,7 +739,7 @@ void World::Close(int pos, int close) const
 		printf("\nThere's nothing to close here.\n");
 	}
 
-	else if (close == close_east)
+	else if (commands.size() == 3 && (commands[1] == "east" || commands[1] == "e") && commands[2] == "door")
 	{
 		for (i = 0; i < NUM_EXITS; i++)
 		{
@@ -746,7 +753,7 @@ void World::Close(int pos, int close) const
 		printf("\nThere's nothing to close here.\n");
 	}
 
-	else if (close == close_west)
+	else if (commands.size() == 3 && (commands[1] == "west" || commands[1] == "w") && commands[2] == "door")
 	{
 		for (i = 0; i < NUM_EXITS; i++)
 		{
@@ -760,7 +767,7 @@ void World::Close(int pos, int close) const
 		printf("\nThere's nothing to close here.\n");
 	}
 
-	else if (close == close_up)
+	else if (commands.size() == 3 && (commands[1] == "up" || commands[1] == "u") && commands[2] == "door")
 	{
 		for (i = 0; i < NUM_EXITS; i++)
 		{
@@ -774,7 +781,7 @@ void World::Close(int pos, int close) const
 		printf("\nThere's nothing to close here.\n");
 	}
 
-	else if (close == close_down)
+	else if (commands.size() == 3 && (commands[1] == "down" || commands[1] == "d") && commands[2] == "door")
 	{
 		for (i = 0; i < NUM_EXITS; i++)
 		{
@@ -790,11 +797,11 @@ void World::Close(int pos, int close) const
 }
 
 
-void World::Pick(const MyString &item)
+void World::Pick(Vector<MyString> &commands)
 {
 	for (int i = 0; i < NUM_ITEMS; i++)
 	{
-		if (exits[i]->name == item && exits[i]->src == player->player_pos && items[i]->picked == false)
+		if (commands.size() == 2 && items[i]->name == commands[1] && exits[i]->src == player->player_pos && items[i]->picked == false)
 		{
 			items[i]->picked = true;
 			player->num_items++;
@@ -805,11 +812,11 @@ void World::Pick(const MyString &item)
 	printf("There's any object with that name here.\n");
 }
 
-void World::Drop(const MyString &item)
+void World::Drop(Vector<MyString> &commands)
 {
 	for (int i = 0; i < NUM_ITEMS; i++)
 	{
-		if (items[i]->name == item && items[i]->picked == true)
+		if (commands.size() == 2 && items[i]->name == commands[1] && items[i]->picked == true)
 		{
 			items[i]->picked = false;
 			items[i]->src = player->player_pos;

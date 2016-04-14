@@ -88,7 +88,7 @@ void MyString::operator=(const MyString &other)
 void MyString::operator=(const char *other)
 {
 	unsigned int len = strlen(other);
-	if (max_size < len + 1);
+	if (max_size < len + 1)
 	{
 		delete[] buffer;
 		max_size = len +1;
@@ -148,7 +148,7 @@ void MyString::shrink_to_fit()
 	}
 }
 
-void MyString::set(char *command)
+/*void MyString::set(char *command)
 {
 	if (max_size < strlen(command) + 1)
 	{
@@ -157,9 +157,9 @@ void MyString::set(char *command)
 		buffer = new char[max_size];
 	}
 	strcpy_s(buffer, max_size, command);
-}
+}*/
 
-void MyString::Tokenize(const char* symbol, Vector<MyString> &commands)
+/*void MyString::Tokenize(const char* symbol, Vector<MyString> &commands)
 {
 	char *save = nullptr;
 	char *token = nullptr;
@@ -172,7 +172,27 @@ void MyString::Tokenize(const char* symbol, Vector<MyString> &commands)
 
 		token = strtok_s(NULL,symbol, &save);
 	}
-}
+}*/
 
+Vector<MyString> MyString::SplitString(const char *symbol, char* command)
+{
+	Vector<MyString> vec;
+	char *cstr, *p, *context;
+
+	//string str ("Please split this phrase into tokens");
+	uint len = strlen(command);
+	cstr = new char[len + 1];
+	strcpy_s(cstr, len + 1, command);
+	// cstr now contains a c-string copy of str
+
+	p = strtok_s(cstr, symbol, &context);
+	while (p != NULL)
+	{
+		vec.push_back(p);
+		p = strtok_s(NULL, symbol, &context);
+	}
+	delete[] cstr;
+	return vec;
+}
 
 

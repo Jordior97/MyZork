@@ -4,15 +4,17 @@
 #include"world.h"
 
 
-
-int GetCommand(MyString &option)
+int GetCommand(Vector<MyString>&commands)
 {
 	//'GO' COMMANDS
-	if (option == "go")
+	if (commands[0] == "go" || commands[0] == "n" || commands[0] == "s" || commands[0] == "e" ||
+		commands[0] == "w" || commands[0] == "d" || commands[0] == "u" || commands[0] == "north" ||
+		commands[0] == "south" || commands[0] == "east" || commands[0] == "west" || commands[0] == "up" || 
+		commands[0] == "down")
 	{
-		return go;
+		return Movement;
 	}
-	else if ((option == "n") || (option == "north") || (option == "go north") || (option == "go n"))
+	/*else if ((option == "n") || (option == "north") || (option == "go north") || (option == "go n"))
 	{
 		return go_north;
 	}
@@ -35,9 +37,15 @@ int GetCommand(MyString &option)
 	else if ((option == "d") || (option == "down") || (option == "go down") || (option == "go d"))
 	{
 		return go_down;
-	}
+	}*/
 
 	//'LOOK' COMMANDS
+	else if (commands[0] == "look")
+	{
+		return Look;
+	}
+
+	/*
 	else if (option == "look")
 	{
 		return look;
@@ -65,9 +73,16 @@ int GetCommand(MyString &option)
 	else if (option == "look d" || option == "look down")
 	{
 		return look_down;
+	}*/
+
+	
+	//'OPEN' COMMANDS
+	else if (commands[0] == "open")
+	{
+		return Open;
 	}
 
-	//'OPEN' COMMANDS
+	/*
 	else if (option == "open door")
 	{
 		return open_door;
@@ -95,9 +110,15 @@ int GetCommand(MyString &option)
 	else if (option == "open d door" || option == "open down door")
 	{
 		return open_down;
+	}*/
+	
+	//'CLOSE' COMMANDS
+	else if (commands[0] == "close")
+	{
+		return Close;
 	}
 
-	//'CLOSE' COMMANDS
+	/*
 	else if (option == "close door")
 	{
 		return close_door;
@@ -125,8 +146,9 @@ int GetCommand(MyString &option)
 	else if (option == "close d door" || option == "close down door")
 	{
 		return close_down;
-	}
+	}*/
 
+	/*
 	//'QUIT' COMMANDS
 	else if (option == "quit" || option == "q")
 	{
@@ -143,9 +165,37 @@ int GetCommand(MyString &option)
 		return 666;
 	}*/
 
-	//'INCORRECT' COMMANDS
+
+	//'PICK' COMMANDS
+	else if (commands[0] == "pick")
+	{
+		return Pick;
+	}
+
+	//'DROP' COMMANDS
+	else if (commands[0] == "drop")
+	{
+		return Drop;
+	}
+
+	//'HELP' COMMANDS
+	else if (commands[0] == "help")
+	{
+		return Help;
+	}
+
+	//'QUIT' COMMANDS
+	else if (commands[0] == "quit")
+	{
+		return Quit;
+	}
+
+	//'INVALID' COMMANDS
 	else
 	{
-		return TOKENIZE;
+		return Invalid_command;
 	}
+
+
+
 }
