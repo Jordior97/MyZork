@@ -6,7 +6,7 @@
 
 int main()
 {
-
+	int opt;
 	World w;
 
 	w.CreateWorld(); //Sets rooms and exits (names and descriptions)
@@ -19,7 +19,6 @@ int main()
 
 	do
 	{
-		int opt;
 		fflush(stdin);
 		printf("\n> ");
 		gets_s(command, 70);
@@ -27,10 +26,6 @@ int main()
 		{
 			Vector<MyString> commands = option.SplitString(" ", command);
 
-			for (int i = 0; i < commands.size(); i++)
-			{
-				printf("%s\n", commands[i].c_str());
-			}
 
 			//Goes to Movement Function Member
 			if (GetCommand(commands) == Movement)
@@ -63,7 +58,7 @@ int main()
 			}
 
 			//Goes to Close Function Member
-			else if (GetCommand(commands) == Close)
+			else if (GetCommand(commands) == Drop)
 			{
 				w.Drop(commands);
 			}
@@ -80,11 +75,26 @@ int main()
 
 			else if (GetCommand(commands) == Quit)
 			{
-				return 0;
+				opt = 1;
+			}
+
+			else if (GetCommand(commands) == Inventory)
+			{
+				w.Inventory();
+			}
+
+			else if (GetCommand(commands) == Equip)
+			{
+				w.Equip(commands);
+			}
+
+			else if (GetCommand(commands) == Unequip)
+			{
+				w.Unequip(commands);
 			}
 		}
 
-	} while (1);
+	} while (opt != 1);
 
 	return 0;
 }

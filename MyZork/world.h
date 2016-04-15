@@ -42,6 +42,9 @@ public:
 	void Close(int, Vector<MyString>&) const;
 	void Pick(Vector<MyString>&);
 	void Drop(Vector<MyString>&);
+	void Inventory() const;
+	void Equip(Vector<MyString>&);
+	void Unequip(Vector<MyString>&);
 
 	~World();
 };

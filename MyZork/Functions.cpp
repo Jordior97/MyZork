@@ -190,6 +190,24 @@ int GetCommand(Vector<MyString>&commands)
 		return Quit;
 	}
 
+	//'INVENTORY' COMMANDS
+	else if (commands[0] == "i" || commands[0] == "inv" || commands[0] == "inventory")
+	{
+		return Inventory;
+	}
+
+	//'EQUIP' COMMANDS
+	else if (commands[0] == "equip")
+	{
+		return Equip;
+	}
+
+	//'UNEQUIP' COMMANDS
+	else if (commands[0] == "unequip")
+	{
+		return Unequip;
+	}
+
 	//'INVALID' COMMANDS
 	else
 	{

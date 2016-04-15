@@ -4,6 +4,8 @@
 #include"world.h"
 #include"Entity.h"
 
+enum slot { Head, Body, RHand, LHand, Legs };
+
 class Item :public Entity
 {
 public:
@@ -11,7 +13,10 @@ public:
 	Room* src; //source room
 	void Look() const;
 	bool picked = false;
-	Item(const char*,const char*,Room*,bool);
+	bool equiped = false;
+	slot part;
+	Item(const char*, const char*, Room*, bool, slot);
+	
 	//~Item();
 
 };

@@ -10,7 +10,7 @@ MyString::MyString()
 	max_size = 1;
 	buffer = new char[max_size];
 	strcpy_s(buffer, max_size, "");
-	printf("EMPTY CONSTRUCTOR\n");
+	//printf("EMPTY CONSTRUCTOR\n");
 }
 
 MyString::MyString(const char *string)
@@ -19,19 +19,19 @@ MyString::MyString(const char *string)
 	buffer = new char[len + 1];
 	max_size = len + 1;
 	strcpy_s(buffer, max_size, string);
-	printf("CONSTRUCTOR with %s\n", buffer);
+	//printf("CONSTRUCTOR with %s\n", buffer);
 }
 MyString::MyString(const MyString &other)
 {
 	max_size = other.max_size;
 	buffer = new char[max_size];
 	strcpy_s(buffer, max_size, other.buffer);
-	printf("COPY CONSTRUCTOR with %s\n", buffer);
+	//printf("COPY CONSTRUCTOR with %s\n", buffer);
 }
 
 MyString::~MyString()
 {
-	printf("DESTRUCTOR\n");
+	//printf("DESTRUCTOR\n");
 	delete[] buffer;
 }
 
