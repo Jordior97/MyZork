@@ -10,13 +10,23 @@ class Item :public Entity
 {
 public:
 
-	Room* src; //source room
+
+	//source room
+	Room* src; 
 	void Look() const;
+
 	bool picked = false;
 	bool equiped = false;
-	slot part;
-	Item(const char*, const char*, Room*, slot);
-	
+
+	slot part; 
+
+	//modifiers of player stats
+	int attack;
+	int hp;
+	int mana;
+	int armor;
+
+	Item(const char*, const char*, Room*, slot, int, int, int, int);
 	//~Item();
 
 };

@@ -92,6 +92,10 @@ int main()
 			{
 				w.Unequip(commands);
 			}
+			else if (GetCommand(commands) == Stats)
+			{
+				w.player->Stats();
+			}
 		}
 
 	} while (opt != 1);

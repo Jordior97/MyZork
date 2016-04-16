@@ -284,28 +284,28 @@ void World::CreateWorld()
 	(items)->src = rooms + 1;*/
 
 	//SWORD
-	items.push_back(new Item("SWORD", "This weapon is forged by The Five Blacksmiths, the best\nartisans of Aincrad, with materials whose origin is unknown.\n", rooms[1], RHand));
+	items.push_back(new Item("SWORD", "This weapon is forged by The Five Blacksmiths, the best\nartisans of Aincrad, with materials whose origin is unknown.\n", rooms[1], RHand, 10, 0, 0, 0));
 
 	/*(items + 1)->name = "SHIELD";
 	(items + 1)->description = "A nice shield.\n";
 	(items + 1)->src = rooms + 2;*/
 
 	//SHIELD
-	items.push_back(new Item("SHIELD", "Look at the insign in the center of this shield.\nIt means this shield belonged to the ancient order\ncalled Knights of Rounds.\n", rooms[2], LHand));
+	items.push_back(new Item("SHIELD", "Look at the insign in the center of this shield.\nIt means this shield belonged to the ancient order\ncalled Knights of Rounds.\n", rooms[2], LHand, 0, 0, 0, 10));
 
 	//KEY
-	items.push_back(new Item("KEY", "With this magic key you will be able to open all the magic doors\nand continue with our journey, Simon.\n", rooms[6], Non_Equipable));
+	items.push_back(new Item("KEY", "With this magic key you will be able to open all the magic doors\nand continue with our journey, Simon.\n", rooms[6], Non_Equipable, 0, 0, 0, 0));
 
 	//HELMET
-	items.push_back(new Item("HELMET","I've heard that the one who goes to battle with this\niron helmet equipped is invencible, but this story is just a myth.\n", rooms[5], Head));
+	items.push_back(new Item("HELMET", "I've heard that the one who goes to battle with this\niron helmet equipped is invencible, but this story is just a myth.\n", rooms[5], Head, 0, 0, 5, 5));
 
 	//BREADSPLATE
-	items.push_back(new Item("BREADSPLATE", "What a beautiful armor! It gives more stamina and resistance\nagainst monsters and creatures",rooms[4],Body));
+	items.push_back(new Item("BREADSPLATE", "What a beautiful armor! It gives more stamina and resistance\nagainst monsters and creatures\n", rooms[4], Body, 0, 0, 5, 5));
 
 	//GREAVES
-	items.push_back(new Item("GREAVES", "This greaves will give you more speed, but this is not useful in this game...", rooms[9], Legs));
+	items.push_back(new Item("GREAVES", "This greaves will give you more speed, but this is not useful in this game...\n", rooms[9], Legs, 0, 0, 0, 5));
 
-	//
+
 
 }
 
@@ -875,12 +875,16 @@ void World::Equip(Vector<MyString> &commands)
 				{
 					player->head_item = true;
 					items[i]->equiped = true;
-					printf("You equiped %s on your head.\n", items[i]->name.c_str());
+					player->armor += items[i]->armor;
+					player->attack += items[i]->attack;
+					player->hp += items[i]->hp;
+					player->mana += items[i]->mana;
+					printf("You equipped %s on your head.\n", items[i]->name.c_str());
 					return;
 				}
 				else if (player->head_item == true)
 				{
-					printf("You have an item equiped on your head already.\n");
+					printf("You have an item equipped on your head already.\n");
 					return;
 				}
 			}
@@ -894,12 +898,16 @@ void World::Equip(Vector<MyString> &commands)
 				{
 					player->body_item = true;
 					items[i]->equiped = true;
-					printf("You equiped %s on your body.\n", items[i]->name.c_str());
+					player->armor += items[i]->armor;
+					player->attack += items[i]->attack;
+					player->hp += items[i]->hp;
+					player->mana += items[i]->mana;
+					printf("You equipped %s on your body.\n", items[i]->name.c_str());
 					return;
 				}
 				else if (player->body_item == true)
 				{
-					printf("You have an item equiped on your body already.\n");
+					printf("You have an item equipped on your body already.\n");
 					return;
 				}
 			}
@@ -913,6 +921,10 @@ void World::Equip(Vector<MyString> &commands)
 				{
 					player->RHand_item = true;
 					items[i]->equiped = true;
+					player->armor += items[i]->armor;
+					player->attack += items[i]->attack;
+					player->hp += items[i]->hp;
+					player->mana += items[i]->mana;
 					printf("You equiped %s on your right hand.\n", items[i]->name.c_str());
 					return;
 				}
@@ -932,6 +944,10 @@ void World::Equip(Vector<MyString> &commands)
 				{
 					player->LHand_item = true;
 					items[i]->equiped = true;
+					player->armor += items[i]->armor;
+					player->attack += items[i]->attack;
+					player->hp += items[i]->hp;
+					player->mana += items[i]->mana;
 					printf("You equiped %s on your left hand.\n", items[i]->name.c_str());
 					return;
 				}
@@ -951,6 +967,10 @@ void World::Equip(Vector<MyString> &commands)
 				{
 					player->legs_item = true;
 					items[i]->equiped = true;
+					player->armor += items[i]->armor;
+					player->attack += items[i]->attack;
+					player->hp += items[i]->hp;
+					player->mana += items[i]->mana;
 					printf("You equiped %s on your legs.\n", items[i]->name.c_str());
 					return;
 				}
@@ -1017,6 +1037,10 @@ void World::Unequip(Vector<MyString> &commands)
 				}
 
 				items[i]->equiped = false;
+				player->armor -= items[i]->armor;
+				player->attack -= items[i]->attack;
+				player->hp -= items[i]->hp;
+				player->mana -= items[i]->mana;
 				printf("You have unequiped %s.\n", items[i]->name.c_str());
 				return;
 			}
