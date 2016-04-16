@@ -4,7 +4,7 @@
 #include"world.h"
 #include"Entity.h"
 
-enum slot { Head, Body, RHand, LHand, Legs };
+enum slot { Head, Body, RHand, LHand, Legs, Non_Equipable };
 
 class Item :public Entity
 {
@@ -15,7 +15,7 @@ public:
 	bool picked = false;
 	bool equiped = false;
 	slot part;
-	Item(const char*, const char*, Room*, bool, slot);
+	Item(const char*, const char*, Room*, slot);
 	
 	//~Item();
 

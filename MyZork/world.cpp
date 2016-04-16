@@ -278,21 +278,34 @@ void World::CreateWorld()
 
 
 	/* CREATE ITEMS: names & descriptions */
+
 	/*(items)->name = "SWORD";
 	(items)->description = "A nice sword.\n";
 	(items)->src = rooms + 1;*/
 
-	items.push_back(new Item("SWORD", "A nice sword.\n", rooms[1], false, RHand));
-
+	//SWORD
+	items.push_back(new Item("SWORD", "This weapon is forged by The Five Blacksmiths, the best\nartisans of Aincrad, with materials whose origin is unknown.\n", rooms[1], RHand));
 
 	/*(items + 1)->name = "SHIELD";
 	(items + 1)->description = "A nice shield.\n";
 	(items + 1)->src = rooms + 2;*/
 
-	items.push_back(new Item("SHIELD", "A nice shield.\n", rooms[2], false, LHand));
+	//SHIELD
+	items.push_back(new Item("SHIELD", "Look at the insign in the center of this shield.\nIt means this shield belonged to the ancient order\ncalled Knights of Rounds.\n", rooms[2], LHand));
 
+	//KEY
+	items.push_back(new Item("KEY", "With this magic key you will be able to open all the magic doors\nand continue with our journey, Simon.\n", rooms[6], Non_Equipable));
 
+	//HELMET
+	items.push_back(new Item("HELMET","I've heard that the one who goes to battle with this\niron helmet equipped is invencible, but this story is just a myth.\n", rooms[5], Head));
 
+	//BREADSPLATE
+	items.push_back(new Item("BREADSPLATE", "What a beautiful armor! It gives more stamina and resistance\nagainst monsters and creatures",rooms[4],Body));
+
+	//GREAVES
+	items.push_back(new Item("GREAVES", "This greaves will give you more speed, but this is not useful in this game...", rooms[9], Legs));
+
+	//
 
 }
 
@@ -854,9 +867,9 @@ void World::Equip(Vector<MyString> &commands)
 	for (int i = 0; i < NUM_ITEMS; i++)
 	{
 		//Equip head
-		if (commands.size() == 2 && items[i]->part == Head)
+		if (commands.size() == 2 && items[i]->part == Head && commands[1] == items[i]->name)
 		{
-			if (commands[1] == items[i]->name && items[i]->picked == true)
+			if (items[i]->picked == true)
 			{
 				if (player->head_item == false)
 				{
@@ -873,9 +886,9 @@ void World::Equip(Vector<MyString> &commands)
 			}
 		}	
 
-		else if (commands.size() == 2 && items[i]->part == Body)
+		else if (commands.size() == 2 && items[i]->part == Body && commands[1] == items[i]->name)
 		{
-			if (commands[1] == items[i]->name && items[i]->picked == true)
+			if (items[i]->picked == true)
 			{
 				if (player->body_item == false)
 				{
@@ -892,9 +905,9 @@ void World::Equip(Vector<MyString> &commands)
 			}
 		}
 
-		else if (commands.size() == 2 && items[i]->part == RHand)
+		else if (commands.size() == 2 && items[i]->part == RHand && commands[1] == items[i]->name)
 		{
-			if (commands[1] == items[i]->name && items[i]->picked == true)
+			if (items[i]->picked == true)
 			{
 				if (player->RHand_item == false)
 				{
@@ -911,9 +924,9 @@ void World::Equip(Vector<MyString> &commands)
 			}
 		}
 
-		else if (commands.size() == 2 && items[i]->part == LHand)
+		else if (commands.size() == 2 && items[i]->part == LHand && commands[1] == items[i]->name)
 		{
-			if (commands[1] == items[i]->name && items[i]->picked == true)
+			if (items[i]->picked == true)
 			{
 				if (player->LHand_item == false)
 				{
@@ -930,9 +943,9 @@ void World::Equip(Vector<MyString> &commands)
 			}
 		}
 
-		else if (commands.size() == 2 && items[i]->part == Legs)
+		else if (commands.size() == 2 && items[i]->part == Legs && commands[1] == items[i]->name)
 		{
-			if (commands[1] == items[i]->name && items[i]->picked == true)
+			if (items[i]->picked == true)
 			{
 				if (player->legs_item == false)
 				{
@@ -946,6 +959,14 @@ void World::Equip(Vector<MyString> &commands)
 					printf("You have an item equiped on your legs already.\n");
 					return;
 				}
+			}
+		}
+		else if (commands.size() == 2 && items[i]->part == Non_Equipable && commands[1] == items[i]->name)
+		{
+			if (items[i]->picked == true)
+			{
+				printf("You can't equip with this item.\n");
+				return;
 			}
 		}
 	}
