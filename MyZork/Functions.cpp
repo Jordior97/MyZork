@@ -208,10 +208,17 @@ int GetCommand(Vector<MyString>&commands)
 		return Unequip;
 	}
 
-	else if (commands[0] == "stats")
+	else if (commands[0] == "stats" || commands[0] == "st")
 	{
 		return Stats;
 	}
+
+
+	else if (commands[0] == "equipment" || commands[0] == "eq")
+	{
+		return Equipment;
+	}
+
 
 	//'INVALID' COMMANDS
 	else

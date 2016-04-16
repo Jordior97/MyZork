@@ -92,9 +92,15 @@ int main()
 			{
 				w.Unequip(commands);
 			}
+
 			else if (GetCommand(commands) == Stats)
 			{
 				w.player->Stats();
+			}
+
+			else if (GetCommand(commands) == Equipment)
+			{
+				w.Equipment();
 			}
 		}
 

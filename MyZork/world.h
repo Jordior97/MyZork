@@ -43,6 +43,7 @@ public:
 	void Inventory() const;
 	void Equip(Vector<MyString>&);
 	void Unequip(Vector<MyString>&);
+	void Equipment();
 
 	~World();
 };

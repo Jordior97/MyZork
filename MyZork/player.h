@@ -29,10 +29,8 @@ public:
 	int attack = 20;
 	int armor = 0;
 
-
-
-	void Inventory();
 	void Stats();
+	
 
 };
 

@@ -832,11 +832,19 @@ void World::Drop(Vector<MyString> &commands)
 	{
 		if (commands.size() == 2 && items[i]->name == commands[1] && items[i]->picked == true)
 		{
-			items[i]->picked = false;
-			items[i]->src = player->player_pos;
-			player->num_items--;
-			printf("You droped %s\n", items[i]->name.c_str());
-			return;
+			if (items[i]->equiped == false)
+			{
+				items[i]->picked = false;
+				items[i]->src = player->player_pos;
+				player->num_items--;
+				printf("You droped %s\n", items[i]->name.c_str());
+				return;
+			}
+			else
+			{
+				printf("You have to unequip this item first to drop it.\n");
+				return;
+			}
 		}
 	}
 	printf("There's any object with that name in your inventory.\n");
@@ -1047,6 +1055,47 @@ void World::Unequip(Vector<MyString> &commands)
 		}
 	}
 	printf("You haven't got any item equiped with that name.\n");
+}
+
+
+void World::Equipment()
+{
+	MyString Head_item;
+	MyString Body_item;
+	MyString Legs_item;
+	MyString LeftH_item;
+	MyString RightH_item;
+	for (int i = 0; i < NUM_ITEMS; i++)
+	{
+		if (items[i]->part == Head && player->head_item == true)
+		{
+			Head_item = items[i]->name;
+		}
+		else if (items[i]->part == Body && player->body_item == true)
+		{
+			Body_item = items[i]->name;
+		}
+		else if (items[i]->part == Legs && player->legs_item == true)
+		{
+			Legs_item = items[i]->name;
+		}
+		else if (items[i]->part == LHand && player->LHand_item == true)
+		{
+			LeftH_item = items[i]->name;
+		}
+		else if (items[i]->part == RHand && player->RHand_item == true)
+		{
+			RightH_item = items[i]->name;
+		}
+	}
+
+	printf("\n--------------------\n");
+	printf("HEAD = %s\n", Head_item.c_str());
+	printf("BODY = %s\n", Body_item.c_str());
+	printf("RIGHT HAND = %s\n", RightH_item.c_str());
+	printf("LEFT HAND = %s\n", LeftH_item.c_str());
+	printf("LEGS = %s\n", Legs_item.c_str());
+	printf("---------------------\n");
 }
 
 World::~World()
