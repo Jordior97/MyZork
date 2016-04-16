@@ -291,10 +291,10 @@ void World::CreateWorld()
 	(items + 1)->src = rooms + 2;*/
 
 	//SHIELD
-	items.push_back(new Item("SHIELD", "Look at the insign in the center of this shield.\nIt means this shield belonged to the ancient order\ncalled Knights of Rounds.\n", rooms[2], LHand, 0, 0, 0, 10));
+	items.push_back(new Item("SHIELD", "This emblematic blue, red and white shield belonged to the Sergeant\nEurope, the protector of Aincrad. It's made with the most resistant material\nin the world: Amadantium\n", rooms[2], LHand, 0, 0, 0, 10));
 
 	//KEY
-	items.push_back(new Item("KEY", "With this magic key you will be able to open all the magic doors\nand continue with our journey, Simon.\n", rooms[6], Non_Equipable, 0, 0, 0, 0));
+	items.push_back(new Item("KEY", "With this magic key you will be able to open all the doors and trapdoors\nto continue with our journey, Simon.\n", rooms[6], Non_Equipable, 0, 0, 0, 0));
 
 	//HELMET
 	items.push_back(new Item("HELMET", "I've heard that the one who goes to battle with this\niron helmet equipped is invencible, but this story is just a myth.\n", rooms[5], Head, 0, 0, 5, 5));
@@ -305,6 +305,11 @@ void World::CreateWorld()
 	//GREAVES
 	items.push_back(new Item("GREAVES", "This greaves will give you more speed, but this is not useful in this game...\n", rooms[9], Legs, 0, 0, 0, 5));
 
+	//AXE
+	items.push_back(new Item("AXE", "Use this powerful and big axe to destroy hundreds and hundreds of enemies,\nlike Nanoc the Barbarian.\n", rooms[7], RHand, 10, 0, 0, 0));
+
+	//RING
+	items.push_back(new Item("RING", "This magic artefact is called 'The One Ring' it can increase your magical power.\nLook closely, there is an inscription: 'One ring to rule them all'.\n", rooms[8], LHand, 0, 20, 10, 0));
 
 
 }
@@ -586,8 +591,8 @@ void World::Look(int pos, Vector<MyString> &commands) const
 	else //Case 1: name and description of the room you are.
 	{
 		rooms[pos]->Look();
-
-		printf("\nItems you can find here:\n");
+		printf("\n--------------------------\n");
+		printf("\nItems you can find here:\n\n");
 		for (i = 0; i < NUM_ITEMS; i++)
 		{
 			if (player->player_pos == items[i]->src && items[i]->picked == false)
@@ -613,101 +618,103 @@ void World::Open(int pos, Vector<MyString>&commands) const
 	int i;  //Counter to consider the correct exit
 	player->player_pos = rooms[pos];
 
-	/*if ((commands.size() == 2 && (commands[1] == "north" || commands[1] == "n"))
+	if (items[2]->picked == true)
 	{
-		printf("\nYou have to specify which door you want to open.\n");
-		return;
-	}*/
 
-	if (commands.size() == 3 && (commands[1] == "north" || commands[1] == "n") && commands[2] == "door")
-	{
-		for (i = 0; i < NUM_EXITS; i++)
+		if (commands.size() == 3 && (commands[1] == "north" || commands[1] == "n") && commands[2] == "door")
 		{
-			//OPEN CONDITION: the exit you want to "open" has a door, and its door is closed
-			if (exits[i]->src == player->player_pos && exits[i]->direction == north && exits[i]->open == false)
+			for (i = 0; i < NUM_EXITS; i++)
 			{
-				exits[i]->open = true;
-				printf("\nYou opened the door.\n");
-				return;
+				//OPEN CONDITION: the exit you want to "open" has a door, and its door is closed
+				if (exits[i]->src == player->player_pos && exits[i]->direction == north && exits[i]->open == false)
+				{
+					exits[i]->open = true;
+					printf("\nYou opened the door.\n");
+					return;
+				}
 			}
+			printf("\nThere's nothing to open here.\n");
 		}
-		printf("\nThere's nothing to open here.\n");
-	}
 
-	else if (commands.size() == 3 && (commands[1] == "south" || commands[1] == "s"))
-	{
-		for (i = 0; i < NUM_EXITS; i++)
+		else if (commands.size() == 3 && (commands[1] == "south" || commands[1] == "s"))
 		{
-			if (exits[i]->src == player->player_pos && exits[i]->direction == south && exits[i]->open == false)
+			for (i = 0; i < NUM_EXITS; i++)
 			{
-				exits[i]->open = true;
-				printf("\nYou opened the door.\n");
-				return;
+				if (exits[i]->src == player->player_pos && exits[i]->direction == south && exits[i]->open == false)
+				{
+					exits[i]->open = true;
+					printf("\nYou opened the door.\n");
+					return;
+				}
 			}
+			printf("\nThere's nothing to open here.\n");
 		}
-		printf("\nThere's nothing to open here.\n");
-	}
 
-	else if (commands.size() == 3 && (commands[1] == "east" || commands[1] == "e") && commands[2] == "door")
-	{
-		for (i = 0; i < NUM_EXITS; i++)
+		else if (commands.size() == 3 && (commands[1] == "east" || commands[1] == "e") && commands[2] == "door")
 		{
-			if (exits[i]->src == player->player_pos && exits[i]->direction == east && exits[i]->open == false)
+			for (i = 0; i < NUM_EXITS; i++)
 			{
-				exits[i]->open = true;
-				printf("\nYou opened the door.\n");
-				return;
+				if (exits[i]->src == player->player_pos && exits[i]->direction == east && exits[i]->open == false)
+				{
+					exits[i]->open = true;
+					printf("\nYou opened the door.\n");
+					return;
+				}
 			}
+			printf("\nThere's nothing to open here.\n");
 		}
-		printf("\nThere's nothing to open here.\n");
-	}
 
-	else if (commands.size() == 3 && (commands[1] == "west" || commands[1] == "w") && commands[2] == "door")
-	{
-		for (i = 0; i < NUM_EXITS; i++)
+		else if (commands.size() == 3 && (commands[1] == "west" || commands[1] == "w") && commands[2] == "door")
 		{
-			if (exits[i]->src == player->player_pos && exits[i]->direction == west && exits[i]->open == false)
+			for (i = 0; i < NUM_EXITS; i++)
 			{
-				exits[i]->open = true;
-				printf("You opened the door.\n");
-				return;
+				if (exits[i]->src == player->player_pos && exits[i]->direction == west && exits[i]->open == false)
+				{
+					exits[i]->open = true;
+					printf("You opened the door.\n");
+					return;
+				}
 			}
+			printf("\nThere's nothing to open here.\n");
 		}
-		printf("\nThere's nothing to open here.\n");
-	}
 
-	else if (commands.size() == 3 && (commands[1] == "up" || commands[1] == "u") && commands[2] == "door")
-	{
-		for (i = 0; i < NUM_EXITS; i++)
+		else if (commands.size() == 3 && (commands[1] == "up" || commands[1] == "u") && commands[2] == "door")
 		{
-			if (exits[i]->src == player->player_pos && exits[i]->direction == up && exits[i]->open == false)
+			for (i = 0; i < NUM_EXITS; i++)
 			{
-				exits[i]->open = true;
-				printf("\nYou opened the door.\n");
-				return;
+				if (exits[i]->src == player->player_pos && exits[i]->direction == up && exits[i]->open == false)
+				{
+					exits[i]->open = true;
+					printf("\nYou opened the door.\n");
+					return;
+				}
 			}
+			printf("\nThere's nothing to open here.\n");
 		}
-		printf("\nThere's nothing to open here.\n");
-	}
 
-	else if (commands.size() == 3 && (commands[1] == "down" || commands[1] == "d") && commands[2] == "door")
-	{
-		for (i = 0; i < NUM_EXITS; i++)
+		else if (commands.size() == 3 && (commands[1] == "down" || commands[1] == "d") && commands[2] == "door")
 		{
-			if (exits[i]->src == player->player_pos && exits[i]->direction == down && exits[i]->open == false)
+			for (i = 0; i < NUM_EXITS; i++)
 			{
-				exits[i]->open = true;
-				printf("\nYou opened the door.\n");
-				return;
+				if (exits[i]->src == player->player_pos && exits[i]->direction == down && exits[i]->open == false)
+				{
+					exits[i]->open = true;
+					printf("\nYou opened the door.\n");
+					return;
+				}
 			}
+			printf("\nThere's nothing to open here.\n");
 		}
-		printf("\nThere's nothing to open here.\n");
-	}
 
+		else
+		{
+			printf("\nYou have to specify which door you want to open.\n");
+			return;
+		}
+	}
 	else
 	{
-	printf("\nYou have to specify which door you want to open.\n");
-	return;
+		printf("You have to find the key if you want to open doors.\n");
 	}
 }
 
@@ -813,17 +820,24 @@ void World::Close(int pos, Vector<MyString> &commands) const
 
 void World::Pick(Vector<MyString> &commands)
 {
-	for (int i = 0; i < NUM_ITEMS; i++)
+	if (player->num_items < player->max_items)
 	{
-		if (commands.size() == 2 && commands[1] == items[i]->name && items[i]->src == player->player_pos && items[i]->picked == false)
+		for (int i = 0; i < NUM_ITEMS; i++)
 		{
-			items[i]->picked = true;
-			player->num_items++;
-			printf("You picked %s\n", items[i]->name.c_str());
-			return;
+			if (commands.size() == 2 && commands[1] == items[i]->name && items[i]->src == player->player_pos && items[i]->picked == false)
+			{
+				items[i]->picked = true;
+				player->num_items++;
+				printf("You picked %s\n", items[i]->name.c_str());
+				return;
+			}
 		}
+		printf("There's any object with that name here in this place.\n");
 	}
-	printf("There's any object with that name here.\n");
+	else
+	{
+		printf("Your inventory is full, you have to drop some items\n");
+	}
 }
 
 void World::Drop(Vector<MyString> &commands)
@@ -832,7 +846,7 @@ void World::Drop(Vector<MyString> &commands)
 	{
 		if (commands.size() == 2 && items[i]->name == commands[1] && items[i]->picked == true)
 		{
-			if (items[i]->equiped == false)
+			if (items[i]->equipped == false)
 			{
 				items[i]->picked = false;
 				items[i]->src = player->player_pos;
@@ -842,7 +856,7 @@ void World::Drop(Vector<MyString> &commands)
 			}
 			else
 			{
-				printf("You have to unequip this item first to drop it.\n");
+				printf("You have to unequip this item first before drop it.\n");
 				return;
 			}
 		}
@@ -882,7 +896,7 @@ void World::Equip(Vector<MyString> &commands)
 				if (player->head_item == false)
 				{
 					player->head_item = true;
-					items[i]->equiped = true;
+					items[i]->equipped = true;
 					player->armor += items[i]->armor;
 					player->attack += items[i]->attack;
 					player->hp += items[i]->hp;
@@ -905,7 +919,7 @@ void World::Equip(Vector<MyString> &commands)
 				if (player->body_item == false)
 				{
 					player->body_item = true;
-					items[i]->equiped = true;
+					items[i]->equipped = true;
 					player->armor += items[i]->armor;
 					player->attack += items[i]->attack;
 					player->hp += items[i]->hp;
@@ -928,12 +942,12 @@ void World::Equip(Vector<MyString> &commands)
 				if (player->RHand_item == false)
 				{
 					player->RHand_item = true;
-					items[i]->equiped = true;
+					items[i]->equipped = true;
 					player->armor += items[i]->armor;
 					player->attack += items[i]->attack;
 					player->hp += items[i]->hp;
 					player->mana += items[i]->mana;
-					printf("You equiped %s on your right hand.\n", items[i]->name.c_str());
+					printf("You equipped %s on your right hand.\n", items[i]->name.c_str());
 					return;
 				}
 				else if (player->RHand_item == true)
@@ -951,17 +965,17 @@ void World::Equip(Vector<MyString> &commands)
 				if (player->LHand_item == false)
 				{
 					player->LHand_item = true;
-					items[i]->equiped = true;
+					items[i]->equipped = true;
 					player->armor += items[i]->armor;
 					player->attack += items[i]->attack;
 					player->hp += items[i]->hp;
 					player->mana += items[i]->mana;
-					printf("You equiped %s on your left hand.\n", items[i]->name.c_str());
+					printf("You equipped %s on your left hand.\n", items[i]->name.c_str());
 					return;
 				}
 				else if (player->LHand_item == true)
 				{
-					printf("You have an item equiped on your left hand already.\n");
+					printf("You have an item equipped on your left hand already.\n");
 					return;
 				}
 			}
@@ -974,17 +988,17 @@ void World::Equip(Vector<MyString> &commands)
 				if (player->legs_item == false)
 				{
 					player->legs_item = true;
-					items[i]->equiped = true;
+					items[i]->equipped = true;
 					player->armor += items[i]->armor;
 					player->attack += items[i]->attack;
 					player->hp += items[i]->hp;
 					player->mana += items[i]->mana;
-					printf("You equiped %s on your legs.\n", items[i]->name.c_str());
+					printf("You equipped %s on your legs.\n", items[i]->name.c_str());
 					return;
 				}
 				else if (player->legs_item == true)
 				{
-					printf("You have an item equiped on your legs already.\n");
+					printf("You have an item equipped on your legs already.\n");
 					return;
 				}
 			}
@@ -1008,7 +1022,7 @@ void World::Unequip(Vector<MyString> &commands)
 	{
 		if (commands.size() == 2 && commands[1] == items[i]->name)
 		{
-			if (items[i]->equiped == true)
+			if (items[i]->equipped == true)
 			{
 				switch (items[i]->part)
 				{
@@ -1044,17 +1058,17 @@ void World::Unequip(Vector<MyString> &commands)
 				}	
 				}
 
-				items[i]->equiped = false;
+				items[i]->equipped = false;
 				player->armor -= items[i]->armor;
 				player->attack -= items[i]->attack;
 				player->hp -= items[i]->hp;
 				player->mana -= items[i]->mana;
-				printf("You have unequiped %s.\n", items[i]->name.c_str());
+				printf("You have unequipped %s.\n", items[i]->name.c_str());
 				return;
 			}
 		}
 	}
-	printf("You haven't got any item equiped with that name.\n");
+	printf("You haven't got any item equipped with that name.\n");
 }
 
 
@@ -1065,27 +1079,31 @@ void World::Equipment()
 	MyString Legs_item;
 	MyString LeftH_item;
 	MyString RightH_item;
+
 	for (int i = 0; i < NUM_ITEMS; i++)
 	{
-		if (items[i]->part == Head && player->head_item == true)
+		if(items[i]->equipped == true)
 		{
-			Head_item = items[i]->name;
-		}
-		else if (items[i]->part == Body && player->body_item == true)
-		{
-			Body_item = items[i]->name;
-		}
-		else if (items[i]->part == Legs && player->legs_item == true)
-		{
-			Legs_item = items[i]->name;
-		}
-		else if (items[i]->part == LHand && player->LHand_item == true)
-		{
-			LeftH_item = items[i]->name;
-		}
-		else if (items[i]->part == RHand && player->RHand_item == true)
-		{
-			RightH_item = items[i]->name;
+			if (items[i]->part == Head)
+			{
+				Head_item = items[i]->name;
+			}
+			else if (items[i]->part == Body)
+			{
+				Body_item = items[i]->name;
+			}
+			else if (items[i]->part == Legs)
+			{
+				Legs_item = items[i]->name;
+			}
+			else if (items[i]->part == LHand)
+			{
+				LeftH_item = items[i]->name;
+			}
+			else if (items[i]->part == RHand)
+			{
+				RightH_item = items[i]->name;
+			}
 		}
 	}
 
@@ -1094,8 +1112,8 @@ void World::Equipment()
 	printf("BODY = %s\n", Body_item.c_str());
 	printf("RIGHT HAND = %s\n", RightH_item.c_str());
 	printf("LEFT HAND = %s\n", LeftH_item.c_str());
-	printf("LEGS = %s\n", Legs_item.c_str());
-	printf("---------------------\n");
+	printf("LEGS = %s", Legs_item.c_str());
+	printf("\n--------------------\n");
 }
 
 World::~World()

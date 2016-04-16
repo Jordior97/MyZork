@@ -9,7 +9,7 @@ typedef unsigned int uint;
 template<class TYPE>
 class Vector
 {
-public:
+private:
 
 	TYPE *vector = nullptr;
 	uint max_size = 2;

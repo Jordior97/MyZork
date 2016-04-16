@@ -16,7 +16,7 @@ public:
 	void Look() const;
 
 	bool picked = false;
-	bool equiped = false;
+	bool equipped = false;
 
 	slot part; 
 
