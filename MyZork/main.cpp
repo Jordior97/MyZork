@@ -117,6 +117,12 @@ int main()
 			{
 				w.Put(commands);
 			}
+
+			//To get items that are inside other items
+			else if (GetCommand(commands) == Get)
+			{
+				w.Get(commands);
+			}
 		}
 
 	} while (quit == false);

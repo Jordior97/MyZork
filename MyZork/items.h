@@ -19,6 +19,8 @@ public:
 	bool inside = false;
 	bool container = false;
 
+	bool magic_gem = false;
+
 	slot part; 
 
 	//modifiers of player stats

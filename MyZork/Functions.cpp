@@ -94,6 +94,12 @@ int GetCommand(Vector<MyString>&commands)
 		return Put;
 	}
 
+	//'GET' COMMANDS
+	else if (commands[0] == "get" || commands[0] == "g")
+	{
+		return Get;
+	}
+
 
 	//INVALID COMMAND
 	else

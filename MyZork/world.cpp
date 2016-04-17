@@ -92,7 +92,7 @@ void World::CreateWorld()
 	exits.push_back(new Exit("THE STONE DOOR\n", "This door is too heavy and big.\nYou have to use your magic abilities if you want to continue to the next floor.\n", rooms[9], rooms[10], up, true, false));
 
 	//CHALLENGE 2 (exits[11])
-	exits.push_back(new Exit("INVISIBLE STAIRS\n", "What is going on? There are no stairs to keep going up.\nLook, there's a padlock there maybe we can open with the correct key.\n", rooms[10], rooms[11], up, true, false));
+	exits.push_back(new Exit("INVISIBLE STAIRS\n", "What is going on? There are no stairs to keep going up.\nLook, there's a hatch in the roof with a padlock that maybe we can open with our key.\n", rooms[10], rooms[11], up, true, false));
 
 	//FINAL DOOR (exits[12])
 	exits.push_back(new Exit("THE FINAL DOOR\n", "Are you sure you want to open this door?\nThe ultimate challenge is waiting behind it...\n", rooms[11], rooms[12], east, true, false));
@@ -140,8 +140,29 @@ void World::CreateWorld()
 	items.push_back(new Item("RING", "This magic artefact is called 'The One Ring' it can increase your magical power.\nLook closely, there is an inscription: 'One ring to rule them all'.\n", rooms[8], LHand, 0, 20, 10, 0));
 
 	//TRUNK (items[8])
-	items.push_back(new Item("TRUNK", "You can put all the items you want into this magic trunk if you run out of inventory space ", rooms[2], Non_Equipable, 0, 0, 0, 0));
+	items.push_back(new Item("TRUNK", "You can put all the items you want into this magic trunk if you run out of inventory space.\n", rooms[2], Non_Equipable, 0, 0, 0, 0));
 	items[8]->container = true;
+
+	/*---Magic Gems---*/
+	//AKA (items[9])
+	items.push_back(new Item("AKA", "This is the red gem. It allows you to control fire\n", rooms[8], Non_Equipable, 0, 0, 0, 0));
+	items[9]->magic_gem = true;
+
+	//AO (items[10])
+	items.push_back(new Item("AO", "This is the blue gem. It allows you to control water\n", rooms[3], Non_Equipable, 0, 0, 0, 0));
+	items[10]->magic_gem = true;
+
+	//KIIRO (items[11])
+	items.push_back(new Item("KIIRO", "This is the yellow gem. It allows you to control electricity\n", rooms[5], Non_Equipable, 0, 0, 0, 0));
+	items[11]->magic_gem = true;
+
+	//KURO (items[12])
+	items.push_back(new Item("KURO", "This is the black gem. It allows you to control darkness\n", rooms[6], Non_Equipable, 0, 0, 0, 0));
+	items[12]->magic_gem = true;
+
+	//SHIRO (items[13])
+	items.push_back(new Item("SHIRO", "This is the white gem. It allows you to control brightness\n", rooms[9], Non_Equipable, 0, 0, 0, 0));
+	items[13]->magic_gem = true;
 }
 
 
@@ -461,11 +482,22 @@ void World::Look(int pos, Vector<MyString> &commands) const
 /*---HELP FUNCTION---*/
 void World::Help() const
 {
-	printf("\nThis is 'Simon & Baxter: the magical stones'\n\nIt's an interactive textual game in which you have to explore\n");
-	printf("a fantasy world full of enemies and challenges to get\nmagical stones. With their power you will be able to defeat Rakdos,\nthe Devil King.\n");
-	printf("\nINSTRUCTIONS:\n");
-	printf("The commands that you can enter:\ngo / look / open _ door / close _ door / help / quit.\n\n");
-	printf("To specify the direction you want:\nnorth(n) / south(s) / east(e) / west(w) / up(u) / down(d)\n");
+	printf("\nThis is 'Simon & Baxter: the magical gems'\n\nIt's an interactive textual game in which you have to explore\n");
+	printf("a fantasy world full of enemies and challenges to get\nmagical gems. With their power you will be able to defeat Rakdos,\nthe Devil King.\n");
+	printf("\nINSTRUCTIONS:\n\n");
+	printf("The BASIC COMMANDS that you can enter:\ngo / look / open ... door / close ... door / help / quit.\n\n");
+	printf("To specify the DIRECTION you want:\nnorth(n) / south(s) / east(e) / west(w) / up(u) / down(d)\n\n");
+	printf("To INTERACT with OBJECTS you can introduce these commands:\n");
+	printf("pick / drop <item> = to put items in your inventory / leave items in the room you are.\n");
+	printf("equip / unequip <item> = to equip/unequip items that are in the inventory.\n");
+	printf("put <item> into <containter> = to put an item into another item (container).\n");
+	printf("get <item> from <containter> = to get an item that's inside another item container).\n");
+	printf("look trunk = to look items that are inside this container.\n\n");
+	printf("To know basic INFORMATION related to the character:\n");
+	printf("inventory / inv / i = it shows all the items the player is carrying.\n");
+	printf("equipment(eq) = it shows the equipped items.\n");
+	printf("stats(st) = to look the statistics of the character.\n");
+
 }
 
 /*---OPEN FUNCTION---*/
@@ -682,6 +714,7 @@ void World::Pick(Vector<MyString> &commands) const
 					items[i]->picked = true;
 					player->num_items++;
 					printf("You picked %s\n", items[i]->name.c_str());
+					printf("N_items = %i\n", player->num_items);
 					return;
 				}
 				else
@@ -714,6 +747,7 @@ void World::Drop(Vector<MyString> &commands) const
 				items[i]->src = player->player_pos;
 				player->num_items--;
 				printf("You dropped %s\n", items[i]->name.c_str());
+				printf("N_items = %i\n", player->num_items);
 				return;
 			}
 			//...because you can't drop an equipped item
@@ -738,11 +772,22 @@ void World::Inventory() const
 		for (i = 0; i < NUM_ITEMS; i++)
 		{
 			//shows the names and descriptions of the picked items
-			if (items[i]->picked == true)
+			if (items[i]->picked == true && items[i]->magic_gem == false)
 			{
 				printf("%s\n%s\n", items[i]->name.c_str(), items[i]->description.c_str());
 			}
 		}
+		printf("------------------\n");
+		printf("MAGIC GEMS:\n\n");
+		for (i = 0; i < NUM_ITEMS; i++)
+		{
+			//shows the names and descriptions of the picked items
+			if (items[i]->picked == true && items[i]->magic_gem == true)
+			{
+				printf("%s\n%s\n", items[i]->name.c_str(), items[i]->description.c_str());
+			}
+		}
+		printf("------------------\n");
 	}
 	else
 	{
@@ -945,7 +990,7 @@ void World::Unequip(Vector<MyString> &commands) const
 	printf("You haven't got any item equipped with that name.\n");
 }
 
-/*---EQUIP FUNCTION---*/
+/*---EQUIPMENT FUNCTION---*/
 void World::Equipment() const
 {
 	MyString Head_item;
@@ -1010,7 +1055,9 @@ void World::Put(Vector<MyString> &commands) const
 							items[i]->inside = true;
 							items[i]->src = items[j]->src;
 							items[i]->picked = false;
+							player->num_items--;
 							printf("You put %s into %s\n", items[i]->name.c_str(), items[j]->name.c_str());
+							printf("N_items = %i\n", player->num_items);
 							return;
 						}
 						else if (items[j]->src != player->player_pos)
@@ -1041,6 +1088,63 @@ void World::Put(Vector<MyString> &commands) const
 		return;
 	}
 	printf("You have introduced some invalid commands.\n");
+}
+
+/*---GET FUNCTION---*/
+void World::Get(Vector<MyString> &commands) const
+{
+	if (commands.size() == 4 && commands[2] == "from")
+	{
+		if (player->num_items < player->max_items)
+		{
+			for (int i = 0; i < NUM_ITEMS; i++)
+			{
+				if (commands[1] == items[i]->name && items[i]->picked == false && items[i]->inside == true && items[i]->src && player->player_pos)
+				{
+					for (int j = 0; j < NUM_ITEMS; j++)
+					{
+						if (items[j]->name == commands[3] && items[j]->container == true)
+						{
+							if (items[j]->src == player->player_pos)
+							{
+								items[i]->inside = false;
+								items[i]->picked = true;
+								player->num_items++;
+								printf("You got %s from %s\n", items[i]->name.c_str(), items[j]->name.c_str());
+								printf("N_items = %i\n", player->num_items);
+								return;
+							}
+							else if (items[j]->src != player->player_pos)
+							{
+								printf("You are trying to get an object from a container that is not in this room.\n");
+								return;
+							}
+						}
+						else if (items[j]->name == commands[3] && items[j]->container == false)
+						{
+							printf("You are trying to get an item from a non-container item.\nIt's an impossible action.\n");
+							return;
+						}
+					}
+				}
+				else if (commands[1] == items[i]->name && items[i]->picked == true)
+				{
+					printf("You already have this item in your inventory.\n");
+					return;
+				}
+			}
+			printf("Make sure you have introduced the correct names of the items.\n");
+			return;
+		}
+		else
+		{
+			printf("Your inventory is full, so you can't get more items.\n");
+		}
+	}
+	else
+	{
+		printf("You have introduced some invalid commands.\n");
+	}
 }
 
 World::~World()
