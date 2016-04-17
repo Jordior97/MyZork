@@ -88,6 +88,12 @@ int GetCommand(Vector<MyString>&commands)
 		return Equipment;
 	}
 
+	//'PUT' COMMANDS
+	else if (commands[0] == "put" || commands[0] == "p")
+	{
+		return Put;
+	}
+
 
 	//INVALID COMMAND
 	else

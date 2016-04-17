@@ -106,10 +106,16 @@ int main()
 				w.player->Stats();
 			}
 
-			//Goes to Drop Function Member
+			//To look items equipped
 			else if (GetCommand(commands) == Equipment)
 			{
 				w.Equipment();
+			}
+
+			//To put items inside other items
+			else if (GetCommand(commands) == Put)
+			{
+				w.Put(commands);
 			}
 		}
 

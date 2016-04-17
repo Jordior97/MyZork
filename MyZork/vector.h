@@ -90,11 +90,20 @@ public:
 		delete[] vector;
 	}
 
-	const TYPE &operator[](const uint &index) const
+	TYPE &operator[](uint index) const
 	{
 		assert(index >= 0 && index < n_elements);
 		return vector[index];
 	}
+
+
+	TYPE &operator[](uint index) 
+	{
+		assert(index >= 0 && index < n_elements);
+		return vector[index];
+	}
+
+
 
 	bool empty() const
 	{

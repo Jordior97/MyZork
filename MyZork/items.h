@@ -10,13 +10,14 @@ class Item :public Entity
 {
 public:
 
-
-	//source room
-	Room* src; 
+	
+	Room* src; //source room
 	void Look() const;
 
 	bool picked = false;
 	bool equipped = false;
+	bool inside = false;
+	bool container = false;
 
 	slot part; 
 

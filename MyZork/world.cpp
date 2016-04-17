@@ -59,7 +59,7 @@ void World::CreateWorld()
 	/*---CREATE EXITS---*/
 
 	//PORTAL (exits[0])
-	exits.push_back(new Exit("PORTAL\n", "What an strange Portal, let's cross it.\n", rooms[0], rooms[1], down,false,true));
+	exits.push_back(new Exit("PORTAL\n", "What an strange Portal, let's cross it.\n", rooms[0], rooms[1], down, false, true));
 
 	//FOREST (exits[1])
 	exits.push_back(new Exit("FOREST\n", "It's a big forest.\n", rooms[1], rooms[3], west, false, true));
@@ -139,7 +139,9 @@ void World::CreateWorld()
 	//RING (items[7])
 	items.push_back(new Item("RING", "This magic artefact is called 'The One Ring' it can increase your magical power.\nLook closely, there is an inscription: 'One ring to rule them all'.\n", rooms[8], LHand, 0, 20, 10, 0));
 
-
+	//TRUNK (items[8])
+	items.push_back(new Item("TRUNK", "You can put all the items you want into this magic trunk if you run out of inventory space ", rooms[2], Non_Equipable, 0, 0, 0, 0));
+	items[8]->container = true;
 }
 
 
@@ -333,9 +335,10 @@ void World::Movement(int &pos, Vector<MyString> &commands)
 	}
 }
 
+/*---LOOK FUNCTION---*/
 void World::Look(int pos, Vector<MyString> &commands) const
 {
-	int i; //Countes to consider the correct room/exit when you are looking
+	int i; //Counters to consider the correct room/exit when you are looking
 	player->player_pos = rooms[pos];
 
 	if (commands.size() == 2 && (commands[1] == "north" || commands[1] == "n" )) //checks if commands introduced are correct
@@ -416,21 +419,46 @@ void World::Look(int pos, Vector<MyString> &commands) const
 		printf("\nThere's nothing to look here.\n");
 	}
 
-	else //Case 3: name and description of the room you are. It shows items that are in the room too.
+	else if (commands.size() == 2 && (commands[1] == "trunk"))
+	{
+		if (items[8]->src == player->player_pos)
+		{
+			printf("Items inside the TRUNK:\n\n");
+			for (i = 0; i < NUM_ITEMS; i++)
+			{
+				if (items[i]->inside == true)
+				{
+					printf("%s\n%s\n", items[i]->name.c_str(), items[i]->description.c_str());
+				}
+			}
+		}
+		else
+		{
+			printf("The TRUNK is not here.\n");
+		}
+	}
+
+	else if(commands.size()==1)//Case 3: name and description of the room you are. It shows items that are in the room too.
 	{
 		rooms[pos]->Look();
 		printf("\n--------------------------\n");
 		printf("\nItems you can find here:\n\n");
 		for (i = 0; i < NUM_ITEMS; i++)
 		{
-			if (player->player_pos == items[i]->src && items[i]->picked == false)
+			if (player->player_pos == items[i]->src && items[i]->picked == false && items[i]->inside == false)
 			{
 				items[i]->Look();
 			}
 		}
 	}
+
+	else
+	{
+		printf("Introduce a valid command if you want to look properly.\n");
+	}
 }
 
+/*---HELP FUNCTION---*/
 void World::Help() const
 {
 	printf("\nThis is 'Simon & Baxter: the magical stones'\n\nIt's an interactive textual game in which you have to explore\n");
@@ -440,7 +468,7 @@ void World::Help() const
 	printf("To specify the direction you want:\nnorth(n) / south(s) / east(e) / west(w) / up(u) / down(d)\n");
 }
 
-
+/*---OPEN FUNCTION---*/
 void World::Open(int pos, Vector<MyString>&commands) const
 {
 	int i;  //Counter to consider the correct exit
@@ -546,7 +574,7 @@ void World::Open(int pos, Vector<MyString>&commands) const
 	}
 }
 
-
+/*---CLOSE FUNCTION---*/
 void World::Close(int pos, Vector<MyString> &commands) const
 {
 	int i;
@@ -638,7 +666,7 @@ void World::Close(int pos, Vector<MyString> &commands) const
 	}
 }
 
-
+/*---PICK FUNCTION---*/
 void World::Pick(Vector<MyString> &commands) const
 {
 	//Checks if intventory is full (so you can't pick more objects)
@@ -649,10 +677,18 @@ void World::Pick(Vector<MyString> &commands) const
 			//checks if the commands introduced are correct (first command == pick && second command == <item_name>) and if the item is not in the inventory yet
 			if (commands.size() == 2 && commands[1] == items[i]->name && items[i]->src == player->player_pos && items[i]->picked == false)
 			{
-				items[i]->picked = true;
-				player->num_items++;
-				printf("You picked %s\n", items[i]->name.c_str());
-				return;
+				if (items[i]->container == false)
+				{
+					items[i]->picked = true;
+					player->num_items++;
+					printf("You picked %s\n", items[i]->name.c_str());
+					return;
+				}
+				else
+				{
+					printf("This item is too big to carry it.\n");
+					return;
+				}
 			}
 		}
 		printf("There's any object with that name here in this place.\n");
@@ -663,6 +699,7 @@ void World::Pick(Vector<MyString> &commands) const
 	}
 }
 
+/*---DROP FUNCTION---*/
 void World::Drop(Vector<MyString> &commands) const
 {
 	for (int i = 0; i < NUM_ITEMS; i++)
@@ -690,6 +727,7 @@ void World::Drop(Vector<MyString> &commands) const
 	printf("There's any object with that name in your inventory.\n");
 }
 
+/*---INVENTORY FUNCTION---*/
 void World::Inventory() const
 {
 	int i;
@@ -712,6 +750,7 @@ void World::Inventory() const
 	}
 }
 
+/*---EQUIP FUNCTION---*/
 void World::Equip(Vector<MyString> &commands) const
 {
 	for (int i = 0; i < NUM_ITEMS; i++)
@@ -846,6 +885,7 @@ void World::Equip(Vector<MyString> &commands) const
 	printf("You don't have any item to equip with that name.\n");
 }
 
+/*---UNEQUIP FUNCTION---*/
 void World::Unequip(Vector<MyString> &commands) const
 {
 	int i;
@@ -905,7 +945,7 @@ void World::Unequip(Vector<MyString> &commands) const
 	printf("You haven't got any item equipped with that name.\n");
 }
 
-
+/*---EQUIP FUNCTION---*/
 void World::Equipment() const
 {
 	MyString Head_item;
@@ -949,6 +989,58 @@ void World::Equipment() const
 	printf("LEFT HAND = %s\n", LeftH_item.c_str());
 	printf("LEGS = %s", Legs_item.c_str());
 	printf("\n--------------------\n");
+}
+
+
+/*---PUT FUNCTION---*/
+void World::Put(Vector<MyString> &commands) const
+{
+	if (commands.size() == 4 && commands[2] == "into")
+	{
+		for (int i = 0; i < NUM_ITEMS; i++)
+		{
+			if (commands[1] == items[i]->name && items[i]->picked == true && items[i]->equipped==false)
+			{
+				for (int j = 0; j < NUM_ITEMS; j++)
+				{
+					if (items[j]->name == commands[3] && items[j]->container == true)
+					{
+						if (items[j]->src == player->player_pos)
+						{
+							items[i]->inside = true;
+							items[i]->src = items[j]->src;
+							items[i]->picked = false;
+							printf("You put %s into %s\n", items[i]->name.c_str(), items[j]->name.c_str());
+							return;
+						}
+						else if (items[j]->src != player->player_pos)
+						{
+							printf("You are trying to put an object inside a container that is not in this room.\n");
+							return;
+						}
+					}
+					else if (items[j]->name == commands[3] && items[j]->container == false)
+					{
+						printf("You are trying to put an item inside a non-container item.\nIt's an impossible action.\n");
+						return;
+					}
+				}
+			}
+			else if (commands[1] == items[i]->name && items[i]->picked == false)
+			{
+				printf("You haven't got this item in you inventory.\n");
+				return;
+			}
+			else if (commands[1] == items[i]->name && items[i]->equipped == true)
+			{
+				printf("You have to unequip this item first.\n");
+				return;
+			}
+		}
+		printf("Make sure you have introduced the correct names of the items.\n");
+		return;
+	}
+	printf("You have introduced some invalid commands.\n");
 }
 
 World::~World()

@@ -13,7 +13,7 @@
 #define EXIT 200
 #define NUM_ROOMS 13
 #define NUM_EXITS 18
-#define NUM_ITEMS 8
+#define NUM_ITEMS 9
 
 
 // Now, if you include "world.h" in other files,
@@ -43,6 +43,7 @@ public:
 	void Equip(Vector<MyString>&) const;
 	void Unequip(Vector<MyString>&) const;
 	void Equipment() const;
+	void Put(Vector<MyString>&) const;
 
 	~World();
 };
