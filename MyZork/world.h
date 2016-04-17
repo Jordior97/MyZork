@@ -28,7 +28,6 @@ public:
 	Vector<Item*> items;
 
 	Player* player = nullptr;
-	Item* inventory = nullptr;
 
 	World();
 
@@ -38,12 +37,12 @@ public:
 	void Help() const;
 	void Open(int, Vector<MyString>&) const;
 	void Close(int, Vector<MyString>&) const;
-	void Pick(Vector<MyString>&);
-	void Drop(Vector<MyString>&);
+	void Pick(Vector<MyString>&) const;
+	void Drop(Vector<MyString>&) const;
 	void Inventory() const;
-	void Equip(Vector<MyString>&);
-	void Unequip(Vector<MyString>&);
-	void Equipment();
+	void Equip(Vector<MyString>&) const;
+	void Unequip(Vector<MyString>&) const;
+	void Equipment() const;
 
 	~World();
 };

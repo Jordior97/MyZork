@@ -18,14 +18,14 @@ private:
 
 public:
 
-	//CONSTRUCTORS-DESTRUCTOR
+	/*---CONSTRUCTORS-DESTRUCTOR---*/
 	MyString();
 	MyString(const char *string);
 	MyString(const MyString &other);
 	~MyString();
 
 
-	//MEMBER FUNCTIONS
+	/*---MEMBER FUNCTIONS---*/
 
 	//returns the string
 	const char *c_str() const;
@@ -45,29 +45,28 @@ public:
 	//compare string(class) - string
 	bool operator==(const char *string) const;
 
-	//iguala una classe a una altra
+	//equals a string class to another one
 	void operator=(const MyString &other);
+
+	//equals a string class to a string
 	void operator=(const char *other);
 
-	//concatena dues cadenes
+	//concatenates two string classes
 	void operator+=(const MyString &other);
 
-	//cadena1 = cadena2 + cadena3
+	//string_class1 = string_class2 + string_class3
 	MyString operator+(const MyString &other) const;
 
-	//deixa la cadena sense caràcters
+	//leaves a string class without characters
 	void clear();
 
-	//la memòria alocatada s'iguala al nombre de caràcters de la cadena (+1)
+	//fits the allocated memory to the size of the string(+1)
 	void shrink_to_fit();
 
-	//void set(char *command);
-
-	//void Tokenize(const char*,Vector<MyString>&);
-
+	//split a string word by word
 	Vector<MyString> SplitString(const char *symbol, char* command);
 
-
+	//void set(char *command);
 
 };
 

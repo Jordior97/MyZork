@@ -17,10 +17,10 @@ private:
 
 public:
 
+	/*---CONSTRUCTORS-DESTRUCTOR---*/
 	Vector()
 	{
 		vector = new TYPE[max_size];
-		//printf("EMPTY CONSTRUCTOR\n");
 	}
 
 	Vector(const Vector &other)
@@ -35,8 +35,10 @@ public:
 				*(vector + i) = *(other.vector + i);
 			}
 		}
-		//printf("COPY CONSTRUCTOR\n");
 	}
+
+
+	/*---MEMBER FUNCTIONS---*/
 
 	void push_back(const TYPE &element)
 	{
@@ -54,7 +56,6 @@ public:
 			delete[] vector;
 			vector = temp;
 		}
-
 		*(vector + n_elements++) = element;
 	}
 
@@ -86,7 +87,6 @@ public:
 
 	~Vector()
 	{
-		//printf("DESTRUCTOR\n");
 		delete[] vector;
 	}
 
@@ -141,7 +141,6 @@ public:
 	}
 
 };
-
 
 
 #endif
