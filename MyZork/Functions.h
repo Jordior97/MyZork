@@ -3,6 +3,6 @@
 
 enum action { Movement, Look, Open, Close, Pick, Drop, Help, Quit, Invalid_command, Inventory, Equip, Unequip, Stats, Equipment, Put, Get };
 
-int GetCommand(Vector<MyString>&);
+int GetCommand(const Vector<MyString>&);
 
 #endif

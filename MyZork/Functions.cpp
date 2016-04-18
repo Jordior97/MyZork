@@ -4,7 +4,7 @@
 #include"world.h"
 
 
-int GetCommand(Vector<MyString>&commands)
+int GetCommand(const Vector<MyString>&commands)
 {
 	//'GO' COMMANDS
 	if (commands[0] == "go" || commands[0] == "n" || commands[0] == "s" || commands[0] == "e" ||

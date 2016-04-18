@@ -7,7 +7,7 @@ class Room:public Entity
 {
 public:
 	Room(const char*,const char*);
-	//~Room();
+	~Room();
 	
 	void Look()const;
 	

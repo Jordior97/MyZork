@@ -15,8 +15,13 @@ public:
 
 	bool picked = false; //indicates if the item is in the inventory
 	bool equipped = false; //indicates if the item is equipped
+
 	bool inside = false; //indicates if the item is inside the container
 	bool container = false; //indicates if the item is a container
+
+	/*In my case, I only use the TRUNK to put items inside it.
+	With this code structure I avoid indicating, in every element, a list of the elements
+	it contains (only the trunk can contain other items)*/
 
 	bool magic_gem = false; //indicates if the item is a magic gem
 
@@ -29,8 +34,7 @@ public:
 	int armor;
 
 	Item(const char*, const char*, Room*, slot, int, int, int, int);
-	//~Item();
-
+	~Item();
 };
 
 #endif

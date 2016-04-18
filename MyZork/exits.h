@@ -17,7 +17,7 @@ public:
 	void Look()const;
 
 	Exit(const char*, const char*,Room*,Room*,dir,bool,bool);
-	//~Exit();
+	~Exit();
 
 };
 
