@@ -506,8 +506,8 @@ void World::Help() const
 	printf("get <item> from <containter> = to get an item that's inside\nanother item container).\n");
 	printf("look trunk = to look items that are inside this container.\n\n");
 	printf("To know basic INFORMATION related to the character:\n");
-	printf("You can't see what objects are in the room when you move between them.\n");
-	printf("To see them, you have to insert the command 'look'.\n");
+	printf("You can't see which objects are in the room when you move between them.\n");
+	printf("To see the items, you have to insert the command 'look'.\n");
 	printf("inventory / inv / i = it shows all the items the player is carrying.\n");
 	printf("equipment(eq) = it shows the equipped items.\n");
 	printf("stats(st) = to look the statistics of the character.\n");
@@ -763,7 +763,7 @@ void World::Drop(Vector<MyString> &commands) const
 				items[i]->picked = false;
 				items[i]->src = rooms[random];
 				player->num_items--;
-				printf("You dropped %s\n", items[i]->name.c_str());
+				printf("You dropped %s and the Wormhole made it desappear.\n", items[i]->name.c_str());
 				printf("rooms[%i]\n", random);
 				return;
 			}
