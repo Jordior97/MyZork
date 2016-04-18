@@ -61,7 +61,7 @@ void World::CreateWorld()
 	exits.push_back(new Exit("PORTAL\n", "What an strange Portal, let's cross it.\n", rooms[0], rooms[1], down, false, true));
 
 	//FOREST (exits[1])
-	exits.push_back(new Exit("FOREST\n", "It's a big forest.\n", rooms[1], rooms[3], west, false, true));
+	exits.push_back(new Exit("FOREST\n", "It's a big forest. So many people came\ninto the forest and never have returned.\n", rooms[1], rooms[3], west, false, true));
 
 	//SAND PATH (exits[2])
 	exits.push_back(new Exit("SAND PATH\n", "A long path that connects this big lake with Grimgar.\n", rooms[3], rooms[1], east, false, true));
@@ -136,10 +136,10 @@ void World::CreateWorld()
 	items.push_back(new Item("AXE", "Use this powerful and big axe to destroy hundreds and hundreds of enemies,\nlike Nanoc the Barbarian.\n", rooms[7], RHand, 10, 0, 0, 0));
 
 	//RING (items[7])
-	items.push_back(new Item("RING", "This magic artefact is called 'The One Ring' it can increase your magical power.\nLook closely, there is an inscription: 'One ring to rule them all'.\n", rooms[8], LHand, 0, 20, 10, 0));
+	items.push_back(new Item("RING", "This magic artefact is called 'The One Ring' it can increase your magical\npower.Look closely, there is an inscription: 'One ring to rule them all'.\n", rooms[8], LHand, 0, 20, 10, 0));
 
 	//TRUNK (items[8])
-	items.push_back(new Item("TRUNK", "You can put all the items you want into this magic trunk if you run out of inventory space.\n", rooms[2], Non_Equipable, 0, 0, 0, 0));
+	items.push_back(new Item("TRUNK", "You can put all the items you want into this magic trunk if\nyou run out of inventory space.\n", rooms[2], Non_Equipable, 0, 0, 0, 0));
 	items[8]->container = true;
 
 	/*----------------------*/
@@ -164,7 +164,7 @@ void World::CreateWorld()
 	//SHIRO (items[13])
 	items.push_back(new Item("SHIRO", "This is the white gem. It allows you to control brightness\n", rooms[9], Non_Equipable, 0, 0, 0, 0));
 	items[13]->magic_gem = true;
-
+	
 	/*----------------------*/
 
 	//EXCALIBUR (items[14])
@@ -791,7 +791,7 @@ void World::Inventory() const
 			//shows the names and descriptions of the picked items
 			if (items[i]->picked == true && items[i]->magic_gem == false)
 			{
-				printf("%s\n%s\n", items[i]->name.c_str(), items[i]->description.c_str());
+				items[i]->Look();
 			}
 		}
 		printf("------------------\n");
@@ -801,7 +801,7 @@ void World::Inventory() const
 			//shows the names and descriptions of the picked items
 			if (items[i]->picked == true && items[i]->magic_gem == true)
 			{
-				printf("%s\n%s\n", items[i]->name.c_str(), items[i]->description.c_str());
+				items[i]->Look();
 			}
 		}
 		printf("------------------\n");
