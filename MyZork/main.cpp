@@ -1,4 +1,5 @@
 #include"world.h"
+#include"MemLeaks.h"
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
@@ -6,6 +7,7 @@
 
 int main()
 {
+	ReportMemoryLeaks();
 	bool quit =false; //variable used to quit the game
 	World w;
 

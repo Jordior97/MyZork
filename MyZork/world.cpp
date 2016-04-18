@@ -1172,7 +1172,22 @@ void World::Get(const Vector<MyString> &commands) const
 
 World::~World()
 {
+	int i;
 	delete player;
+	for (i = 0; i < NUM_ROOMS; i++)
+	{
+		delete rooms[i];
+	}
+
+	for (i = 0; i < NUM_EXITS; i++)
+	{
+		delete exits[i];
+	}
+
+	for (i = 0; i < NUM_ITEMS; i++)
+	{
+		delete items[i];
+	}
 }
 
 
