@@ -47,7 +47,7 @@ You have to think twice before dropping an item. Why? Because of the physical
 
 laws of this world, a wormhole is created when you drop items, making them appear into another room. 
 
-If you want to keep your items safe,\nyou have to put them into the trunk.
+If you want to keep your items safe, you have to put them into the trunk.
 
 
 
