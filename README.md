@@ -23,7 +23,7 @@ equip / unequip <item> = to equip/unequip items that are in the inventory.
 
 put <item> into <containter> = to put an item into another item (container).
 
-get <item> from <containter> = to get an item that's inside\nanother item container).
+get <item> from <containter> = to get an item that's inside another item (container).
 
 look trunk = to look items that are inside this container.
 
