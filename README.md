@@ -8,14 +8,48 @@ Whith their power you will be able to defeat Rakdos, the Devil King
 
 INSTRUCTIONS:
 
-The commands that you can enter: go / look / open (direction) door / close (direction) door / help / quit.
+The **BASIC COMMANDS** that you can enter:: go / look / open (direction) door / close (direction) door / help / quit.
 
-To specify the direction you want: north(n) / south(s) / east(e) / west(w) / up(u) / down(d)
-
-* There's a picture of the map in the release to see all the rooms and exits you can interact with.
+To specify the DIRECTION you want: north(n) / south(s) / east(e) / west(w) / up(u) / down(d)
 
 
-AUTHOR: Jordi Oña Rufí.
+To **INTERACT** with **OBJECTS** you can introduce these commands:
+
+pick / drop <item> = to put items in your inventory / leave items\nin the room you are.
+
+equip / unequip <item> = to equip/unequip items that are in the inventory.
+
+put <item> into <containter> = to put an item into another item (container).
+
+get <item> from <containter> = to get an item that's inside\nanother item container).
+
+look trunk = to look items that are inside this container.
+
+To know basic **INFORMATION** related to the character:
+
+You can't see which objects are in the room when you move between them.
+
+To see the items, you have to insert the command 'look'.
+
+inventory / inv / i = it shows all the items the player is carrying.
+
+equipment(eq) = it shows the equipped items.
+
+stats(st) = to look the statistics of the character.
+
+SPECIAL FEATURE: WormHole
+
+You have to think twice before dropping an item. Why? Because of the physical 
+
+laws of this world, a wormhole is created when you drop items, making them appear into another room. 
+
+If you want to keep your items safe,\nyou have to put them into the trunk.
+
+
+
+
+
+AUTHOR: Jordi OÃ±a RufÃ­.
 
 GITHUB REPOSITORY: https://github.com/Jordior97/MyZork
 
