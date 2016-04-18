@@ -179,7 +179,7 @@ void World::CreateWorld()
 
 
 /*---MOVEMENT FUNCTION---*/
-void World::Movement(int &pos, Vector<MyString> &commands)
+void World::Movement(int &pos, const Vector<MyString> &commands)
 {
 	fflush(stdin);
 
@@ -369,7 +369,7 @@ void World::Movement(int &pos, Vector<MyString> &commands)
 }
 
 /*---LOOK FUNCTION---*/
-void World::Look(int pos, Vector<MyString> &commands) const
+void World::Look(int pos, const Vector<MyString> &commands) const
 {
 	int i; //Counters to consider the correct room/exit when you are looking
 	player->player_pos = rooms[pos];
@@ -517,7 +517,7 @@ void World::Help() const
 }
 
 /*---OPEN FUNCTION---*/
-void World::Open(int pos, Vector<MyString>&commands) const
+void World::Open(int pos, const Vector<MyString>&commands) const
 {
 	int i;  //Counter to consider the correct exit
 	player->player_pos = rooms[pos];
@@ -623,7 +623,7 @@ void World::Open(int pos, Vector<MyString>&commands) const
 }
 
 /*---CLOSE FUNCTION---*/
-void World::Close(int pos, Vector<MyString> &commands) const
+void World::Close(int pos, const Vector<MyString> &commands) const
 {
 	int i;
 	player->player_pos = rooms[pos];
@@ -715,7 +715,7 @@ void World::Close(int pos, Vector<MyString> &commands) const
 }
 
 /*---PICK FUNCTION---*/
-void World::Pick(Vector<MyString> &commands) const
+void World::Pick(const Vector<MyString> &commands) const
 {
 	//checks if inventory is full (so you can't pick more objects)
 	if (player->num_items < player->max_items)
@@ -748,7 +748,7 @@ void World::Pick(Vector<MyString> &commands) const
 }
 
 /*---DROP FUNCTION---*/
-void World::Drop(Vector<MyString> &commands) const
+void World::Drop(const Vector<MyString> &commands) const
 {
 	srand(time(NULL));
 	for (int i = 0; i < NUM_ITEMS; i++)
@@ -812,7 +812,7 @@ void World::Inventory() const
 }
 
 /*---EQUIP FUNCTION---*/
-void World::Equip(Vector<MyString> &commands) const
+void World::Equip(const Vector<MyString> &commands) const
 {
 	for (int i = 0; i < NUM_ITEMS; i++)
 	{
@@ -947,7 +947,7 @@ void World::Equip(Vector<MyString> &commands) const
 }
 
 /*---UNEQUIP FUNCTION---*/
-void World::Unequip(Vector<MyString> &commands) const
+void World::Unequip(const Vector<MyString> &commands) const
 {
 	int i;
 	for (i = 0; i < NUM_ITEMS; i++)
@@ -1054,7 +1054,7 @@ void World::Equipment() const
 
 
 /*---PUT FUNCTION---*/
-void World::Put(Vector<MyString> &commands) const
+void World::Put(const Vector<MyString> &commands) const
 {
 	//checks if the commands introduced are correct
 	if (commands.size() == 4 && commands[2] == "into")
@@ -1110,7 +1110,7 @@ void World::Put(Vector<MyString> &commands) const
 }
 
 /*---GET FUNCTION---*/
-void World::Get(Vector<MyString> &commands) const
+void World::Get(const Vector<MyString> &commands) const
 {
 	//checks if the commands introduced are correct
 	if (commands.size() == 4 && commands[2] == "from")

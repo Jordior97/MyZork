@@ -30,19 +30,19 @@ public:
 	World();
 
 	void CreateWorld();
-	void Movement(int&, Vector<MyString>&);
-	void Look(int, Vector<MyString>&) const;
+	void Movement(int&, const Vector<MyString>&);
+	void Look(int, const Vector<MyString>&) const;
 	void Help() const;
-	void Open(int, Vector<MyString>&) const;
-	void Close(int, Vector<MyString>&) const;
-	void Pick(Vector<MyString>&) const;
-	void Drop(Vector<MyString>&) const;
+	void Open(int, const Vector<MyString>&) const;
+	void Close(int, const Vector<MyString>&) const;
+	void Pick(const Vector<MyString>&) const;
+	void Drop(const Vector<MyString>&) const;
 	void Inventory() const;
-	void Equip(Vector<MyString>&) const;
-	void Unequip(Vector<MyString>&) const;
+	void Equip(const Vector<MyString>&) const;
+	void Unequip(const Vector<MyString>&) const;
 	void Equipment() const;
-	void Put(Vector<MyString>&) const;
-	void Get(Vector<MyString>&) const;
+	void Put(const Vector<MyString>&) const;
+	void Get(const Vector<MyString>&) const;
 
 	~World();
 };
