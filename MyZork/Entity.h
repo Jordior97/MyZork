@@ -9,7 +9,7 @@ public:
 	MyString name;
 	MyString description;
 	Entity(const char*,const char*);
-	//~Entity();
+	~Entity();
 	virtual void Look() const{};
 
 };
