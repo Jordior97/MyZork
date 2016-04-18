@@ -187,7 +187,7 @@ void World::Movement(int &pos, const Vector<MyString> &commands)
 
 	player->player_pos = rooms[pos];
 
-	if (commands.size() == 2 && commands[0] == "go" && (commands[1] == "north" && commands[1] == "n") || commands[0] == "north" || commands[0] == "n") //Checks if commands introduced are correct
+	if (commands.size() == 2 && commands[0] == "go" && (commands[1] == "north" || commands[1] == "n") || commands[0] == "north" || commands[0] == "n") //Checks if commands introduced are correct
 	{
 		for (i = 0; i < NUM_EXITS; i++)
 		{
@@ -503,7 +503,7 @@ void World::Help() const
 	printf("pick / drop <item> = to put items in your inventory / leave items\nin the room you are.\n");
 	printf("equip / unequip <item> = to equip/unequip items that are in the inventory.\n");
 	printf("put <item> into <containter> = to put an item into another item (container).\n");
-	printf("get <item> from <containter> = to get an item that's inside\nanother item container).\n");
+	printf("get <item> from <containter> = to get an item that's inside\nanother item (container).\n");
 	printf("look trunk = to look items that are inside this container.\n\n");
 	printf("To know basic INFORMATION related to the character:\n");
 	printf("You can't see which objects are in the room when you move between them.\n");
@@ -763,6 +763,16 @@ void World::Drop(const Vector<MyString> &commands) const
 				items[i]->picked = false;
 				items[i]->src = rooms[random];//WormHole: sends the item to a random room.
 				player->num_items--;
+
+				printf("\n");
+				printf("d8888b. db       .d88b.  d8888b. db\n");
+				printf("88  `8D 88      .8P  Y8. 88  `8D 88\n");
+				printf("88oodD' 88      88    88 88oodD' YP\n");
+				printf("88~~~   88      88    88 88~~~\n");
+				printf("88      88booo. `8b  d8' 88      db\n");
+				printf("88      Y88888P  `Y88P'  88      YP\n");
+				printf("\n");
+                                         				       
 				printf("You dropped %s and the Wormhole made it desappear.\n", items[i]->name.c_str());
 				return;
 			}
@@ -938,7 +948,7 @@ void World::Equip(const Vector<MyString> &commands) const
 		{
 			if (items[i]->picked == true)
 			{
-				printf("You can't equip with this item.\n");
+				printf("You can't equip this item.\n");
 				return;
 			}
 		}
