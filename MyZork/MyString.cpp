@@ -3,15 +3,11 @@
 #include"MyString.h"
 #include"vector.h"
 
-
-
-
 MyString::MyString()
 {
 	max_size = 1;
 	buffer = new char[max_size];
 	strcpy_s(buffer, max_size, "");
-	//printf("EMPTY CONSTRUCTOR\n");
 }
 
 MyString::MyString(const char *string)
@@ -20,7 +16,6 @@ MyString::MyString(const char *string)
 	buffer = new char[len + 1];
 	max_size = len + 1;
 	strcpy_s(buffer, max_size, string);
-	//printf("CONSTRUCTOR with %s\n", buffer);
 }
 MyString::MyString(const MyString &other)
 {
@@ -134,31 +129,20 @@ void MyString::shrink_to_fit()
 	}
 }
 
-/*void MyString::set(char *command)
-{
-	if (max_size < strlen(command) + 1)
-	{
-		delete[] buffer;
-		max_size = strlen(command) + 1;
-		buffer = new char[max_size];
-	}
-	strcpy_s(buffer, max_size, command);
-}*/
-
-Vector<MyString> MyString::SplitString(const char *symbol, char* command)
+const Vector<MyString> MyString::SplitString(const char *symbol, char* command)
 {
 	Vector<MyString> vec;
-	char *cstr, *p, *context;
+	char *cstr, *word, *context;
 
 	uint len = strlen(command);
 	cstr = new char[len + 1];
 	strcpy_s(cstr, len + 1, command);
 
-	p = strtok_s(cstr, symbol, &context);
-	while (p != NULL)
+	word = strtok_s(cstr, symbol, &context);
+	while (word != NULL)
 	{
-		vec.push_back(p);
-		p = strtok_s(NULL, symbol, &context);
+		vec.push_back(word);
+		word = strtok_s(NULL, symbol, &context);
 	}
 	delete[] cstr;
 	return vec;

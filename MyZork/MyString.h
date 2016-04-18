@@ -64,9 +64,8 @@ public:
 	void shrink_to_fit();
 
 	//split a string word by word
-	Vector<MyString> SplitString(const char *symbol, char* command);
+	const Vector<MyString> SplitString(const char *symbol, char* command);
 
-	//void set(char *command);
 
 };
 

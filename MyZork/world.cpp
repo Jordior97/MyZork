@@ -384,7 +384,7 @@ void World::Look(int pos, Vector<MyString> &commands) const
 				return;
 			}
 		}
-		printf("\nThere's nothing to look here.\n");  //Case 2: there's no exit placed in the chosen direction
+		printf("\nThere's nothing to look here.\n");  //Case 2: there isn't any exit placed in the chosen direction
 	}
 
 	else if (commands.size() == 2 && (commands[1] == "south" || commands[1] == "s"))
@@ -717,7 +717,7 @@ void World::Close(int pos, Vector<MyString> &commands) const
 /*---PICK FUNCTION---*/
 void World::Pick(Vector<MyString> &commands) const
 {
-	//Checks if intventory is full (so you can't pick more objects)
+	//checks if inventory is full (so you can't pick more objects)
 	if (player->num_items < player->max_items)
 	{
 		for (int i = 0; i < NUM_ITEMS; i++)
@@ -761,10 +761,9 @@ void World::Drop(Vector<MyString> &commands) const
 			{
 				int random = rand() % NUM_ROOMS;
 				items[i]->picked = false;
-				items[i]->src = rooms[random];
+				items[i]->src = rooms[random];//WormHole: sends the item to a random room.
 				player->num_items--;
 				printf("You dropped %s and the Wormhole made it desappear.\n", items[i]->name.c_str());
-				printf("rooms[%i]\n", random);
 				return;
 			}
 			//...because you can't drop an equipped item
@@ -798,7 +797,7 @@ void World::Inventory() const
 		printf("MAGIC GEMS:\n\n");
 		for (i = 0; i < NUM_ITEMS; i++)
 		{
-			//shows the names and descriptions of the picked items
+			//shows the names and descriptions of the picked gems
 			if (items[i]->picked == true && items[i]->magic_gem == true)
 			{
 				items[i]->Look();
@@ -1057,16 +1056,20 @@ void World::Equipment() const
 /*---PUT FUNCTION---*/
 void World::Put(Vector<MyString> &commands) const
 {
+	//checks if the commands introduced are correct
 	if (commands.size() == 4 && commands[2] == "into")
 	{
 		for (int i = 0; i < NUM_ITEMS; i++)
 		{
+			//checks if the item you want to put is in your inventory and if it's not equipped
 			if (commands[1] == items[i]->name && items[i]->picked == true && items[i]->equipped==false)
 			{
 				for (int j = 0; j < NUM_ITEMS; j++)
 				{
+					//checks if the last command introduced is the name of the container
 					if (items[j]->name == commands[3] && items[j]->container == true)
 					{
+						//checks if the container is in the room
 						if (items[j]->src == player->player_pos)
 						{
 							items[i]->inside = true;
@@ -1109,18 +1112,23 @@ void World::Put(Vector<MyString> &commands) const
 /*---GET FUNCTION---*/
 void World::Get(Vector<MyString> &commands) const
 {
+	//checks if the commands introduced are correct
 	if (commands.size() == 4 && commands[2] == "from")
 	{
+		//checks if your inventory is full
 		if (player->num_items < player->max_items)
 		{
 			for (int i = 0; i < NUM_ITEMS; i++)
 			{
+				//checks if the item you want to get isn't in your inventory, it's not equipped and it's in the room
 				if (commands[1] == items[i]->name && items[i]->picked == false && items[i]->inside == true && items[i]->src && player->player_pos)
 				{
 					for (int j = 0; j < NUM_ITEMS; j++)
 					{
+						//checks if the last command introduced is the name of the container
 						if (items[j]->name == commands[3] && items[j]->container == true)
 						{
+							//checks if the container is in the room
 							if (items[j]->src == player->player_pos)
 							{
 								items[i]->inside = false;
