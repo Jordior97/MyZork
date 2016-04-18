@@ -2,5 +2,3 @@
 
 Entity::Entity(const char* name, const char *desc) :name(name), description(desc)
 {}
-
-Entity::~Entity(){}
