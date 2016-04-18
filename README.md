@@ -66,4 +66,7 @@ P.D.:
   I want to implement, in the future, a 'win condition' to detect if you defeated Rakdos. 
   Then, you can return to the real world.
 
-- You can find the magical gems distributed all over the map, but you can't use them at the moment. I will implement their 		  functionality in a future release, after implementing combat mechanics and enemies.
+- You can find the magical gems distributed all over the map, but you can't use them at the moment. I will implement their 		  functionality in a future release, after implementing combat mechanics and enemies
+
+- I will implement a dragon that appears in the "Dragon Chamber" every 30 seconds, so you can fight and defeat him to get experience 	  and gold(future implementations);
+
