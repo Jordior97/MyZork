@@ -2,6 +2,7 @@
 #include<stdio.h>
 #include<string.h>
 #include<stdlib.h>
+#include<time.h>
 
 
 World::World()
@@ -17,7 +18,7 @@ void World::CreateWorld()
 	rooms.push_back(new Room("BEDROOM", "This is my room, what a mess.\nI can hear a very strange noise coming from under my bed.\nI should take a look.\n"));
 
 	//GRIMGAR (rooms[1])
-	rooms.push_back(new Room("GRIMGAR", "We are in Grimgar, Simon.\nIt's the capital city of Aincrad, this beautiful fantasy world.\nThis world is living a nightmare since the arrival of Rakdos, lord of the desolation.\n"));
+	rooms.push_back(new Room("GRIMGAR", "We are in Grimgar, Simon.\nIt's the capital city of Aincrad, this beautiful fantasy world.\nThis world is living a nightmare since the arrival of Rakdos,\nlord of the desolation.\n"));
 
 	//TAVERN (rooms[2])
 	rooms.push_back(new Room("TAVERN", "In this tavern we can buy new items and weapons to improve our abilities.\n"));
@@ -46,13 +47,11 @@ void World::CreateWorld()
 	//FLOOR 2 (rooms[10])
 	rooms.push_back(new Room("FLOOR 2", "Good Job, Simon! We have reached the second floor.\nIt's a big room with some inscriptions on the walls.\n"));
 
-
 	//TREASURE CHAMBER (rooms[11])
-	rooms.push_back(new Room("TREASURE CHAMBER", "Yeah! Simon, this is the final room before the ultimate battle.\nThere is a key on the ground, and seems to fit the lock of these two big chests in front of us.\n"));
-
+	rooms.push_back(new Room("TREASURE CHAMBER", "Yeah! Simon, this is the final room before the ultimate battle.\nLook all the fortune around us. It seems that this chamber is used to keep\nthe treasures Rakdos has stolen until now.\n"));
+	
 	//RAKDOS THRONE ROOM (rooms[12])
 	rooms.push_back(new Room("RAKDOS THRONE ROOM", "What a big chamber!\nSimon, Rakdos is there, let's fight and defeat him!\n"));
-
 
 
 
@@ -143,7 +142,9 @@ void World::CreateWorld()
 	items.push_back(new Item("TRUNK", "You can put all the items you want into this magic trunk if you run out of inventory space.\n", rooms[2], Non_Equipable, 0, 0, 0, 0));
 	items[8]->container = true;
 
-	/*---Magic Gems---*/
+	/*----------------------*/
+
+	/*  Magic Gems  */
 	//AKA (items[9])
 	items.push_back(new Item("AKA", "This is the red gem. It allows you to control fire\n", rooms[8], Non_Equipable, 0, 0, 0, 0));
 	items[9]->magic_gem = true;
@@ -163,6 +164,17 @@ void World::CreateWorld()
 	//SHIRO (items[13])
 	items.push_back(new Item("SHIRO", "This is the white gem. It allows you to control brightness\n", rooms[9], Non_Equipable, 0, 0, 0, 0));
 	items[13]->magic_gem = true;
+
+	/*----------------------*/
+
+	//EXCALIBUR (items[14])
+	items.push_back(new Item("EXCABILUR", "This legendary weapon belonged to King Bradley, the king of kings,\nwho has goberned Aincriad since his death, 500 years ago.\nIt's said this sword has extraordinary properties.\n", rooms[11], RHand, 50, 50, 0, 0));
+
+	//EAGIS (items[15])
+	items.push_back(new Item("EAGIS", "What is that!? This is the mythic shield of Seuz,\nthe strongest god of all times! I think it will give you the enough\nresistance to withstand the last battle.\n", rooms[11], LHand, 0, 50, 0, 50));
+
+	//VEST
+	items.push_back(new Item("VEST", "Look at this strange vest. I heared that the bearer of\nthis magic clothing gets magical powers like super strength, enhaced\nstamina and mind control.\n",rooms[11], Body, 20, 20, 20, 20));
 }
 
 
@@ -488,15 +500,19 @@ void World::Help() const
 	printf("The BASIC COMMANDS that you can enter:\ngo / look / open ... door / close ... door / help / quit.\n\n");
 	printf("To specify the DIRECTION you want:\nnorth(n) / south(s) / east(e) / west(w) / up(u) / down(d)\n\n");
 	printf("To INTERACT with OBJECTS you can introduce these commands:\n");
-	printf("pick / drop <item> = to put items in your inventory / leave items in the room you are.\n");
+	printf("pick / drop <item> = to put items in your inventory / leave items\nin the room you are.\n");
 	printf("equip / unequip <item> = to equip/unequip items that are in the inventory.\n");
 	printf("put <item> into <containter> = to put an item into another item (container).\n");
-	printf("get <item> from <containter> = to get an item that's inside another item container).\n");
+	printf("get <item> from <containter> = to get an item that's inside\nanother item container).\n");
 	printf("look trunk = to look items that are inside this container.\n\n");
 	printf("To know basic INFORMATION related to the character:\n");
+	printf("You can't see what objects are in the room when you move between them.\n");
+	printf("To see them, you have to insert the command 'look'.\n");
 	printf("inventory / inv / i = it shows all the items the player is carrying.\n");
 	printf("equipment(eq) = it shows the equipped items.\n");
 	printf("stats(st) = to look the statistics of the character.\n");
+	printf("\nSPECIAL FEATURE: WormHole\nYou have to think twice before dropping an item. Why? Because of the physical\nlaws of this world, a wormhole is created when you drop items,\nmaking them appear into another room. ");
+	printf("If you want to keep your items safe,\nyou have to put them into the trunk.\n");
 
 }
 
@@ -714,7 +730,6 @@ void World::Pick(Vector<MyString> &commands) const
 					items[i]->picked = true;
 					player->num_items++;
 					printf("You picked %s\n", items[i]->name.c_str());
-					printf("N_items = %i\n", player->num_items);
 					return;
 				}
 				else
@@ -735,6 +750,7 @@ void World::Pick(Vector<MyString> &commands) const
 /*---DROP FUNCTION---*/
 void World::Drop(Vector<MyString> &commands) const
 {
+	srand(time(NULL));
 	for (int i = 0; i < NUM_ITEMS; i++)
 	{
 		//checks if the commands introduced are correct (first command == drop && second command == <item_name>) and if the item is in the inventory
@@ -743,11 +759,12 @@ void World::Drop(Vector<MyString> &commands) const
 			//checks if the the item is not equipped...
 			if (items[i]->equipped == false)
 			{
+				int random = rand() % NUM_ROOMS;
 				items[i]->picked = false;
-				items[i]->src = player->player_pos;
+				items[i]->src = rooms[random];
 				player->num_items--;
 				printf("You dropped %s\n", items[i]->name.c_str());
-				printf("N_items = %i\n", player->num_items);
+				printf("rooms[%i]\n", random);
 				return;
 			}
 			//...because you can't drop an equipped item
@@ -768,7 +785,7 @@ void World::Inventory() const
 	//checks if the player has got items in his inventory
 	if (player->num_items > 0)
 	{
-		printf("In your inventory you have:\n\n");
+		printf("In your inventory you have (%i/%i):\n\n", player->num_items, player->max_items);
 		for (i = 0; i < NUM_ITEMS; i++)
 		{
 			//shows the names and descriptions of the picked items
@@ -1057,7 +1074,6 @@ void World::Put(Vector<MyString> &commands) const
 							items[i]->picked = false;
 							player->num_items--;
 							printf("You put %s into %s\n", items[i]->name.c_str(), items[j]->name.c_str());
-							printf("N_items = %i\n", player->num_items);
 							return;
 						}
 						else if (items[j]->src != player->player_pos)
@@ -1111,7 +1127,6 @@ void World::Get(Vector<MyString> &commands) const
 								items[i]->picked = true;
 								player->num_items++;
 								printf("You got %s from %s\n", items[i]->name.c_str(), items[j]->name.c_str());
-								printf("N_items = %i\n", player->num_items);
 								return;
 							}
 							else if (items[j]->src != player->player_pos)

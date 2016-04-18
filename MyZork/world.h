@@ -13,7 +13,7 @@
 #define EXIT 200
 #define NUM_ROOMS 13
 #define NUM_EXITS 18
-#define NUM_ITEMS 14
+#define NUM_ITEMS 17
 
 
 // Now, if you include "world.h" in other files,
