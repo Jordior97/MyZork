@@ -15,7 +15,7 @@ public:
 	unsigned int num_items = 0;
 	unsigned int max_items = 10;
 
-	//Slots for equip items
+	//Slots for equipping items
 	bool head_item = false;
 	bool body_item = false;
 	bool LHand_item = false;

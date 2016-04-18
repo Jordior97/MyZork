@@ -13,7 +13,7 @@ public:
 	Room* dst; //destination room
 	bool door = false; //indicates if an exits has a door to open/close
 	bool open = true; //indicates if an exit is opened or closed
-	dir direction;
+	dir direction; //indicates the direction of the exit
 	void Look()const;
 
 	Exit(const char*, const char*,Room*,Room*,dir,bool,bool);

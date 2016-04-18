@@ -6,7 +6,6 @@
 class Entity
 {
 public:
-
 	MyString name;
 	MyString description;
 	Entity(const char*,const char*);

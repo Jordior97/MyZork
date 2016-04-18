@@ -1,7 +1,5 @@
 #include"world.h"
 
-//Code file for future implementations
-
 void Player::Stats()
 {
 	printf("\n------------\n");

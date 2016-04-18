@@ -33,7 +33,6 @@ int GetCommand(Vector<MyString>&commands)
 		return Close;
 	}
 
-
 	//'PICK' COMMANDS
 	else if (commands[0] == "pick")
 	{
@@ -100,13 +99,9 @@ int GetCommand(Vector<MyString>&commands)
 		return Get;
 	}
 
-
 	//INVALID COMMAND
 	else
 	{
 		return Invalid_command;
 	}
-
-
-
 }

@@ -1,6 +1,8 @@
 #ifndef _WORLD_
 #define  _WORLD_
 
+// Now, if you include "world.h" in other files,
+// you are including these other headers and MACROS too.
 #include"rooms.h"
 #include"player.h"
 #include"exits.h"
@@ -10,14 +12,10 @@
 #include"items.h"
 #include"vector.h"
 
-#define EXIT 200
 #define NUM_ROOMS 13
 #define NUM_EXITS 18
 #define NUM_ITEMS 17
 
-
-// Now, if you include "world.h" in other files,
-// you are including these other headers and MACROS too.
 
 class World
 {

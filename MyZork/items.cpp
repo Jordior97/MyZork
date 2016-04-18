@@ -3,7 +3,7 @@
 
 void Item::Look()const
 {
-	if (part==Non_Equipable)
+	if (part == Non_Equipable)
 	{
 		printf("%s\n%s\n", name.c_str(), description.c_str());
 		

@@ -10,18 +10,17 @@ class Item :public Entity
 {
 public:
 
-	
 	Room* src; //source room
 	void Look() const;
 
-	bool picked = false;
-	bool equipped = false;
-	bool inside = false;
-	bool container = false;
+	bool picked = false; //indicates if the item is in the inventory
+	bool equipped = false; //indicates if the item is equipped
+	bool inside = false; //indicates if the item is inside the container
+	bool container = false; //indicates if the item is a container
 
-	bool magic_gem = false;
+	bool magic_gem = false; //indicates if the item is a magic gem
 
-	slot part; 
+	slot part; //indicates the slot it occupies
 
 	//modifiers of player stats
 	int attack;

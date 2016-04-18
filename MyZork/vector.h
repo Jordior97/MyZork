@@ -103,8 +103,6 @@ public:
 		return vector[index];
 	}
 
-
-
 	bool empty() const
 	{
 		return n_elements == 0;
