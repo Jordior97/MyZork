@@ -23,9 +23,12 @@ public:
 
 	//I decided to divide the Entities vector into this 3 vectors to modify directly
 	//some specific properties of these different classes
-	Vector<Room*> rooms;
+
+	/*Vector<Room*> rooms;
 	Vector<Exit*> exits;
-	Vector<Item*> items;
+	Vector<Item*> items;*/
+
+	Vector<Entity*> entities;
 
 	Player* player = nullptr;
 

@@ -1,8 +1,8 @@
 #include"world.h"
 #include<stdio.h>
 
-Item::Item(const char*name, const char*desc, Room* source, slot part, int at, int h, int m, int ar) :
-Entity(name, desc), src(source), part(part), attack(at), hp(h), mana(m), armor(ar){}
+Item::Item(const char*name, const char*desc, Room* source, slot part, int at, int h, int m, int ar, Type type) :
+Entity(name, desc,type), src(source), part(part), attack(at), hp(h), mana(m), armor(ar){}
 
 Item::~Item(){}
 

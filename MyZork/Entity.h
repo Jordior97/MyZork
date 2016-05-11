@@ -3,12 +3,15 @@
 
 #include"MyString.h"
 
+enum Type{ PLAYER, ROOM, EXIT, ITEM };
+
 class Entity
 {
 public:
 	MyString name;
 	MyString description;
-	Entity(const char*,const char*);
+	Type type;
+	Entity(const char*,const char*,Type);
 	~Entity();
 	virtual void Look() const{};
 

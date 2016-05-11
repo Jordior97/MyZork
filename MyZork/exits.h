@@ -16,7 +16,7 @@ public:
 	dir direction; //indicates the direction of the exit
 	void Look()const;
 
-	Exit(const char*, const char*,Room*,Room*,dir,bool,bool);
+	Exit(const char*, const char*,Room*,Room*,dir,bool,bool,Type);
 	~Exit();
 
 };

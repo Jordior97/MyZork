@@ -33,7 +33,7 @@ public:
 	int mana;
 	int armor;
 
-	Item(const char*, const char*, Room*, slot, int, int, int, int);
+	Item(const char*, const char*, Room*, slot, int, int, int, int,Type);
 	~Item();
 };
 

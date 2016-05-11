@@ -1,7 +1,7 @@
 #include"world.h"
 #include<stdio.h>
 
-Room::Room(const char* name, const char* descrip) :Entity(name, descrip){}
+Room::Room(const char* name, const char* descrip, Type type) :Entity(name, descrip, type){}
 
 Room::~Room(){}
 
