@@ -59,13 +59,13 @@ int main()
 			//To pick items that are in the actual room
 			else if (GetCommand(commands) == Pick)
 			{
-				world->Pick(commands);
+				world->player->Pick(commands);
 			}
 
 			//To leave items in the actual room
 			else if (GetCommand(commands) == Drop)
 			{
-				world->Drop(commands);
+				world->player->Drop(commands);
 			}
 
 			//It shows the instructions and a brief description of the game

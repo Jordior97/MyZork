@@ -40,8 +40,8 @@ public:
 	void Help() const;
 	void Open(int, const Vector<MyString>&) const;
 	void Close(int, const Vector<MyString>&) const;
-	void Pick(const Vector<MyString>&) const;
-	void Drop(const Vector<MyString>&) const;
+	//void Pick(const Vector<MyString>&) const;
+	//void Drop(const Vector<MyString>&) const;
 	void Inventory() const;
 	void Equip(const Vector<MyString>&) const;
 	void Unequip(const Vector<MyString>&) const;

@@ -529,78 +529,9 @@ void World::Close(int pos, const Vector<MyString> &commands) const
 	}
 }
 
-/*---PICK FUNCTION---*/
-void World::Pick(const Vector<MyString> &commands) const
-{
-	//checks if inventory is full (so you can't pick more objects)
-	if (player->num_items < player->max_items)
-	{
-		for (int i = 0; i < entities.size(); i++)
-		{
-			//checks if the commands introduced are correct (first command == pick && second command == <item_name>) and if the item is not in the inventory yet
-			if (entities[i]->type == ITEM && commands.size() == 2 && commands[1] == ((Item*)entities[i])->name && ((Item*)entities[i])->src == player->player_pos && ((Item*)entities[i])->picked == false)
-			{
-				if (((Item*)entities[i])->container == false)
-				{
-					((Item*)entities[i])->picked = true;
-					player->num_items++;
-					printf("You picked %s\n", ((Item*)entities[i])->name.c_str());
-					return;
-				}
-				else
-				{
-					printf("This item is too big to carry it.\n");
-					return;
-				}
-			}
-		}
-		printf("There's any object with that name here in this place.\n");
-	}
-	else
-	{
-		printf("Your inventory is full, you have to drop some items\n");
-	}
-}
 
-/*---DROP FUNCTION---*/
-void World::Drop(const Vector<MyString> &commands) const
-{
-	srand(time(NULL));
-	for (int i = 0; i < entities.size(); i++)
-	{
-		//checks if the commands introduced are correct (first command == drop && second command == <item_name>) and if the item is in the inventory
-		if (entities[i]->type == ITEM && commands.size() == 2 && ((Item*)entities[i])->name == commands[1] && ((Item*)entities[i])->picked == true)
-		{
-			//checks if the the item is not equipped...
-			if (((Item*)entities[i])->equipped == false)
-			{
-				int random = rand() % NUM_ROOMS;
-				((Item*)entities[i])->picked = false;
-				((Item*)entities[i])->src = ((Room*)entities[random]);//WormHole: sends the item to a random room.
-				player->num_items--;
 
-				printf("\n");
-				printf("d8888b. db       .d88b.  d8888b. db\n");
-				printf("88  `8D 88      .8P  Y8. 88  `8D 88\n");
-				printf("88oodD' 88      88    88 88oodD' YP\n");
-				printf("88~~~   88      88    88 88~~~\n");
-				printf("88      88booo. `8b  d8' 88      db\n");
-				printf("88      Y88888P  `Y88P'  88      YP\n");
-				printf("\n");
-                                         				       
-				printf("You dropped %s and the Wormhole made it desappear.\n", ((Item*)entities[i])->name.c_str());
-				return;
-			}
-			//...because you can't drop an equipped item
-			else
-			{
-				printf("You have to unequip this item first before drop it.\n");
-				return;
-			}
-		}
-	}
-	printf("There's any object with that name in your inventory.\n");
-}
+
 
 /*---INVENTORY FUNCTION---*/
 void World::Inventory() const

@@ -31,7 +31,8 @@ public:
 	//Functions
 	void Stats();
 	void Movement(int&, const Vector<MyString>&);
-	
+	void Pick(const Vector<MyString>&);
+	void Drop(const Vector<MyString>&);
 
 };
 
