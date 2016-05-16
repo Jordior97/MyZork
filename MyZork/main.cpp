@@ -4,16 +4,18 @@
 #include<stdlib.h>
 #include<string.h>
 
+World* world = nullptr;
 
 int main()
 {
 	ReportMemoryLeaks();
 	bool quit =false; //variable used to quit the game
-	World w;
 
-	w.CreateWorld(); //Sets rooms exits and items (names, descriptions and other properties)
+	world = new World;
 
-	w.Help(); //An introduction to my game with a description and controls 
+	world->CreateWorld(); //Sets rooms exits and items (names, descriptions and other properties)
+
+	world->Help(); //An introduction to my game with a description and controls 
 
 	MyString option;
 	char command[70];
@@ -33,43 +35,43 @@ int main()
 			//To move between the rooms of the map
 			if (GetCommand(commands) == Movement)
 			{
-				w.Movement(position, commands);
+				world->player->Movement(position, commands);
 			}
 
 			//To look the rooms, exits and objects
 			else if (GetCommand(commands) == Look)
 			{
-				w.Look(position, commands);
+				world->Look(position, commands);
 			}
 
 			//To open doors
 			else if (GetCommand(commands) == Open)
 			{
-				w.Open(position, commands);
+				world->Open(position, commands);
 			}
 
 			//To close doors
 			else if (GetCommand(commands) == Close)
 			{
-				w.Close(position, commands);
+				world->Close(position, commands);
 			}
 
 			//To pick items that are in the actual room
 			else if (GetCommand(commands) == Pick)
 			{
-				w.Pick(commands);
+				world->Pick(commands);
 			}
 
 			//To leave items in the actual room
 			else if (GetCommand(commands) == Drop)
 			{
-				w.Drop(commands);
+				world->Drop(commands);
 			}
 
 			//It shows the instructions and a brief description of the game
 			else if (GetCommand(commands) == Help)
 			{
-				w.Help();
+				world->Help();
 			}
 
 			//If the player introduces an incorrect command
@@ -87,43 +89,43 @@ int main()
 			//To look the items in the inventory
 			else if (GetCommand(commands) == Inventory)
 			{
-				w.Inventory();
+				world->Inventory();
 			}
 
 			//To equip items the player has picked
 			else if (GetCommand(commands) == Equip)
 			{
-				w.Equip(commands);
+				world->Equip(commands);
 			}
 
 			//To unequip items the player has equipped 
 			else if (GetCommand(commands) == Unequip)
 			{
-				w.Unequip(commands);
+				world->Unequip(commands);
 			}
 
 			//To look the stats of the payer
 			else if (GetCommand(commands) == Stats)
 			{
-				w.player->Stats();
+				world->player->Stats();
 			}
 
 			//To look items equipped
 			else if (GetCommand(commands) == Equipment)
 			{
-				w.Equipment();
+				world->Equipment();
 			}
 
 			//To put items inside other items
 			else if (GetCommand(commands) == Put)
 			{
-				w.Put(commands);
+				world->Put(commands);
 			}
 
 			//To get items that are inside other items
 			else if (GetCommand(commands) == Get)
 			{
-				w.Get(commands);
+				world->Get(commands);
 			}
 		}
 

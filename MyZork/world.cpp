@@ -7,7 +7,7 @@
 
 World::World()
 {
-	player = new Player;
+
 }
 
 void World::CreateWorld() 
@@ -175,198 +175,13 @@ void World::CreateWorld()
 
 	//VEST (entities[47])
 	entities.push_back(new Item("VEST", "Look at this strange vest. I heared that the bearer of\nthis magic clothing gets magical powers like super strength, enhaced\nstamina and mind control.\n", (Room*)entities[11], Body, 20, 20, 20, 20, ITEM));
+
+	//PLAYER (entities[48])
+	entities.push_back(new Player("SIMON", "A nice kid\n", PLAYER, 100, 500, 20, 0));
+
+	player = (Player*)entities[48];
 }
 
-
-/*---MOVEMENT FUNCTION---*/
-void World::Movement(int &pos, const Vector<MyString> &commands)
-{
-	fflush(stdin);
-
-	int i, j; //counters that consider the correct room/exit when you move.
-
-	player->player_pos = (Room*)entities[pos];
-
-	if (commands.size() == 2 && commands[0] == "go" && (commands[1] == "north" || commands[1] == "n") || commands[0] == "north" || commands[0] == "n") //Checks if commands introduced are correct
-	{
-		for (i = 0; i < entities.size(); i++)
-		{
-			if (entities[i]->type==EXIT && ((Exit*)entities[i])->src == player->player_pos && ((Exit*)entities[i])->direction == north) //Looks for an exit in the direction introduced
-			{
-				player->player_pos = ((Exit*)entities[i])->dst;
-				for (j = 0; j < NUM_ROOMS; j++)
-				{
-					if (((Exit*)entities[i])->dst == ((Room*)entities[j]))
-					{
-						if (((Exit*)entities[i])->door == true && ((Exit*)entities[i])->open == false)  //Case 1: the exit has a closed door you have to open first
-						{
-							printf("\nThere's a door locked here.\n");
-							return;
-						}
-						else  //Case 2: there is a room in the chosen direction and there isn't a closed door (sets a new position for the player).
-						{
-							pos = j;
-							printf("\n%s\n%s", ((Room*)entities[j])->name.c_str(), ((Room*)entities[j])->description.c_str());
-							return;
-						}
-					}
-				}
-			}
-		}
-		printf("\nYou can't move into that direction.\n");  //Case 3: there isn't any room in the chosen direction
-	}
-
-	else if (commands.size() == 2 && commands[0] == "go" && (commands[1] == "south" || commands[1] == "s") || commands[0] == "south" || commands[0] == "s")
-	{
-		for (i = 0; i < entities.size(); i++)
-		{
-			if (entities[i]->type == EXIT && ((Exit*)entities[i])->src == player->player_pos && ((Exit*)entities[i])->direction == south)
-			{
-				player->player_pos = ((Exit*)entities[i])->dst;
-				for (j = 0; j < NUM_ROOMS; j++)
-				{
-					if (((Exit*)entities[i])->dst == ((Room*)entities[j]))
-					{
-						if (((Exit*)entities[i])->door == true && ((Exit*)entities[i])->open == false)
-						{
-							printf("\nThere's a door locked here.\n");
-							return;
-						}
-						else
-						{
-							pos = j;
-							printf("\n%s\n%s", ((Room*)entities[j])->name.c_str(), ((Room*)entities[j])->description.c_str());
-							return;
-						}
-					}
-				}
-			}
-		}
-		printf("\nYou can't move into that way.\n");
-	}
-
-	else if (commands.size() == 2 && commands[0] == "go" && (commands[1] == "east" || commands[1] == "e") || commands[0] == "east" || commands[0] == "e")
-	{
-		for (i = 0; i < entities.size(); i++)
-		{
-			if (entities[i]->type == EXIT && ((Exit*)entities[i])->src == player->player_pos && ((Exit*)entities[i])->direction == east)
-			{
-				player->player_pos = ((Exit*)entities[i])->dst;
-				for (j = 0; j < NUM_ROOMS; j++)
-				{
-					if (((Exit*)entities[i])->dst == ((Room*)entities[j]))
-					{
-						if (((Exit*)entities[i])->door == true && ((Exit*)entities[i])->open == false)
-						{
-							printf("\nThere's a door locked here.\n");
-							return;
-						}
-						else
-						{
-							pos = j;
-							printf("\n%s\n%s", ((Room*)entities[j])->name.c_str(), ((Room*)entities[j])->description.c_str());
-							return;
-						}
-					}
-				}
-			}
-		}
-		printf("\nYou can't move into that direction.\n");
-	}
-
-	else if (commands.size() == 2 && commands[0] == "go" && (commands[1] == "west" || commands[1] == "w") || commands[0] == "west" || commands[0] == "w")
-	{
-		for (i = 0; i < NUM_EXITS; i++)
-		{
-			if (entities[i]->type == EXIT && ((Exit*)entities[i])->src == player->player_pos && ((Exit*)entities[i])->direction == west)
-			{
-				player->player_pos = ((Exit*)entities[i])->dst;
-				for (j = 0; j < NUM_ROOMS; j++)
-				{
-					if (((Exit*)entities[i])->dst == ((Room*)entities[j]))
-					{
-						if (((Exit*)entities[i])->door == true && ((Exit*)entities[i])->open == false)
-						{
-							printf("\nThere's a door locked here.\n");
-							return;
-						}
-						else
-						{
-							pos = j;
-							printf("\n%s\n%s", ((Room*)entities[j])->name.c_str(), ((Room*)entities[j])->description.c_str());
-							return;
-						}
-					}
-				}
-			}
-		}
-		printf("\nYou can't move into that way.\n");
-	}
-
-	else if (commands.size() == 2 && commands[0] == "go" && (commands[1] == "down" || commands[1] == "d") || commands[0] == "down" || commands[0] == "d")
-	{
-		for (i = 0; i < entities.size(); i++)
-		{
-			if (entities[i]->type == EXIT && ((Exit*)entities[i])->src == player->player_pos && ((Exit*)entities[i])->direction == down)
-			{
-				player->player_pos = ((Exit*)entities[i])->dst;
-				for (j = 0; j < NUM_ROOMS; j++)
-				{
-					if (((Exit*)entities[i])->dst == ((Room*)entities[j]))
-					{
-						if (((Exit*)entities[i])->door == true && ((Exit*)entities[i])->open == false)
-						{
-							printf("\nThere's a door locked here.\n");
-							return;
-						}
-						else
-						{
-							pos = j;
-							printf("\n%s\n%s", ((Room*)entities[j])->name.c_str(), ((Room*)entities[j])->description.c_str());
-							return;
-						}
-					}
-				}
-			}
-		}
-		printf("\nYou can't move into that direction.\n");
-	}
-
-	else if (commands.size() == 2 && commands[0] == "go" && (commands[1] == "up" || commands[1] == "u") || commands[0] == "up" || commands[0] == "u")
-	{
-		for (i = 0; i < entities.size(); i++)
-		{
-			if (entities[i]->type == EXIT && ((Exit*)entities[i])->src == player->player_pos && ((Exit*)entities[i])->direction == up)
-			{
-				player->player_pos = ((Exit*)entities[i])->dst;
-				for (j = 0; j < NUM_ROOMS; j++)
-				{
-					if (((Exit*)entities[i])->dst == ((Room*)entities[j]))
-					{
-						if (((Exit*)entities[i])->door == true && ((Exit*)entities[i])->open == false)
-						{
-							printf("\nThere's a door locked here.\n");
-							return;
-						}
-						else
-						{
-							pos = j;
-							printf("\n%s\n%s\n", ((Room*)entities[j])->name.c_str(), ((Room*)entities[j])->description.c_str());
-							return;
-						}
-					}
-				}
-			}	
-		}
-		printf("\nYou can't move into that way.\n");
-	}
-
-	else
-	{
-		printf("\nYou have to specify in which direction you want to move.\n");
-		return;
-	}
-}
 
 /*---LOOK FUNCTION---*/
 void World::Look(int pos, const Vector<MyString> &commands) const
@@ -415,7 +230,7 @@ void World::Look(int pos, const Vector<MyString> &commands) const
 
 	else if (commands.size() == 2 && (commands[1] == "west" || commands[1] == "w"))
 	{
-		for (i = 0; i < NUM_EXITS; i++)
+		for (i = 0; i < entities.size(); i++)
 		{
 			if (entities[i]->type == EXIT && ((Exit*)entities[i])->src == player->player_pos && ((Exit*)entities[i])->direction == west)
 			{
@@ -428,7 +243,7 @@ void World::Look(int pos, const Vector<MyString> &commands) const
 
 	else if (commands.size() == 2 && (commands[1] == "up" || commands[1] == "u"))
 	{
-		for (i = 0; i < NUM_EXITS; i++)
+		for (i = 0; i < entities.size(); i++)
 		{
 			if (entities[i]->type == EXIT && ((Exit*)entities[i])->src == player->player_pos && ((Exit*)entities[i])->direction == up)
 			{
@@ -441,7 +256,7 @@ void World::Look(int pos, const Vector<MyString> &commands) const
 
 	else if (commands.size() == 2 && (commands[1] == "down" || commands[1] == "d"))
 	{
-		for (i = 0; i < NUM_EXITS; i++)
+		for (i = 0; i < entities.size(); i++)
 		{
 			if (entities[i]->type == EXIT && ((Exit*)entities[i])->src == player->player_pos && ((Exit*)entities[i])->direction == down)
 			{

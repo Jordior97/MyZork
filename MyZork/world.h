@@ -30,12 +30,12 @@ public:
 
 	Vector<Entity*> entities;
 
-	Player* player = nullptr;
+	Player* player;
 
 	World();
 
 	void CreateWorld();
-	void Movement(int&, const Vector<MyString>&);
+	//void Movement(int&, const Vector<MyString>&);
 	void Look(int, const Vector<MyString>&) const;
 	void Help() const;
 	void Open(int, const Vector<MyString>&) const;
@@ -51,5 +51,7 @@ public:
 
 	~World();
 };
+
+extern World* world;
 
 #endif

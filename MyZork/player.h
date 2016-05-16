@@ -5,11 +5,11 @@
 #include"Entity.h"
 #include"items.h"
 
-class Player
+class Player:public Entity
 {
 public:
-
-	Room* player_pos;
+	Player(const char*, const char*, Type, int, int, int, int);
+	Room* player_pos = nullptr;
 
 	//Inventory
 	unsigned int num_items = 0;
@@ -23,12 +23,14 @@ public:
 	bool legs_item = false;
 
 	//Stats
-	int hp = 100;
-	int mana = 500;
-	int attack = 20;
-	int armor = 0;
+	int hp;
+	int mana;
+	int attack;
+	int armor;
 
+	//Functions
 	void Stats();
+	void Movement(int&, const Vector<MyString>&);
 	
 
 };
