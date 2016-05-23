@@ -33,6 +33,10 @@ public:
 	void Movement(int&, const Vector<MyString>&);
 	void Pick(const Vector<MyString>&);
 	void Drop(const Vector<MyString>&);
+	void Put(const Vector<MyString>&);
+	void Get(const Vector<MyString>&);
+
+
 
 };
 

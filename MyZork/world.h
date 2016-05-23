@@ -46,8 +46,8 @@ public:
 	void Equip(const Vector<MyString>&) const;
 	void Unequip(const Vector<MyString>&) const;
 	void Equipment() const;
-	void Put(const Vector<MyString>&) const;
-	void Get(const Vector<MyString>&) const;
+	//void Put(const Vector<MyString>&) const;
+	//void Get(const Vector<MyString>&) const;
 
 	~World();
 };

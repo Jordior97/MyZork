@@ -119,13 +119,13 @@ int main()
 			//To put items inside other items
 			else if (GetCommand(commands) == Put)
 			{
-				world->Put(commands);
+				world->player->Put(commands);
 			}
 
 			//To get items that are inside other items
 			else if (GetCommand(commands) == Get)
 			{
-				world->Get(commands);
+				world->player->Get(commands);
 			}
 		}
 

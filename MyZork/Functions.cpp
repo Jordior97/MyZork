@@ -105,3 +105,37 @@ int GetCommand(const Vector<MyString>&commands)
 		return Invalid_command;
 	}
 }
+
+int SetDirection(const Vector<MyString>&commands)
+{
+	if (commands.size() == 2 && commands[0] == "go" && (commands[1] == "north" || commands[1] == "n") || commands[0] == "north" || commands[0] == "n")
+	{
+		return north;
+	}
+	else if (commands.size() == 2 && commands[0] == "go" && (commands[1] == "south" || commands[1] == "s") || commands[0] == "south" || commands[0] == "s")
+	{
+		return south;
+	}
+
+	else if (commands.size() == 2 && commands[0] == "go" && (commands[1] == "east" || commands[1] == "e") || commands[0] == "east" || commands[0] == "e")
+	{
+		return east;
+	}
+	else if (commands.size() == 2 && commands[0] == "go" && (commands[1] == "west" || commands[1] == "w") || commands[0] == "west" || commands[0] == "w")
+	{
+		return west;
+	}
+	else if (commands.size() == 2 && commands[0] == "go" && (commands[1] == "up" || commands[1] == "u") || commands[0] == "up" || commands[0] == "u")
+	{
+		return up;
+	}
+	else if (commands.size() == 2 && commands[0] == "go" && (commands[1] == "down" || commands[1] == "d") || commands[0] == "down" || commands[0] == "d")
+	{
+		return down;
+	}
+	else
+	{
+		return 10;
+	}
+	
+}

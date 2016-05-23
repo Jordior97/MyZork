@@ -1,5 +1,6 @@
 #include"world.h"
 #include"player.h"
+#include"Functions.h"
 #include<time.h>
 #include<stdlib.h>
 
@@ -22,158 +23,14 @@ void Player::Movement(int &pos, const Vector<MyString> &commands)
 	fflush(stdin);
 
 	int i, j; //counters that consider the correct room/exit when you move.
+	int dir = SetDirection(commands);
 	player_pos = (Room*)world->entities[pos];
-
-	if (commands.size() == 2 && commands[0] == "go" && (commands[1] == "north" || commands[1] == "n") || commands[0] == "north" || commands[0] == "n") //Checks if commands introduced are correct
+	
+	if (dir >= north && dir <= down)
 	{
 		for (i = 0; i < world->entities.size(); i++)
 		{
-			if (world->entities[i]->type == EXIT && ((Exit*)world->entities[i])->src == player_pos && ((Exit*)world->entities[i])->direction == north) //Looks for an exit in the direction introduced
-			{
-				player_pos = ((Exit*)world->entities[i])->dst;
-				for (j = 0; j < world->entities.size(); j++)
-				{
-					if (((Exit*)world->entities[i])->dst == ((Room*)world->entities[j]))
-					{
-						if (((Exit*)world->entities[i])->door == true && ((Exit*)world->entities[i])->open == false)  //Case 1: the exit has a closed door you have to open first
-						{
-							printf("\nThere's a door locked here.\n");
-							return;
-						}
-						else  //Case 2: there is a room in the chosen direction and there isn't a closed door (sets a new position for the player).
-						{
-							pos = j;
-							printf("\n%s\n%s", ((Room*)world->entities[j])->name.c_str(), ((Room*)world->entities[j])->description.c_str());
-							return;
-						}
-					}
-				}
-			}
-		}
-		printf("\nYou can't move into that direction.\n");  //Case 3: there isn't any room in the chosen direction
-	}
-
-	else if (commands.size() == 2 && commands[0] == "go" && (commands[1] == "south" || commands[1] == "s") || commands[0] == "south" || commands[0] == "s")
-	{
-		for (i = 0; i < world->entities.size(); i++)
-		{
-			if (world->entities[i]->type == EXIT && ((Exit*)world->entities[i])->src == player_pos && ((Exit*)world->entities[i])->direction == south)
-			{
-				player_pos = ((Exit*)world->entities[i])->dst;
-				for (j = 0; j < world->entities.size(); j++)
-				{
-					if (((Exit*)world->entities[i])->dst == ((Room*)world->entities[j]))
-					{
-						if (((Exit*)world->entities[i])->door == true && ((Exit*)world->entities[i])->open == false)
-						{
-							printf("\nThere's a door locked here.\n");
-							return;
-						}
-						else
-						{
-							pos = j;
-							printf("\n%s\n%s", ((Room*)world->entities[j])->name.c_str(), ((Room*)world->entities[j])->description.c_str());
-							return;
-						}
-					}
-				}
-			}
-		}
-		printf("\nYou can't move into that way.\n");
-	}
-
-	else if (commands.size() == 2 && commands[0] == "go" && (commands[1] == "east" || commands[1] == "e") || commands[0] == "east" || commands[0] == "e")
-	{
-		for (i = 0; i < world->entities.size(); i++)
-		{
-			if (world->entities[i]->type == EXIT && ((Exit*)world->entities[i])->src == player_pos && ((Exit*)world->entities[i])->direction == east)
-			{
-				player_pos = ((Exit*)world->entities[i])->dst;
-				for (j = 0; j < world->entities.size(); j++)
-				{
-					if (((Exit*)world->entities[i])->dst == ((Room*)world->entities[j]))
-					{
-						if (((Exit*)world->entities[i])->door == true && ((Exit*)world->entities[i])->open == false)
-						{
-							printf("\nThere's a door locked here.\n");
-							return;
-						}
-						else
-						{
-							pos = j;
-							printf("\n%s\n%s", ((Room*)world->entities[j])->name.c_str(), ((Room*)world->entities[j])->description.c_str());
-							return;
-						}
-					}
-				}
-			}
-		}
-		printf("\nYou can't move into that direction.\n");
-	}
-
-	else if (commands.size() == 2 && commands[0] == "go" && (commands[1] == "west" || commands[1] == "w") || commands[0] == "west" || commands[0] == "w")
-	{
-		for (i = 0; i < world->entities.size(); i++)
-		{
-			if (world->entities[i]->type == EXIT && ((Exit*)world->entities[i])->src == player_pos && ((Exit*)world->entities[i])->direction == west)
-			{
-				player_pos = ((Exit*)world->entities[i])->dst;
-				for (j = 0; j < world->entities.size(); j++)
-				{
-					if (((Exit*)world->entities[i])->dst == ((Room*)world->entities[j]))
-					{
-						if (((Exit*)world->entities[i])->door == true && ((Exit*)world->entities[i])->open == false)
-						{
-							printf("\nThere's a door locked here.\n");
-							return;
-						}
-						else
-						{
-							pos = j;
-							printf("\n%s\n%s", ((Room*)world->entities[j])->name.c_str(), ((Room*)world->entities[j])->description.c_str());
-							return;
-						}
-					}
-				}
-			}
-		}
-		printf("\nYou can't move into that way.\n");
-	}
-
-	else if (commands.size() == 2 && commands[0] == "go" && (commands[1] == "down" || commands[1] == "d") || commands[0] == "down" || commands[0] == "d")
-	{
-		for (i = 0; i < world->entities.size(); i++)
-		{
-			if (world->entities[i]->type == EXIT && ((Exit*)world->entities[i])->src == player_pos && ((Exit*)world->entities[i])->direction == down)
-			{
-				player_pos = ((Exit*)world->entities[i])->dst;
-				for (j = 0; j < world->entities.size(); j++)
-				{
-					if (((Exit*)world->entities[i])->dst == ((Room*)world->entities[j]))
-					{
-						if (((Exit*)world->entities[i])->door == true && ((Exit*)world->entities[i])->open == false)
-						{
-							printf("\nThere's a door locked here.\n");
-							return;
-						}
-						else
-						{
-							pos = j;
-							printf("\n%s\n%s", ((Room*)world->entities[j])->name.c_str(), ((Room*)world->entities[j])->description.c_str());
-							return;
-						}
-					}
-				}
-			}
-		}
-		printf("\nYou can't move into that direction.\n");
-	}
-
-	else if (commands.size() == 2 && commands[0] == "go" && (commands[1] == "up" || commands[1] == "u") || commands[0] == "up" || commands[0] == "u")
-	{
-		for (i = 0; i < world->entities.size(); i++)
-		{
-			if (world->entities[i]->type == EXIT && ((Exit*)world->entities[i])->src == player_pos && ((Exit*)world->entities[i])->direction == up)
+			if (world->entities[i]->type == EXIT && ((Exit*)world->entities[i])->src == player_pos && ((Exit*)world->entities[i])->direction == dir)
 			{
 				player_pos = ((Exit*)world->entities[i])->dst;
 				for (j = 0; j < world->entities.size(); j++)
@@ -276,4 +133,133 @@ void Player::Drop(const Vector<MyString> &commands)
 		}
 	}
 	printf("There's any object with that name in your inventory.\n");
+}
+
+/*---PUT FUNCTION---*/
+void Player::Put(const Vector<MyString> &commands) 
+{
+	//checks if the commands introduced are correct
+	if (commands.size() == 4 && commands[2] == "into")
+	{
+		for (int i = 0; i < world->entities.size(); i++)
+		{
+			if (world->entities[i]->type == ITEM)
+			{
+				//checks if the item you want to put is in your inventory and if it's not equipped
+				if (commands[1] == ((Item*)world->entities[i])->name && ((Item*)world->entities[i])->picked == true && ((Item*)world->entities[i])->equipped == false)
+				{
+					for (int j = 0; j < world->entities.size(); j++)
+					{
+						if (world->entities[j]->type == ITEM)
+						{
+							//checks if the last command introduced is the name of the container
+							if (((Item*)world->entities[j])->name == commands[3] && ((Item*)world->entities[j])->container == true)
+							{
+								//checks if the container is in the room
+								if (((Item*)world->entities[j])->src == world->player->player_pos)
+								{
+									((Item*)world->entities[i])->inside = true;
+									((Item*)world->entities[i])->src = ((Item*)world->entities[j])->src;
+									((Item*)world->entities[i])->picked = false;
+									num_items--;
+									printf("You put %s into %s\n", ((Item*)world->entities[i])->name.c_str(), ((Item*)world->entities[j])->name.c_str());
+									return;
+								}
+								else if (((Item*)world->entities[j])->src != player_pos)
+								{
+									printf("You are trying to put an object inside a container that is not in this room.\n");
+									return;
+								}
+							}
+							else if (((Item*)world->entities[j])->name == commands[3] && ((Item*)world->entities[j])->container == false)
+							{
+								printf("You are trying to put an item inside a non-container item.\nIt's an impossible action.\n");
+								return;
+							}
+						}
+					}
+				}
+				else if (commands[1] == ((Item*)world->entities[i])->name && ((Item*)world->entities[i])->picked == false)
+				{
+					printf("You haven't got this item in you inventory.\n");
+					return;
+				}
+				else if (commands[1] == ((Item*)world->entities[i])->name && ((Item*)world->entities[i])->equipped == true)
+				{
+					printf("You have to unequip this item first.\n");
+					return;
+				}
+			}
+		}
+		printf("Make sure you have introduced the correct names of the items.\n");
+		return;
+	}
+	printf("You have introduced some invalid commands.\n");
+}
+
+/*---GET FUNCTION---*/
+void Player::Get(const Vector<MyString> &commands) 
+{
+	//checks if the commands introduced are correct
+	if (commands.size() == 4 && commands[2] == "from")
+	{
+		//checks if your inventory is full
+		if (num_items < max_items)
+		{
+			for (int i = 0; i < world->entities.size(); i++)
+			{
+				if (world->entities[i]->type == ITEM)
+				{
+					//checks if the item you want to get isn't in your inventory, it's not equipped and it's in the room
+					if (commands[1] == ((Item*)world->entities[i])->name && ((Item*)world->entities[i])->picked == false && ((Item*)world->entities[i])->inside == true && ((Item*)world->entities[i])->src && player_pos)
+					{
+						for (int j = 0; j < world->entities.size(); j++)
+						{
+							if (world->entities[j]->type == ITEM)
+							{
+								//checks if the last command introduced is the name of the container
+								if (((Item*)world->entities[j])->name == commands[3] && ((Item*)world->entities[j])->container == true)
+								{
+									//checks if the container is in the room
+									if (((Item*)world->entities[j])->src == player_pos)
+									{
+										((Item*)world->entities[i])->inside = false;
+										((Item*)world->entities[i])->picked = true;
+										num_items++;
+										printf("You got %s from %s\n", ((Item*)world->entities[i])->name.c_str(), ((Item*)world->entities[j])->name.c_str());
+										return;
+									}
+									else if (((Item*)world->entities[j])->src != player_pos)
+									{
+										printf("You are trying to get an object from a container that is not in this room.\n");
+										return;
+									}
+								}
+								else if (((Item*)world->entities[j])->name == commands[3] && ((Item*)world->entities[j])->container == false)
+								{
+									printf("You are trying to get an item from a non-container item.\nIt's an impossible action.\n");
+									return;
+								}
+							}
+						}
+					}
+					else if (commands[1] == ((Item*)world->entities[i])->name && ((Item*)world->entities[i])->picked == true)
+					{
+						printf("You already have this item in your inventory.\n");
+						return;
+					}
+				}
+			}
+			printf("Make sure you have introduced the correct names of the items.\n");
+			return;
+		}
+		else
+		{
+			printf("Your inventory is full, so you can't get more items.\n");
+		}
+	}
+	else
+	{
+		printf("You have introduced some invalid commands.\n");
+	}
 }
