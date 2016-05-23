@@ -22,6 +22,7 @@
     <ClCompile Include="world.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Dlist.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="exits.h" />
     <ClInclude Include="Functions.h" />

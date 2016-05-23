@@ -116,31 +116,40 @@ void World::CreateWorld()
 
 	//SWORD (entities[31])
 	entities.push_back(new Item("SWORD", "This weapon is forged by The Five Blacksmiths, the best\nartisans of Aincrad, with materials whose origin is unknown.\n", (Room*)entities[1], RHand, 10, 0, 0, 0, ITEM));
+	entities[1]->list.push_back(entities[31]);
 
 	//SHIELD (entities[32])
 	entities.push_back(new Item("SHIELD", "This emblematic blue, red and white shield belonged to the Sergeant\nEurope, the protector of Aincrad. It's made with the most resistant material\nin the world: Amadantium\n", (Room*)entities[2], LHand, 0, 0, 0, 10, ITEM));
+	entities[2]->list.push_back(entities[32]);
 
 	//KEY (entities[33])
 	entities.push_back(new Item("KEY", "With this magic key you will be able to open all the doors and trapdoors\nto continue with our journey, Simon.\n", (Room*)entities[6], Non_Equipable, 0, 0, 0, 0, ITEM));
+	entities[6]->list.push_back(entities[33]);
 
 	//HELMET (entities[34])
 	entities.push_back(new Item("HELMET", "I've heard that the one who goes to battle with this\niron helmet equipped is invencible, but this story is just a myth.\n", (Room*)entities[5], Head, 0, 0, 5, 5, ITEM));
+	entities[5]->list.push_back(entities[34]);
 
 	//BREADSPLATE (entities[35])
 	entities.push_back(new Item("BREADSPLATE", "What a beautiful armor! It gives more stamina and resistance\nagainst monsters and creatures\n", (Room*)entities[4], Body, 0, 0, 5, 5, ITEM));
+	entities[4]->list.push_back(entities[35]);
 
 	//GREAVES (entities[36])
 	entities.push_back(new Item("GREAVES", "This greaves will give you more speed, but this is not useful in this game...\n", (Room*)entities[9], Legs, 0, 0, 0, 5, ITEM));
+	entities[9]->list.push_back(entities[36]);
 
 	//AXE (entities[37])
 	entities.push_back(new Item("AXE", "Use this powerful and big axe to destroy hundreds and hundreds of enemies,\nlike Nanoc the Barbarian.\n", (Room*)entities[7], RHand, 10, 0, 0, 0, ITEM));
+	entities[7]->list.push_back(entities[37]);
 
 	//RING (entities[38])
 	entities.push_back(new Item("RING", "This magic artefact is called 'The One Ring' it can increase your magical\npower.Look closely, there is an inscription: 'One ring to rule them all'.\n", (Room*)entities[8], LHand, 0, 20, 10, 0, ITEM));
+	entities[8]->list.push_back(entities[38]);
 
 	//TRUNK (entities[39])
 	entities.push_back(new Item("TRUNK", "You can put all the items you want into this magic trunk if\nyou run out of inventory space.\n", (Room*)entities[2], Non_Equipable, 0, 0, 0, 0, ITEM));
 	((Item*)entities[39])->container = true;
+	entities[2]->list.push_back(entities[39]);
 
 	/*----------------------*/
 
@@ -148,38 +157,48 @@ void World::CreateWorld()
 	//AKA (entities[40])
 	entities.push_back(new Item("AKA", "This is the red gem. It allows you to control fire\n", (Room*)entities[8], Non_Equipable, 0, 0, 0, 0, ITEM));
 	((Item*)entities[40])->magic_gem = true;
+	entities[8]->list.push_back(entities[40]);
 
 	//AO (entities[41])
 	entities.push_back(new Item("AO", "This is the blue gem. It allows you to control water\n", (Room*)entities[3], Non_Equipable, 0, 0, 0, 0, ITEM));
 	((Item*)entities[41])->magic_gem = true;
+	entities[3]->list.push_back(entities[41]);
 
 	//KIIRO (entities[42])
 	entities.push_back(new Item("KIIRO", "This is the yellow gem. It allows you to control electricity\n", (Room*)entities[5], Non_Equipable, 0, 0, 0, 0, ITEM));
 	((Item*)entities[42])->magic_gem = true;
+	entities[5]->list.push_back(entities[42]);
 
 	//KURO (entities[43])
 	entities.push_back(new Item("KURO", "This is the black gem. It allows you to control darkness\n", (Room*)entities[6], Non_Equipable, 0, 0, 0, 0, ITEM));
 	((Item*)entities[43])->magic_gem = true;
+	entities[6]->list.push_back(entities[43]);
 
 	//SHIRO (entities[44])
 	entities.push_back(new Item("SHIRO", "This is the white gem. It allows you to control brightness\n", (Room*)entities[9], Non_Equipable, 0, 0, 0, 0, ITEM));
 	((Item*)entities[44])->magic_gem = true;
+	entities[9]->list.push_back(entities[44]);
 	
 	/*----------------------*/
 
 	//EXCALIBUR (entities[45])
 	entities.push_back(new Item("EXCABILUR", "This legendary weapon belonged to King Bradley, the king of kings,\nwho has goberned Aincriad since his death, 500 years ago.\nIt's said this sword has extraordinary properties.\n", (Room*)entities[11], RHand, 50, 50, 0, 0, ITEM));
+	entities[11]->list.push_back(entities[45]);
 
 	//EAGIS (entities[46])
 	entities.push_back(new Item("EAGIS", "What is that!? This is the mythic shield of Seuz,\nthe strongest god of all times! I think it will give you the enough\nresistance to withstand the last battle.\n", (Room*)entities[11], LHand, 0, 50, 0, 50, ITEM));
+	entities[11]->list.push_back(entities[46]);
 
 	//VEST (entities[47])
 	entities.push_back(new Item("VEST", "Look at this strange vest. I heared that the bearer of\nthis magic clothing gets magical powers like super strength, enhaced\nstamina and mind control.\n", (Room*)entities[11], Body, 20, 20, 20, 20, ITEM));
+	entities[11]->list.push_back(entities[47]);
 
 	//PLAYER (entities[48])
 	entities.push_back(new Player("SIMON", "A nice kid\n", PLAYER, 100, 500, 20, 0));
-
 	player = (Player*)entities[48];
+
+
+
 }
 
 
@@ -188,25 +207,13 @@ void World::Look(int pos, const Vector<MyString> &commands) const
 {
 	int i; //Counters to consider the correct room/exit when you are looking
 	player->player_pos = (Room*)entities[pos];
+	int dir = SetDirLook(commands);
 
-	if (commands.size() == 2 && (commands[1] == "north" || commands[1] == "n")) //checks if commands introduced are correct
+	if (dir >= north && dir <= down)
 	{
 		for (i = 0; i < entities.size(); i++)
 		{
-			if (entities[i]->type == EXIT && ((Exit*)entities[i])->src == player->player_pos && ((Exit*)entities[i])->direction == north) //Case 1: shows the name and description of the exit placed in the chosen direction
-			{
-				((Exit*)entities[i])->Look();
-				return;
-			}
-		}
-		printf("\nThere's nothing to look here.\n");  //Case 2: there isn't any exit placed in the chosen direction
-	}
-
-	else if (commands.size() == 2 && (commands[1] == "south" || commands[1] == "s"))
-	{
-		for (i = 0; i < entities.size(); i++)
-		{
-			if (entities[i]->type == EXIT && ((Exit*)entities[i])->src == player->player_pos && ((Exit*)entities[i])->direction == south)
+			if (entities[i]->type == EXIT && ((Exit*)entities[i])->src == player->player_pos && ((Exit*)entities[i])->direction == dir)
 			{
 				((Exit*)entities[i])->Look();
 				return;
@@ -215,59 +222,7 @@ void World::Look(int pos, const Vector<MyString> &commands) const
 		printf("\nThere's nothing to look here.\n");
 	}
 
-	else if (commands.size() == 2 && (commands[1] == "east" || commands[1] == "e"))
-	{
-		for (i = 0; i < entities.size(); i++)
-		{
-			if (entities[i]->type == EXIT && ((Exit*)entities[i])->src == player->player_pos && ((Exit*)entities[i])->direction == east)
-			{
-				((Exit*)entities[i])->Look();
-				return;
-			}
-		}
-		printf("\nThere's nothing to look here.\n");
-	}
-
-	else if (commands.size() == 2 && (commands[1] == "west" || commands[1] == "w"))
-	{
-		for (i = 0; i < entities.size(); i++)
-		{
-			if (entities[i]->type == EXIT && ((Exit*)entities[i])->src == player->player_pos && ((Exit*)entities[i])->direction == west)
-			{
-				((Exit*)entities[i])->Look();
-				return;
-			}
-		}
-		printf("\nThere's nothing to look here.\n");
-	}
-
-	else if (commands.size() == 2 && (commands[1] == "up" || commands[1] == "u"))
-	{
-		for (i = 0; i < entities.size(); i++)
-		{
-			if (entities[i]->type == EXIT && ((Exit*)entities[i])->src == player->player_pos && ((Exit*)entities[i])->direction == up)
-			{
-				((Exit*)entities[i])->Look();
-				return;
-			}
-		}
-		printf("\nThere's nothing to look here.\n");
-	}
-
-	else if (commands.size() == 2 && (commands[1] == "down" || commands[1] == "d"))
-	{
-		for (i = 0; i < entities.size(); i++)
-		{
-			if (entities[i]->type == EXIT && ((Exit*)entities[i])->src == player->player_pos && ((Exit*)entities[i])->direction == down)
-			{
-				((Exit*)entities[i])->Look();
-				return;
-			}
-		}
-		printf("\nThere's nothing to look here.\n");
-	}
-
-	else if (commands.size() == 2 && (commands[1] == "trunk"))
+	else if (dir == 6) //Look Trunk
 	{
 		if (((Item*)entities[39])->src == player->player_pos)
 		{
@@ -336,16 +291,16 @@ void World::Open(int pos, const Vector<MyString>&commands) const
 {
 	int i;  //Counter to consider the correct exit
 	player->player_pos = ((Room*)entities[pos]);
+	int dir = SetDirOpen(commands);
 
 	if (((Item*)entities[33])->picked == true) //checks if you have the key picked (necessary to open doors)
 	{
-
-		if (commands.size() == 3 && (commands[1] == "north" || commands[1] == "n") && commands[2] == "door") //checks if commands introduced are correct
+		if (dir >= north && dir <= down && commands[2] == "door") //checks if commands introduced are correct
 		{
 			for (i = 0; i < entities.size(); i++)
 			{
 				//OPEN CONDITION: the exit you want to "open" has a door, and its door is closed
-				if (entities[i]->type == EXIT && ((Exit*)entities[i])->src == player->player_pos && ((Exit*)entities[i])->direction == north && ((Exit*)entities[i])->open == false)
+				if (entities[i]->type == EXIT && ((Exit*)entities[i])->src == player->player_pos && ((Exit*)entities[i])->open == false)
 				{
 					((Exit*)entities[i])->open = true;
 					printf("\nYou opened the door.\n");
@@ -354,77 +309,6 @@ void World::Open(int pos, const Vector<MyString>&commands) const
 			}
 			printf("\nThere's nothing to open here.\n");
 		}
-
-		else if (commands.size() == 3 && (commands[1] == "south" || commands[1] == "s"))
-		{
-			for (i = 0; i < entities.size(); i++)
-			{
-				if (entities[i]->type == EXIT && ((Exit*)entities[i])->src == player->player_pos && ((Exit*)entities[i])->direction == south && ((Exit*)entities[i])->open == false)
-				{
-					((Exit*)entities[i])->open = true;
-					printf("\nYou opened the door.\n");
-					return;
-				}
-			}
-			printf("\nThere's nothing to open here.\n");
-		}
-
-		else if (commands.size() == 3 && (commands[1] == "east" || commands[1] == "e") && commands[2] == "door")
-		{
-			for (i = 0; i < entities.size(); i++)
-			{
-				if (entities[i]->type == EXIT && ((Exit*)entities[i])->src == player->player_pos && ((Exit*)entities[i])->direction == east && ((Exit*)entities[i])->open == false)
-				{
-					((Exit*)entities[i])->open = true;
-					printf("\nYou opened the door.\n");
-					return;
-				}
-			}
-			printf("\nThere's nothing to open here.\n");
-		}
-
-		else if (commands.size() == 3 && (commands[1] == "west" || commands[1] == "w") && commands[2] == "door")
-		{
-			for (i = 0; i < entities.size(); i++)
-			{
-				if (entities[i]->type == EXIT && ((Exit*)entities[i])->src == player->player_pos && ((Exit*)entities[i])->direction == west && ((Exit*)entities[i])->open == false)
-				{
-					((Exit*)entities[i])->open = true;
-					printf("You opened the door.\n");
-					return;
-				}
-			}
-			printf("\nThere's nothing to open here.\n");
-		}
-
-		else if (commands.size() == 3 && (commands[1] == "up" || commands[1] == "u") && commands[2] == "door")
-		{
-			for (i = 0; i < entities.size(); i++)
-			{
-				if (entities[i]->type == EXIT && ((Exit*)entities[i])->src == player->player_pos && ((Exit*)entities[i])->direction == up && ((Exit*)entities[i])->open == false)
-				{
-					((Exit*)entities[i])->open = true;
-					printf("\nYou opened the door.\n");
-					return;
-				}
-			}
-			printf("\nThere's nothing to open here.\n");
-		}
-
-		else if (commands.size() == 3 && (commands[1] == "down" || commands[1] == "d") && commands[2] == "door")
-		{
-			for (i = 0; i < entities.size(); i++)
-			{
-				if (entities[i]->type == EXIT && ((Exit*)entities[i])->src == player->player_pos && ((Exit*)entities[i])->direction == down && ((Exit*)entities[i])->open == false)
-				{
-					((Exit*)entities[i])->open = true;
-					printf("\nYou opened the door.\n");
-					return;
-				}
-			}
-			printf("\nThere's nothing to open here.\n");
-		}
-
 		else
 		{
 			printf("\nYou have to specify which door you want to open.\n");

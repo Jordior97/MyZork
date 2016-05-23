@@ -23,7 +23,7 @@ void Player::Movement(int &pos, const Vector<MyString> &commands)
 	fflush(stdin);
 
 	int i, j; //counters that consider the correct room/exit when you move.
-	int dir = SetDirection(commands);
+	int dir = SetDirMove(commands);
 	player_pos = (Room*)world->entities[pos];
 	
 	if (dir >= north && dir <= down)

@@ -106,7 +106,7 @@ int GetCommand(const Vector<MyString>&commands)
 	}
 }
 
-int SetDirection(const Vector<MyString>&commands)
+int SetDirMove(const Vector<MyString>&commands)
 {
 	if (commands.size() == 2 && commands[0] == "go" && (commands[1] == "north" || commands[1] == "n") || commands[0] == "north" || commands[0] == "n")
 	{
@@ -116,7 +116,6 @@ int SetDirection(const Vector<MyString>&commands)
 	{
 		return south;
 	}
-
 	else if (commands.size() == 2 && commands[0] == "go" && (commands[1] == "east" || commands[1] == "e") || commands[0] == "east" || commands[0] == "e")
 	{
 		return east;
@@ -137,5 +136,74 @@ int SetDirection(const Vector<MyString>&commands)
 	{
 		return 10;
 	}
-	
+}
+
+int SetDirLook(const Vector<MyString>&commands)
+{
+	if (commands.size() == 2 && (commands[1] == "north" || commands[1] == "n"))
+	{
+		return north;
+	}
+	else if (commands.size() == 2 && (commands[1] == "south" || commands[1] == "s"))
+	{
+		return south;
+	}
+
+	else if (commands.size() == 2 && (commands[1] == "east" || commands[1] == "e"))
+	{
+		return east;
+	}
+	else if (commands.size() == 2 && (commands[1] == "west" || commands[1] == "w"))
+	{
+		return west;
+	}
+	else if (commands.size() == 2 && (commands[1] == "up" || commands[1] == "u"))
+	{
+		return up;
+	}
+	else if (commands.size() == 2 && (commands[1] == "down" || commands[1] == "d"))
+	{
+		return down;
+	}
+	else if (commands.size() == 2 && (commands[1] == "trunk"))
+	{
+		return 6;
+	}
+	else
+	{
+		return 10;
+	}
+}
+
+int SetDirOpen(const Vector<MyString>&commands)
+{
+	if (commands.size() == 3 && (commands[1] == "north" || commands[1] == "n"))
+	{
+		return north;
+	}
+	else if (commands.size() == 3 && (commands[1] == "south" || commands[1] == "s"))
+	{
+		return south;
+	}
+
+	else if (commands.size() == 3 && (commands[1] == "east" || commands[1] == "e"))
+	{
+		return east;
+	}
+	else if (commands.size() == 3 && (commands[1] == "west" || commands[1] == "w"))
+	{
+		return west;
+	}
+	else if (commands.size() == 3 && (commands[1] == "up" || commands[1] == "u"))
+	{
+		return up;
+	}
+	else if (commands.size() == 3 && (commands[1] == "down" || commands[1] == "d"))
+	{
+		return down;
+	}
+	else
+	{
+		return 10;
+	}
 }
