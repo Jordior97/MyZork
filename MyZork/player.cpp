@@ -65,25 +65,31 @@ void Player::Movement(int &pos, const Vector<MyString> &commands)
 /*---PICK FUNCTION---*/
 void Player::Pick(const Vector<MyString> &commands) 
 {
+	
 	//checks if inventory is full (so you can't pick more objects)
 	if (num_items < max_items)
 	{
-		for (int i = 0; i < world->entities.size(); i++)
+		if (player_pos->list.first != nullptr)
 		{
-			//checks if the commands introduced are correct (first command == pick && second command == <item_name>) and if the item is not in the inventory yet
-			if (world->entities[i]->type == ITEM && commands.size() == 2 && commands[1] == ((Item*)world->entities[i])->name && ((Item*)world->entities[i])->src == player_pos && ((Item*)world->entities[i])->picked == false)
+			DList<Entity*>::DNode* it = player_pos->list.first;
+			for (; it != nullptr; it = it->next)
 			{
-				if (((Item*)world->entities[i])->container == false)
+				//checks if the commands introduced are correct (first command == pick && second command == <item_name>) and if the item is not in the inventory yet
+				if (it->data->type == ITEM && commands.size() == 2 && commands[1] == it->data->name)
 				{
-					((Item*)world->entities[i])->picked = true;
-					num_items++;
-					printf("You picked %s\n", ((Item*)world->entities[i])->name.c_str());
-					return;
-				}
-				else
-				{
-					printf("This item is too big to carry it.\n");
-					return;
+					if (it->data != (Item*)world->entities[39])
+					{
+						printf("You picked %s\n", it->data->name.c_str());
+						list.push_back(it->data);
+						player_pos->list.erase(it);
+						num_items++;
+						return;
+					}
+					else
+					{
+						printf("This item is too big to carry it.\n");
+						return;
+					}
 				}
 			}
 		}
@@ -99,36 +105,44 @@ void Player::Pick(const Vector<MyString> &commands)
 void Player::Drop(const Vector<MyString> &commands) 
 {
 	srand(time(NULL));
-	for (int i = 0; i < world->entities.size(); i++)
+	if (list.first != nullptr)
 	{
-		//checks if the commands introduced are correct (first command == drop && second command == <item_name>) and if the item is in the inventory
-		if (world->entities[i]->type == ITEM && commands.size() == 2 && ((Item*)world->entities[i])->name == commands[1] && ((Item*)world->entities[i])->picked == true)
+		for (int i = 0; i < world->entities.size(); i++)
 		{
-			//checks if the the item is not equipped...
-			if (((Item*)world->entities[i])->equipped == false)
+			DList<Entity*>::DNode* it = list.first;
+			for (; it != nullptr; it = it->next)
 			{
-				int random = rand() % NUM_ROOMS;
-				((Item*)world->entities[i])->picked = false;
-				((Item*)world->entities[i])->src = ((Room*)world->entities[random]);//WormHole: sends the item to a random room.
-				num_items--;
+				//checks if the commands introduced are correct (first command == drop && second command == <item_name>) and if the item is in the inventory
+				if (it->data->type == ITEM && commands.size() == 2 && commands[1] == it->data->name)
+				{
+					//checks if the the item is not equipped...
+					if (((Item*)it->data)->equipped == false)
+					{
+						int random = rand() % NUM_ROOMS;
 
-				printf("\n");
-				printf("d8888b. db       .d88b.  d8888b. db\n");
-				printf("88  `8D 88      .8P  Y8. 88  `8D 88\n");
-				printf("88oodD' 88      88    88 88oodD' YP\n");
-				printf("88~~~   88      88    88 88~~~\n");
-				printf("88      88booo. `8b  d8' 88      db\n");
-				printf("88      Y88888P  `Y88P'  88      YP\n");
-				printf("\n");
+						printf("\n");
+						printf("d8888b. db       .d88b.  d8888b. db\n");
+						printf("88  `8D 88      .8P  Y8. 88  `8D 88\n");
+						printf("88oodD' 88      88    88 88oodD' YP\n");
+						printf("88~~~   88      88    88 88~~~\n");
+						printf("88      88booo. `8b  d8' 88      db\n");
+						printf("88      Y88888P  `Y88P'  88      YP\n");
+						printf("\n");
 
-				printf("You dropped %s and the Wormhole made it desappear.\n", ((Item*)world->entities[i])->name.c_str());
-				return;
-			}
-			//...because you can't drop an equipped item
-			else
-			{
-				printf("You have to unequip this item first before drop it.\n");
-				return;
+						printf("You dropped %s and the Wormhole made it desappear. %i\n", it->data->name.c_str(),random);
+						
+						((Room*)world->entities[random])->list.push_back(it->data);
+						list.erase(it);
+						num_items--;
+						return;
+					}
+					//...because you can't drop an equipped item
+					else
+					{
+						printf("You have to unequip this item first before drop it.\n");
+						return;
+					}
+				}
 			}
 		}
 	}

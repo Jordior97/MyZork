@@ -13,6 +13,7 @@ void Item::Look()const
 		printf("%s\n%s\n", name.c_str(), description.c_str());
 
 	}
+
 	else
 	{
 		printf("%s (attack: %i / hp: %i / mana: %i armor: %i)\n%s\n", name.c_str(), attack, hp, mana, armor, description.c_str());

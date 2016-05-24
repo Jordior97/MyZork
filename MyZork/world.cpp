@@ -244,14 +244,12 @@ void World::Look(int pos, const Vector<MyString> &commands) const
 	else if(commands.size()==1)//Case 3: name and description of the room you are. It shows items that are in the room too.
 	{
 		((Room*)entities[pos])->Look();
+		DList<Entity*>::DNode* it = ((Room*)entities[pos])->list.first;
 		printf("\n--------------------------\n");
 		printf("\nItems you can find here:\n\n");
-		for (i = 0; i < entities.size(); i++)
+		for (; it != nullptr; it= it->next)
 		{
-			if (entities[i]->type == ITEM && player->player_pos == ((Item*)entities[i])->src && ((Item*)entities[i])->picked == false && ((Item*)entities[i])->inside == false)
-			{
-				((Item*)entities[i])->Look();
-			}
+			it->data->Look();
 		}
 	}
 
@@ -357,22 +355,23 @@ void World::Inventory() const
 	if (player->num_items > 0)
 	{
 		printf("In your inventory you have (%i/%i):\n\n", player->num_items, player->max_items);
-		for (i = 0; i < entities.size(); i++)
+		DList<Entity*>::DNode* it = nullptr;
+		for (it = player->list.first; it != nullptr; it = it->next)
 		{
 			//shows the names and descriptions of the picked items
-			if (entities[i]->type == ITEM && ((Item*)entities[i])->picked == true && ((Item*)entities[i])->magic_gem == false)
+			if (((Item*)it->data)->magic_gem == false)
 			{
-				((Item*)entities[i])->Look();
+				it->data->Look();
 			}
 		}
 		printf("------------------\n");
 		printf("MAGIC GEMS:\n\n");
-		for (i = 0; i < entities.size(); i++)
+		for (it = player->list.first; it != nullptr; it = it->next)
 		{
 			//shows the names and descriptions of the picked gems
-			if (entities[i]->type == ITEM && ((Item*)entities[i])->picked == true && ((Item*)entities[i])->magic_gem == true)
+			if (((Item*)it->data)->magic_gem == true)
 			{
-				((Item*)entities[i])->Look();
+				it->data->Look();
 			}
 		}
 		printf("------------------\n");
@@ -629,10 +628,6 @@ void World::Equipment() const
 	printf("LEGS = %s", Legs_item.c_str());
 	printf("\n--------------------\n");
 }
-
-
-
-
 
 
 World::~World()

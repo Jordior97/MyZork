@@ -20,6 +20,7 @@ int main()
 	MyString option;
 	char command[70];
 	int position = 0; //Sets initial position to rooms[0](BEDROOM)
+	(Room*)world->player->player_pos = (Room*)world->entities[position];
 
 	do
 	{
