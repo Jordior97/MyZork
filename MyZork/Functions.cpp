@@ -175,7 +175,7 @@ int SetDirLook(const Vector<MyString>&commands)
 	}
 }
 
-int SetDirOpen(const Vector<MyString>&commands)
+int SetDirOpenClose(const Vector<MyString>&commands)
 {
 	if (commands.size() == 3 && (commands[1] == "north" || commands[1] == "n"))
 	{

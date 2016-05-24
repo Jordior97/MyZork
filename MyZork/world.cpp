@@ -291,7 +291,7 @@ void World::Open(int pos, const Vector<MyString>&commands) const
 {
 	int i;  //Counter to consider the correct exit
 	player->player_pos = ((Room*)entities[pos]);
-	int dir = SetDirOpen(commands);
+	int dir = SetDirOpenClose(commands);
 
 	if (((Item*)entities[33])->picked == true) //checks if you have the key picked (necessary to open doors)
 	{
@@ -326,13 +326,14 @@ void World::Close(int pos, const Vector<MyString> &commands) const
 {
 	int i;
 	player->player_pos = (Room*)entities[pos];
+	int dir = SetDirOpenClose(commands);
 
-	if (commands.size() == 3 && (commands[1] == "north" || commands[1] == "n") && commands[2] == "door") //checks if commands introduced are correct
+	if (dir >= north && dir <= down && commands[2] == "door") //checks if commands introduced are correct
 	{
 		for (i = 0; i < entities.size(); i++)
 		{
 			//CLOSE CONDITION: the exit you want to "close" has a door, and its door is opened
-			if (entities[i]->type == EXIT && ((Exit*)entities[i])->src == player->player_pos && ((Exit*)entities[i])->direction == north && ((Exit*)entities[i])->open == true && ((Exit*)entities[i])->door == true)
+			if (entities[i]->type == EXIT && ((Exit*)entities[i])->src == player->player_pos && ((Exit*)entities[i])->open == true && ((Exit*)entities[i])->door == true)
 			{
 				((Exit*)entities[i])->open = false;
 				printf("\nYou closed the door.\n");
@@ -341,81 +342,12 @@ void World::Close(int pos, const Vector<MyString> &commands) const
 		}
 		printf("\nThere's nothing to close here.\n");
 	}
-
-	else if (commands.size() == 3 && (commands[1] == "south" || commands[1] == "s") && commands[2] == "door")
+	else
 	{
-		for (i = 0; i < entities.size(); i++)
-		{
-			if (entities[i]->type == EXIT && ((Exit*)entities[i])->src == player->player_pos && ((Exit*)entities[i])->direction == south && ((Exit*)entities[i])->open == true && ((Exit*)entities[i])->door == true)
-			{
-				((Exit*)entities[i])->open = false;
-				printf("\nYou closed the door.\n");
-				return;
-			}
-		}
-		printf("\nThere's nothing to close here.\n");
-	}
-
-	else if (commands.size() == 3 && (commands[1] == "east" || commands[1] == "e") && commands[2] == "door")
-	{
-		for (i = 0; i < entities.size(); i++)
-		{
-			if (entities[i]->type == EXIT && ((Exit*)entities[i])->src == player->player_pos && ((Exit*)entities[i])->direction == east && ((Exit*)entities[i])->open == true && ((Exit*)entities[i])->door == true)
-			{
-				((Exit*)entities[i])->open = false;
-				printf("\nYou closed the door.\n");
-				return;
-			}
-		}
-		printf("\nThere's nothing to close here.\n");
-	}
-
-	else if (commands.size() == 3 && (commands[1] == "west" || commands[1] == "w") && commands[2] == "door")
-	{
-		for (i = 0; i < entities.size(); i++)
-		{
-			if (entities[i]->type == EXIT && ((Exit*)entities[i])->src == player->player_pos && ((Exit*)entities[i])->direction == west && ((Exit*)entities[i])->open == true && ((Exit*)entities[i])->door == true)
-			{
-				((Exit*)entities[i])->open = false;
-				printf("\nYou closed the door.\n");
-				return;
-			}
-		}
-		printf("\nThere's nothing to close here.\n");
-	}
-
-	else if (commands.size() == 3 && (commands[1] == "up" || commands[1] == "u") && commands[2] == "door")
-	{
-		for (i = 0; i < entities.size(); i++)
-		{
-			if (entities[i]->type == EXIT && ((Exit*)entities[i])->src == player->player_pos && ((Exit*)entities[i])->direction == up && ((Exit*)entities[i])->open == true && ((Exit*)entities[i])->door == true)
-			{
-				((Exit*)entities[i])->open = false;
-				printf("\nYou closed the door.\n");
-				return;
-			}
-		}
-		printf("\nThere's nothing to close here.\n");
-	}
-
-	else if (commands.size() == 3 && (commands[1] == "down" || commands[1] == "d") && commands[2] == "door")
-	{
-		for (i = 0; i < entities.size(); i++)
-		{
-			if (entities[i]->type == EXIT && ((Exit*)entities[i])->src == player->player_pos && ((Exit*)entities[i])->direction == down && ((Exit*)entities[i])->open == true && ((Exit*)entities[i])->door == true)
-			{
-				((Exit*)entities[i])->open = false;
-				printf("\nYou closed the door.\n");
-				return;
-			}
-		}
-		printf("\nThere's nothing to close here.\n");
+		printf("\nYou have to specify which door you want to close.\n");
+		return;
 	}
 }
-
-
-
-
 
 /*---INVENTORY FUNCTION---*/
 void World::Inventory() const

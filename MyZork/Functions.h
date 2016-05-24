@@ -6,7 +6,7 @@ enum action { Movement, Look, Open, Close, Pick, Drop, Help, Quit, Invalid_comma
 int GetCommand(const Vector<MyString>&);
 int SetDirMove(const Vector<MyString>&);
 int SetDirLook(const Vector<MyString>&);
-int SetDirOpen(const Vector<MyString>&);
+int SetDirOpenClose(const Vector<MyString>&);
 
 
 #endif
