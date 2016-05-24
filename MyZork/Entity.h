@@ -4,7 +4,7 @@
 #include "MyString.h"
 #include "Dlist.h"
 
-enum Type{ PLAYER, ROOM, EXIT, ITEM };
+enum Type{ PLAYER, ROOM, EXIT, ITEM , NPC};
 
 
 class Entity

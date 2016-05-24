@@ -249,7 +249,10 @@ void World::Look(int pos, const Vector<MyString> &commands) const
 		printf("\nItems you can find here:\n\n");
 		for (; it != nullptr; it= it->next)
 		{
-			it->data->Look();
+			if (it->data->type == ITEM)
+			{
+				it->data->Look();
+			}
 		}
 	}
 
@@ -385,133 +388,117 @@ void World::Inventory() const
 /*---EQUIP FUNCTION---*/
 void World::Equip(const Vector<MyString> &commands) const
 {
-	for (int i = 0; i < entities.size(); i++)
+	DList<Entity*>::DNode* it = player->list.first;
+	for (; it != nullptr; it = it->next)
 	{
 		//checks if the commands introduced are correct (first command == equip && second command == <item_name>) 
 		//it checks the slot it occupies (the part of the player where it will be equipped) too
-		if (entities[i]->type == ITEM && commands.size() == 2 && ((Item*)entities[i])->part == Head && commands[1] == ((Item*)entities[i])->name)
+		if (it->data->type == ITEM && commands.size() == 2 && commands[1] == it->data->name && ((Item*)it->data)->part == Head)
 		{
-			//checks if the item is in the inventory
-			if (((Item*)entities[i])->picked == true)
+			//checks if there isn't an item equipped on that part yet
+			if (player->head_item == false)
 			{
-				//checks if there isn't an item equipped on that part yet
-				if (player->head_item == false)
-				{
-					player->head_item = true;
-					((Item*)entities[i])->equipped = true;
-					player->armor += ((Item*)entities[i])->armor;
-					player->attack += ((Item*)entities[i])->attack;
-					player->hp += ((Item*)entities[i])->hp;
-					player->mana += ((Item*)entities[i])->mana;
-					printf("You equipped %s on your head.\n", ((Item*)entities[i])->name.c_str());
-					return;
-				}
-				else
-				{
-					printf("You have an item equipped on your head already.\n");
-					return;
-				}
-			}
-		}	
-
-		else if (entities[i]->type == ITEM && commands.size() == 2 && ((Item*)entities[i])->part == Body && commands[1] == ((Item*)entities[i])->name)
-		{
-			if (((Item*)entities[i])->picked == true)
-			{
-				if (player->body_item == false)
-				{
-					player->body_item = true;
-					((Item*)entities[i])->equipped = true;
-					player->armor += ((Item*)entities[i])->armor;
-					player->attack += ((Item*)entities[i])->attack;
-					player->hp += ((Item*)entities[i])->hp;
-					player->mana += ((Item*)entities[i])->mana;
-					printf("You equipped %s on your body.\n", ((Item*)entities[i])->name.c_str());
-					return;
-				}
-				else
-				{
-					printf("You have an item equipped on your body already.\n");
-					return;
-				}
-			}
-		}
-
-		else if (entities[i]->type == ITEM && commands.size() == 2 && ((Item*)entities[i])->part == RHand && commands[1] == ((Item*)entities[i])->name)
-		{
-			if (((Item*)entities[i])->picked == true)
-			{
-				if (player->RHand_item == false)
-				{
-					player->RHand_item = true;
-					((Item*)entities[i])->equipped = true;
-					player->armor += ((Item*)entities[i])->armor;
-					player->attack += ((Item*)entities[i])->attack;
-					player->hp += ((Item*)entities[i])->hp;
-					player->mana += ((Item*)entities[i])->mana;
-					printf("You equipped %s on your right hand.\n", ((Item*)entities[i])->name.c_str());
-					return;
-				}
-				else
-				{
-					printf("You have an item equipped on your right hand already.\n");
-					return;
-				}
-			}
-		}
-
-		else if (entities[i]->type == ITEM && commands.size() == 2 && ((Item*)entities[i])->part == LHand && commands[1] == ((Item*)entities[i])->name)
-		{
-			if (((Item*)entities[i])->picked == true)
-			{
-				if (player->LHand_item == false)
-				{
-					player->LHand_item = true;
-					((Item*)entities[i])->equipped = true;
-					player->armor += ((Item*)entities[i])->armor;
-					player->attack += ((Item*)entities[i])->attack;
-					player->hp += ((Item*)entities[i])->hp;
-					player->mana += ((Item*)entities[i])->mana;
-					printf("You equipped %s on your left hand.\n", ((Item*)entities[i])->name.c_str());
-					return;
-				}
-				else
-				{
-					printf("You have an item equipped on your left hand already.\n");
-					return;
-				}
-			}
-		}
-
-		else if (entities[i]->type == ITEM && commands.size() == 2 && ((Item*)entities[i])->part == Legs && commands[1] == ((Item*)entities[i])->name)
-		{
-			if (((Item*)entities[i])->picked == true)
-			{
-				if (player->legs_item == false)
-				{
-					player->legs_item = true;
-					((Item*)entities[i])->equipped = true;
-					player->armor += ((Item*)entities[i])->armor;
-					player->attack += ((Item*)entities[i])->attack;
-					player->hp += ((Item*)entities[i])->hp;
-					player->mana += ((Item*)entities[i])->mana;
-					printf("You equipped %s on your legs.\n", ((Item*)entities[i])->name.c_str());
-					return;
-				}
-				else
-				{
-					printf("You have an item equipped on your legs already.\n");
-					return;
-				}
-			}
-		}
-		else if (entities[i]->type == ITEM && commands.size() == 2 && ((Item*)entities[i])->part == Non_Equipable && commands[1] == ((Item*)entities[i])->name)
-		{
-			if (((Item*)entities[i])->picked == true)
-			{
-				printf("You can't equip this item.\n");
+				player->head_item = true;
+				((Item*)it->data)->equipped = true;
+				player->armor += ((Item*)it->data)->armor;
+				player->attack += ((Item*)it->data)->attack;
+				player->hp += ((Item*)it->data)->hp;
+				player->mana += ((Item*)it->data)->mana;
+				printf("You equipped %s on your head.\n", it->data->name.c_str());
 				return;
 			}
+			else
+			{
+				printf("You have an item equipped on your head already.\n");
+				return;
+			}
+		}
+
+		else if (it->data->type == ITEM && commands.size() == 2 && commands[1] == it->data->name && ((Item*)it->data)->part == Body)
+		{
+			if (player->body_item == false)
+			{
+				player->body_item = true;
+				((Item*)it->data)->equipped = true;
+				player->armor += ((Item*)it->data)->armor;
+				player->attack += ((Item*)it->data)->attack;
+				player->hp += ((Item*)it->data)->hp;
+				player->mana += ((Item*)it->data)->mana;
+				printf("You equipped %s on your body.\n", it->data->name.c_str());
+				return;
+			}
+			else
+			{
+				printf("You have an item equipped on your body already.\n");
+				return;
+			}
+		}
+
+		else if (it->data->type == ITEM && commands.size() == 2 && commands[1] == it->data->name && ((Item*)it->data)->part == RHand)
+		{
+			if (player->RHand_item == false)
+			{
+				player->RHand_item = true;
+				((Item*)it->data)->equipped = true;
+				player->armor += ((Item*)it->data)->armor;
+				player->attack += ((Item*)it->data)->attack;
+				player->hp += ((Item*)it->data)->hp;
+				player->mana += ((Item*)it->data)->mana;
+				printf("You equipped %s on your right hand.\n", it->data->name.c_str());
+				return;
+			}
+			else
+			{
+				printf("You have an item equipped on your right hand already.\n");
+				return;
+			}
+		}
+
+		else if (it->data->type == ITEM && commands.size() == 2 && commands[1] == it->data->name && ((Item*)it->data)->part == LHand)
+		{
+
+			if (player->LHand_item == false)
+			{
+				player->LHand_item = true;
+				((Item*)it->data)->equipped = true;
+				player->armor += ((Item*)it->data)->armor;
+				player->attack += ((Item*)it->data)->attack;
+				player->hp += ((Item*)it->data)->hp;
+				player->mana += ((Item*)it->data)->mana;
+				printf("You equipped %s on your left hand.\n", it->data->name.c_str());
+				return;
+			}
+			else
+			{
+				printf("You have an item equipped on your left hand already.\n");
+				return;
+			}
+		}
+
+		else if (it->data->type == ITEM && commands.size() == 2 && commands[1] == it->data->name && ((Item*)it->data)->part == Legs)
+		{
+			if (player->legs_item == false)
+			{
+				player->legs_item = true;
+				((Item*)it->data)->equipped = true;
+				player->armor += ((Item*)it->data)->armor;
+				player->attack += ((Item*)it->data)->attack;
+				player->hp += ((Item*)it->data)->hp;
+				player->mana += ((Item*)it->data)->mana;
+				printf("You equipped %s on your legs.\n", it->data->name.c_str());
+				return;
+			}
+			else
+			{
+				printf("You have an item equipped on your legs already.\n");
+				return;
+			}
+		}
+
+		else if (it->data->type == ITEM && commands.size() == 2 && commands[1] == it->data->name && ((Item*)it->data)->part == Non_Equipable)
+		{
+			printf("You can't equip this item.\n");
+			return;
 		}
 	}
 	printf("You don't have any item to equip with that name.\n");
@@ -520,19 +507,19 @@ void World::Equip(const Vector<MyString> &commands) const
 /*---UNEQUIP FUNCTION---*/
 void World::Unequip(const Vector<MyString> &commands) const
 {
-	int i;
-	for (i = 0; i < entities.size(); i++)
+	DList<Entity*>::DNode* it = player->list.first;
+	for (; it != nullptr; it = it->next)
 	{
-		if (entities[i]->type == ITEM)
+		if (it->data->type == ITEM)
 		{
 			//checks if the commands introduced are correct (first command == unequip && second command == <item_name>) 
-			if (commands.size() == 2 && commands[1] == ((Item*)entities[i])->name)
+			if (commands.size() == 2 && commands[1] == it->data->name)
 			{
 				//checks if the item is equipped
-				if (((Item*)entities[i])->equipped == true)
+				if (((Item*)it->data)->equipped == true)
 				{
 					//to empty the slot the item occupied
-					switch (((Item*)entities[i])->part)
+					switch (((Item*)it->data)->part)
 					{
 					case Head:
 					{
@@ -566,12 +553,12 @@ void World::Unequip(const Vector<MyString> &commands) const
 					}
 					}
 
-					((Item*)entities[i])->equipped = false;
-					player->armor -= ((Item*)entities[i])->armor;
-					player->attack -= ((Item*)entities[i])->attack;
-					player->hp -= ((Item*)entities[i])->hp;
-					player->mana -= ((Item*)entities[i])->mana;
-					printf("You have unequipped %s.\n", ((Item*)entities[i])->name.c_str());
+					((Item*)it->data)->equipped = false;
+					player->armor -= ((Item*)it->data)->armor;
+					player->attack -= ((Item*)it->data)->attack;
+					player->hp -= ((Item*)it->data)->hp;
+					player->mana -= ((Item*)it->data)->mana;
+					printf("You have unequipped %s.\n", it->data->name.c_str());
 					return;
 				}
 			}
