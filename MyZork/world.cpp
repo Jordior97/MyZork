@@ -224,21 +224,21 @@ void World::Look(int pos, const Vector<MyString> &commands) const
 
 	else if (dir == 6) //Look Trunk
 	{
-		if (((Item*)entities[39])->src == player->player_pos)
+		DList<Entity*>::DNode* it_room = world->player->player_pos->list.first;
+		for (; it_room != nullptr; it_room = it_room->next)
 		{
-			printf("Items inside the TRUNK:\n\n");
-			for (i = 0; i < entities.size(); i++)
+			if (it_room->data == entities[39])
 			{
-				if (entities[i]->type == ITEM && ((Item*)entities[i])->inside == true)
+				DList<Entity*>::DNode* it_trunk = it_room->data->list.first;
+				printf("Items inside the TRUNK:\n\n");
+				for (; it_trunk != nullptr; it_trunk = it_trunk->next)
 				{
-					printf("%s\n%s\n", ((Item*)entities[i])->name.c_str(), ((Item*)entities[i])->description.c_str());
+					printf("%s\n%s\n", it_trunk->data->name.c_str(), it_trunk->data->description.c_str());
 				}
+				return;
 			}
 		}
-		else
-		{
-			printf("The TRUNK is not here.\n");
-		}
+		printf("The TRUNK is not here.\n");
 	}
 
 	else if(commands.size()==1)//Case 3: name and description of the room you are. It shows items that are in the room too.
@@ -293,8 +293,18 @@ void World::Open(int pos, const Vector<MyString>&commands) const
 	int i;  //Counter to consider the correct exit
 	player->player_pos = ((Room*)entities[pos]);
 	int dir = SetDirOpenClose(commands);
+	bool key = false;
+	DList<Entity*>::DNode* it = world->player->list.first;
 
-	if (((Item*)entities[33])->picked == true) //checks if you have the key picked (necessary to open doors)
+	for (; it != nullptr; it = it->next)
+	{
+		if (it->data == entities[33])
+		{
+			key = true;
+		}
+	}
+
+	if (key == true) //checks if you have the key picked (necessary to open doors)
 	{
 		if (dir >= north && dir <= down && commands[2] == "door") //checks if commands introduced are correct
 		{
