@@ -4,7 +4,7 @@
 #include"world.h"
 
 
-int GetCommand(const Vector<MyString>&commands)
+int GetCommand(int& position, const Vector<MyString>&commands)
 {
 	//'GO' COMMANDS
 	if (commands[0] == "go" || commands[0] == "n" || commands[0] == "s" || commands[0] == "e" ||
@@ -12,42 +12,50 @@ int GetCommand(const Vector<MyString>&commands)
 		commands[0] == "south" || commands[0] == "east" || commands[0] == "west" || commands[0] == "up" || 
 		commands[0] == "down")
 	{
+
+		world->player->Movement(position, commands);
 		return Movement;
 	}
 
 	//'LOOK' COMMANDS
 	else if (commands[0] == "look")
 	{
+		world->Look(position, commands);
 		return Look;
 	}
 	
 	//'OPEN' COMMANDS
 	else if (commands[0] == "open")
 	{
+		world->Open(position, commands);
 		return Open;
 	}
 	
 	//'CLOSE' COMMANDS
 	else if (commands[0] == "close")
 	{
+		world->Close(position, commands);
 		return Close;
 	}
 
 	//'PICK' COMMANDS
 	else if (commands[0] == "pick")
 	{
+		world->player->Pick(commands);
 		return Pick;
 	}
 
 	//'DROP' COMMANDS
 	else if (commands[0] == "drop")
 	{
+		world->player->Drop(commands);
 		return Drop;
 	}
 
 	//'HELP' COMMANDS
 	else if (commands[0] == "help")
 	{
+		world->Help();
 		return Help;
 	}
 
@@ -60,42 +68,49 @@ int GetCommand(const Vector<MyString>&commands)
 	//'INVENTORY' COMMANDS
 	else if (commands[0] == "i" || commands[0] == "inv" || commands[0] == "inventory")
 	{
+		world->Inventory();
 		return Inventory;
 	}
 
 	//'EQUIP' COMMAND
 	else if (commands[0] == "equip")
 	{
+		world->Equip(commands);
 		return Equip;
 	}
 
 	//'UNEQUIP' COMMAND
 	else if (commands[0] == "unequip")
 	{
+		world->Unequip(commands);
 		return Unequip;
 	}
 
 	//'STATS' COMMANDS
 	else if (commands[0] == "stats" || commands[0] == "st")
 	{
+		world->player->Stats();
 		return Stats;
 	}
 
 	//'EQUIPMENT' COMMANDS
 	else if (commands[0] == "equipment" || commands[0] == "eq")
 	{
+		world->Equipment();
 		return Equipment;
 	}
 
 	//'PUT' COMMANDS
 	else if (commands[0] == "put" || commands[0] == "p")
 	{
+		world->player->Put(commands);
 		return Put;
 	}
 
 	//'GET' COMMANDS
 	else if (commands[0] == "get" || commands[0] == "g")
 	{
+		world->player->Get(commands);
 		return Get;
 	}
 
