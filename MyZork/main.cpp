@@ -34,7 +34,7 @@ int main()
 
 	//Sets initial position to rooms[0](BEDROOM)
 	int position = 0; 
-	(Room*)world->player->player_pos = (Room*)world->entities[position];
+	(Room*)world->player->location = (Room*)world->entities[position];
 
 	do
 	{

@@ -11,6 +11,8 @@
 #include"MyString.h"
 #include"items.h"
 #include"vector.h"
+#include"creature.h"
+#include"NPC.h"
 
 #define NUM_ROOMS 13
 #define NUM_EXITS 18

@@ -206,14 +206,14 @@ void World::CreateWorld()
 void World::Look(int pos, const Vector<MyString> &commands) const
 {
 	int i; //Counters to consider the correct room/exit when you are looking
-	player->player_pos = (Room*)entities[pos];
+	player->location = (Room*)entities[pos];
 	int dir = SetDirLook(commands);
 
 	if (dir >= north && dir <= down)
 	{
 		for (i = 0; i < entities.size(); i++)
 		{
-			if (entities[i]->type == EXIT && ((Exit*)entities[i])->src == player->player_pos && ((Exit*)entities[i])->direction == dir)
+			if (entities[i]->type == EXIT && ((Exit*)entities[i])->src == player->location && ((Exit*)entities[i])->direction == dir)
 			{
 				((Exit*)entities[i])->Look();
 				return;
@@ -224,7 +224,7 @@ void World::Look(int pos, const Vector<MyString> &commands) const
 
 	else if (dir == 6) //Look Trunk
 	{
-		DList<Entity*>::DNode* it_room = world->player->player_pos->list.first;
+		DList<Entity*>::DNode* it_room = world->player->location->list.first;
 		for (; it_room != nullptr; it_room = it_room->next)
 		{
 			if (it_room->data == entities[39])
@@ -291,7 +291,7 @@ void World::Help() const
 void World::Open(int pos, const Vector<MyString>&commands) const
 {
 	int i;  //Counter to consider the correct exit
-	player->player_pos = ((Room*)entities[pos]);
+	player->location = ((Room*)entities[pos]);
 	int dir = SetDirOpenClose(commands);
 	bool key = false;
 	DList<Entity*>::DNode* it = world->player->list.first;
@@ -311,7 +311,7 @@ void World::Open(int pos, const Vector<MyString>&commands) const
 			for (i = 0; i < entities.size(); i++)
 			{
 				//OPEN CONDITION: the exit you want to "open" has a door, and its door is closed
-				if (entities[i]->type == EXIT && ((Exit*)entities[i])->src == player->player_pos && ((Exit*)entities[i])->open == false)
+				if (entities[i]->type == EXIT && ((Exit*)entities[i])->src == player->location && ((Exit*)entities[i])->open == false && ((Exit*)entities[i])->door == true && ((Exit*)entities[i])->direction == dir)
 				{
 					((Exit*)entities[i])->open = true;
 					printf("\nYou opened the door.\n");
@@ -336,7 +336,7 @@ void World::Open(int pos, const Vector<MyString>&commands) const
 void World::Close(int pos, const Vector<MyString> &commands) const
 {
 	int i;
-	player->player_pos = (Room*)entities[pos];
+	player->location = (Room*)entities[pos];
 	int dir = SetDirOpenClose(commands);
 
 	if (dir >= north && dir <= down && commands[2] == "door") //checks if commands introduced are correct
@@ -344,7 +344,7 @@ void World::Close(int pos, const Vector<MyString> &commands) const
 		for (i = 0; i < entities.size(); i++)
 		{
 			//CLOSE CONDITION: the exit you want to "close" has a door, and its door is opened
-			if (entities[i]->type == EXIT && ((Exit*)entities[i])->src == player->player_pos && ((Exit*)entities[i])->open == true && ((Exit*)entities[i])->door == true)
+			if (entities[i]->type == EXIT && ((Exit*)entities[i])->src == player->location && ((Exit*)entities[i])->open == true && ((Exit*)entities[i])->door == true && ((Exit*)entities[i])->direction == dir)
 			{
 				((Exit*)entities[i])->open = false;
 				printf("\nYou closed the door.\n");

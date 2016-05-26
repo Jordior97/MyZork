@@ -1,11 +1,12 @@
 #include"world.h"
 #include"player.h"
 #include"Functions.h"
+#include"creature.h"
 #include<time.h>
 #include<stdlib.h>
 
 Player::Player(const char* name, const char* desc, Type type, int at, int h, int m, int ar) :
-Entity(name, desc, type),  attack(at), hp(h), mana(m), armor(ar){}
+Creature(name, desc, type,  at, h, m, ar){}
 
 
 void Player::Stats()
@@ -24,15 +25,15 @@ void Player::Movement(int &pos, const Vector<MyString> &commands)
 
 	int i, j; //counters that consider the correct room/exit when you move.
 	int dir = SetDirMove(commands);
-	player_pos = (Room*)world->entities[pos];
+	location = (Room*)world->entities[pos];
 	
 	if (dir >= north && dir <= down)
 	{
 		for (i = 0; i < world->entities.size(); i++)
 		{
-			if (world->entities[i]->type == EXIT && ((Exit*)world->entities[i])->src == player_pos && ((Exit*)world->entities[i])->direction == dir)
+			if (world->entities[i]->type == EXIT && ((Exit*)world->entities[i])->src == location && ((Exit*)world->entities[i])->direction == dir)
 			{
-				player_pos = ((Exit*)world->entities[i])->dst;
+				location = ((Exit*)world->entities[i])->dst;
 				for (j = 0; j < world->entities.size(); j++)
 				{
 					if (((Exit*)world->entities[i])->dst == ((Room*)world->entities[j]))
@@ -68,9 +69,9 @@ void Player::Pick(const Vector<MyString> &commands)
 	//checks if inventory is full (so you can't pick more objects)
 	if (num_items < max_items)
 	{
-		if (player_pos->list.first != nullptr)
+		if (location->list.first != nullptr)
 		{
-			DList<Entity*>::DNode* it = player_pos->list.first;
+			DList<Entity*>::DNode* it = location->list.first;
 			for (; it != nullptr; it = it->next)
 			{
 				//checks if the commands introduced are correct (first command == pick && second command == <item_name>) and if the item is not in the inventory yet
@@ -80,7 +81,7 @@ void Player::Pick(const Vector<MyString> &commands)
 					{
 						printf("You picked %s\n", it->data->name.c_str());
 						list.push_back(it->data);
-						player_pos->list.erase(it);
+						location->list.erase(it);
 						num_items++;
 						return;
 					}
@@ -163,7 +164,7 @@ void Player::Put(const Vector<MyString> &commands)
 				//checks if the item you want to put is in your inventory and if it's not equipped
 				if (commands[1] == it_player->data->name && ((Item*)it_player->data)->equipped == false)
 				{
-					for (it_room = player_pos->list.first; it_room != nullptr; it_room = it_room->next)
+					for (it_room = location->list.first; it_room != nullptr; it_room = it_room->next)
 					{
 						if (it_room->data->type == ITEM && it_room->data->name == commands[3])
 						{
@@ -224,7 +225,7 @@ void Player::Get(const Vector<MyString> &commands)
 				}
 			}
 
-			for (it_room = player_pos->list.first; it_room != nullptr; it_room = it_room->next)
+			for (it_room = location->list.first; it_room != nullptr; it_room = it_room->next)
 			{
 				if (it_room->data->name == commands[3] && ((Item*)it_room->data)->container == true)
 				{
