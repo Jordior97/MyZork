@@ -283,7 +283,7 @@ void World::Help() const
 	printf("equipment(eq) = it shows the equipped items.\n");
 	printf("stats(st) = to look the statistics of the character.\n");
 	printf("\nSPECIAL FEATURE: WormHole\nYou have to think twice before dropping an item. Why? Because of the physical\nlaws of this world, a wormhole is created when you drop items,\nmaking them appear into another room. ");
-	printf("If you want to keep your items safe,\nyou have to put them into the trunk.\n");
+	printf("If you want to keep your items safe,\nyou have to put them into the trunk.\n\n");
 
 }
 
