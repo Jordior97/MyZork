@@ -19,7 +19,8 @@ public:
 	int attack;
 	int armor;
 
-	//virtual finctions here:
+	//virtual functions here:
+
 
 };
 

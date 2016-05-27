@@ -26,7 +26,13 @@ public:
 	void Drop(const Vector<MyString>&);
 	void Put(const Vector<MyString>&);
 	void Get(const Vector<MyString>&);
-
+	void Look(int, const Vector<MyString>&);
+	void Open(int, const Vector<MyString>&);
+	void Close(int, const Vector<MyString>&);
+	void Inventory() const;
+	void Equip(const Vector<MyString>&);
+	void Unequip(const Vector<MyString>&);
+	void Equipment() const;
 
 
 };

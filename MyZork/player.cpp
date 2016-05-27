@@ -63,6 +63,66 @@ void Player::Movement(int &pos, const Vector<MyString> &commands)
 	}
 }
 
+/*---LOOK FUNCTION---*/
+void Player::Look(int pos, const Vector<MyString> &commands) 
+{
+	int i; //Counters to consider the correct room/exit when you are looking
+	location = (Room*)world->entities[pos];
+	int dir = SetDirLook(commands);
+
+	if (dir >= north && dir <= down)
+	{
+		for (i = 0; i < world->entities.size(); i++)
+		{
+			if (world->entities[i]->type == EXIT && ((Exit*)world->entities[i])->src == location && ((Exit*)world->entities[i])->direction == dir)
+			{
+				((Exit*)world->entities[i])->Look();
+				return;
+			}
+		}
+		printf("\nThere's nothing to look here.\n");
+	}
+
+	else if (dir == 6) //Look Trunk
+	{
+		DList<Entity*>::DNode* it_room = world->player->location->list.first;
+		for (; it_room != nullptr; it_room = it_room->next)
+		{
+			if (it_room->data == world->entities[39])
+			{
+				DList<Entity*>::DNode* it_trunk = it_room->data->list.first;
+				printf("Items inside the TRUNK:\n\n");
+				for (; it_trunk != nullptr; it_trunk = it_trunk->next)
+				{
+					printf("%s\n%s\n", it_trunk->data->name.c_str(), it_trunk->data->description.c_str());
+				}
+				return;
+			}
+		}
+		printf("The TRUNK is not here.\n");
+	}
+
+	else if (commands.size() == 1)//Case 3: name and description of the room you are. It shows items that are in the room too.
+	{
+		((Room*)world->entities[pos])->Look();
+		DList<Entity*>::DNode* it = ((Room*)world->entities[pos])->list.first;
+		printf("\n--------------------------\n");
+		printf("\nItems you can find here:\n\n");
+		for (; it != nullptr; it = it->next)
+		{
+			if (it->data->type == ITEM)
+			{
+				it->data->Look();
+			}
+		}
+	}
+
+	else
+	{
+		printf("Introduce a valid command if you want to look properly.\n");
+	}
+}
+
 /*---PICK FUNCTION---*/
 void Player::Pick(const Vector<MyString> &commands) 
 {
@@ -262,48 +322,345 @@ void Player::Get(const Vector<MyString> &commands)
 	return;
 }
 
-		/*
-			//checks if the item you want to get isn't in your inventory, it's not equipped and it's in the room
-			else if (commands[1] == ((Item*)world->entities[i])->name && ((Item*)world->entities[i])->picked == false && ((Item*)world->entities[i])->inside == true && ((Item*)world->entities[i])->src && player_pos)
-					{
-						for (int j = 0; j < world->entities.size(); j++)
-						{
-							if (world->entities[j]->type == ITEM)
-							{
-								//checks if the last command introduced is the name of the container
-								if (((Item*)world->entities[j])->name == commands[3] && ((Item*)world->entities[j])->container == true)
-								{
-									//checks if the container is in the room
-									if (((Item*)world->entities[j])->src == player_pos)
-									{
-										((Item*)world->entities[i])->inside = false;
-										((Item*)world->entities[i])->picked = true;
-										num_items++;
-										printf("You got %s from %s\n", ((Item*)world->entities[i])->name.c_str(), ((Item*)world->entities[j])->name.c_str());
-										return;
-									}
-									else if (((Item*)world->entities[j])->src != player_pos)
-									{
-										printf("You are trying to get an object from a container that is not in this room.\n");
-										return;
-									}
-								}
-								else if (((Item*)world->entities[j])->name == commands[3] && ((Item*)world->entities[j])->container == false)
-								{
-									printf("You are trying to get an item from a non-container item.\nIt's an impossible action.\n");
-									return;
-								}
-							}
-						}
-					}	
+/*---OPEN FUNCTION---*/
+void Player::Open(int pos, const Vector<MyString>&commands) 
+{
+	int i;  //Counter to consider the correct exit
+	location = ((Room*)world->entities[pos]);
+	int dir = SetDirOpenClose(commands);
+	bool key = false;
+	DList<Entity*>::DNode* it = world->player->list.first;
+
+	for (; it != nullptr; it = it->next)
+	{
+		if (it->data == world->entities[33])
+		{
+			key = true;
+		}
+	}
+
+	if (key == true) //checks if you have the key picked (necessary to open doors)
+	{
+		if (dir >= north && dir <= down && commands[2] == "door") //checks if commands introduced are correct
+		{
+			for (i = 0; i < world->entities.size(); i++)
+			{
+				//OPEN CONDITION: the exit you want to "open" has a door, and its door is closed
+				if (world->entities[i]->type == EXIT && ((Exit*)world->entities[i])->src == location
+					&& ((Exit*)world->entities[i])->open == false && ((Exit*)world->entities[i])->door == true
+					&& ((Exit*)world->entities[i])->direction == dir)
+				{
+					((Exit*)world->entities[i])->open = true;
+					printf("\nYou opened the door.\n");
+					return;
 				}
-			printf("Make sure you have introduced the correct names of the items.\n");
-			return;
+			}
+			printf("\nThere's nothing to open here.\n");
 		}
 		else
 		{
-			printf("Your inventory is full, so you can't get more items.\n");
+			printf("\nYou have to specify which door you want to open.\n");
+			return;
 		}
 	}
-	printf("You have introduced some invalid commands.\n");
-}*/
+	else
+	{
+		printf("You have to find the key if you want to open doors.\n");
+	}
+}
+
+/*---CLOSE FUNCTION---*/
+void Player::Close(int pos, const Vector<MyString> &commands) 
+{
+	int i;
+	location = (Room*)world->entities[pos];
+	int dir = SetDirOpenClose(commands);
+
+	if (dir >= north && dir <= down && commands[2] == "door") //checks if commands introduced are correct
+	{
+		for (i = 0; i < world->entities.size(); i++)
+		{
+			//CLOSE CONDITION: the exit you want to "close" has a door, and its door is opened
+			if (world->entities[i]->type == EXIT && ((Exit*)world->entities[i])->src == location 
+				&& ((Exit*)world->entities[i])->open == true && ((Exit*)world->entities[i])->door == true 
+				&& ((Exit*)world->entities[i])->direction == dir)
+			{
+				((Exit*)world->entities[i])->open = false;
+				printf("\nYou closed the door.\n");
+				return;
+			}
+		}
+		printf("\nThere's nothing to close here.\n");
+	}
+	else
+	{
+		printf("\nYou have to specify which door you want to close.\n");
+		return;
+	}
+}
+
+/*---INVENTORY FUNCTION---*/
+void Player::Inventory() const
+{
+	int i;
+	//checks if the player has got items in his inventory
+	if (num_items > 0)
+	{
+		printf("In your inventory you have (%i/%i):\n\n", num_items, max_items);
+		DList<Entity*>::DNode* it = nullptr;
+		for (it = list.first; it != nullptr; it = it->next)
+		{
+			//shows the names and descriptions of the picked items
+			if (((Item*)it->data)->magic_gem == false)
+			{
+				it->data->Look();
+			}
+		}
+		printf("------------------\n");
+		printf("MAGIC GEMS:\n\n");
+		for (it = list.first; it != nullptr; it = it->next)
+		{
+			//shows the names and descriptions of the picked gems
+			if (((Item*)it->data)->magic_gem == true)
+			{
+				it->data->Look();
+			}
+		}
+		printf("------------------\n");
+	}
+	else
+	{
+		printf("You don't have items in your inventory\n");
+	}
+}
+
+/*---EQUIP FUNCTION---*/
+void Player::Equip(const Vector<MyString> &commands) 
+{
+	DList<Entity*>::DNode* it = list.first;
+	for (; it != nullptr; it = it->next)
+	{
+		//checks if the commands introduced are correct (first command == equip && second command == <item_name>) 
+		//it checks the slot it occupies (the part of the player where it will be equipped) too
+		if (it->data->type == ITEM && commands.size() == 2 && commands[1] == it->data->name && ((Item*)it->data)->part == Head)
+		{
+			//checks if there isn't an item equipped on that part yet
+			if (head_item == false)
+			{
+				head_item = true;
+				((Item*)it->data)->equipped = true;
+				armor += ((Item*)it->data)->armor;
+				attack += ((Item*)it->data)->attack;
+				hp += ((Item*)it->data)->hp;
+				mana += ((Item*)it->data)->mana;
+				printf("You equipped %s on your head.\n", it->data->name.c_str());
+				return;
+			}
+			else
+			{
+				printf("You have an item equipped on your head already.\n");
+				return;
+			}
+		}
+
+		else if (it->data->type == ITEM && commands.size() == 2 && commands[1] == it->data->name && ((Item*)it->data)->part == Body)
+		{
+			if (body_item == false)
+			{
+				body_item = true;
+				((Item*)it->data)->equipped = true;
+				armor += ((Item*)it->data)->armor;
+				attack += ((Item*)it->data)->attack;
+				hp += ((Item*)it->data)->hp;
+				mana += ((Item*)it->data)->mana;
+				printf("You equipped %s on your body.\n", it->data->name.c_str());
+				return;
+			}
+			else
+			{
+				printf("You have an item equipped on your body already.\n");
+				return;
+			}
+		}
+
+		else if (it->data->type == ITEM && commands.size() == 2 && commands[1] == it->data->name && ((Item*)it->data)->part == RHand)
+		{
+			if (RHand_item == false)
+			{
+				RHand_item = true;
+				((Item*)it->data)->equipped = true;
+				armor += ((Item*)it->data)->armor;
+				attack += ((Item*)it->data)->attack;
+				hp += ((Item*)it->data)->hp;
+				mana += ((Item*)it->data)->mana;
+				printf("You equipped %s on your right hand.\n", it->data->name.c_str());
+				return;
+			}
+			else
+			{
+				printf("You have an item equipped on your right hand already.\n");
+				return;
+			}
+		}
+
+		else if (it->data->type == ITEM && commands.size() == 2 && commands[1] == it->data->name && ((Item*)it->data)->part == LHand)
+		{
+
+			if (LHand_item == false)
+			{
+				LHand_item = true;
+				((Item*)it->data)->equipped = true;
+				armor += ((Item*)it->data)->armor;
+				attack += ((Item*)it->data)->attack;
+				hp += ((Item*)it->data)->hp;
+				mana += ((Item*)it->data)->mana;
+				printf("You equipped %s on your left hand.\n", it->data->name.c_str());
+				return;
+			}
+			else
+			{
+				printf("You have an item equipped on your left hand already.\n");
+				return;
+			}
+		}
+
+		else if (it->data->type == ITEM && commands.size() == 2 && commands[1] == it->data->name && ((Item*)it->data)->part == Legs)
+		{
+			if (legs_item == false)
+			{
+				legs_item = true;
+				((Item*)it->data)->equipped = true;
+				armor += ((Item*)it->data)->armor;
+				attack += ((Item*)it->data)->attack;
+				hp += ((Item*)it->data)->hp;
+				mana += ((Item*)it->data)->mana;
+				printf("You equipped %s on your legs.\n", it->data->name.c_str());
+				return;
+			}
+			else
+			{
+				printf("You have an item equipped on your legs already.\n");
+				return;
+			}
+		}
+
+		else if (it->data->type == ITEM && commands.size() == 2 && commands[1] == it->data->name && ((Item*)it->data)->part == Non_Equipable)
+		{
+			printf("You can't equip this item.\n");
+			return;
+		}
+	}
+	printf("You don't have any item to equip with that name.\n");
+}
+
+/*---UNEQUIP FUNCTION---*/
+void Player::Unequip(const Vector<MyString> &commands) 
+{
+	DList<Entity*>::DNode* it = list.first;
+	for (; it != nullptr; it = it->next)
+	{
+		if (it->data->type == ITEM)
+		{
+			//checks if the commands introduced are correct (first command == unequip && second command == <item_name>) 
+			if (commands.size() == 2 && commands[1] == it->data->name)
+			{
+				//checks if the item is equipped
+				if (((Item*)it->data)->equipped == true)
+				{
+					//to empty the slot the item occupied
+					switch (((Item*)it->data)->part)
+					{
+					case Head:
+					{
+						head_item = false;
+						break;
+					}
+					case Body:
+					{
+						body_item = false;
+						break;
+					}
+					case RHand:
+					{
+						RHand_item = false;
+						break;
+					}
+					case LHand:
+					{
+						LHand_item = false;
+						break;
+					}
+					case Legs:
+					{
+						legs_item = false;
+						break;
+					}
+					default:
+					{
+						printf("Unequipment failed.\n");
+						break;
+					}
+					}
+
+					((Item*)it->data)->equipped = false;
+					armor -= ((Item*)it->data)->armor;
+					attack -= ((Item*)it->data)->attack;
+					hp -= ((Item*)it->data)->hp;
+					mana -= ((Item*)it->data)->mana;
+					printf("You have unequipped %s.\n", it->data->name.c_str());
+					return;
+				}
+			}
+		}
+	}
+	printf("You haven't got any item equipped with that name.\n");
+}
+
+/*---EQUIPMENT FUNCTION---*/
+void Player::Equipment() const
+{
+	MyString Head_item;
+	MyString Body_item;
+	MyString Legs_item;
+	MyString LeftH_item;
+	MyString RightH_item;
+
+	//to show every item equipped 
+	for (int i = 0; i < world->entities.size(); i++)
+	{
+		if (world->entities[i]->type == ITEM)
+		{
+			if (((Item*)world->entities[i])->equipped == true)
+			{
+				if (((Item*)world->entities[i])->part == Head)
+				{
+					Head_item = ((Item*)world->entities[i])->name;
+				}
+				else if (((Item*)world->entities[i])->part == Body)
+				{
+					Body_item = ((Item*)world->entities[i])->name;
+				}
+				else if (((Item*)world->entities[i])->part == Legs)
+				{
+					Legs_item = ((Item*)world->entities[i])->name;
+				}
+				else if (((Item*)world->entities[i])->part == LHand)
+				{
+					LeftH_item = ((Item*)world->entities[i])->name;
+				}
+				else if (((Item*)world->entities[i])->part == RHand)
+				{
+					RightH_item = ((Item*)world->entities[i])->name;
+				}
+			}
+		}
+	}
+
+	printf("\n--------------------\n");
+	printf("HEAD = %s\n", Head_item.c_str());
+	printf("BODY = %s\n", Body_item.c_str());
+	printf("RIGHT HAND = %s\n", RightH_item.c_str());
+	printf("LEFT HAND = %s\n", LeftH_item.c_str());
+	printf("LEGS = %s", Legs_item.c_str());
+	printf("\n--------------------\n");
+}

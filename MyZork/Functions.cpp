@@ -20,21 +20,21 @@ int GetCommand(int& position, const Vector<MyString>&commands)
 	//'LOOK' COMMANDS
 	else if (commands[0] == "look")
 	{
-		world->Look(position, commands);
+		world->player->Look(position, commands);
 		return Look;
 	}
 	
 	//'OPEN' COMMANDS
 	else if (commands[0] == "open")
 	{
-		world->Open(position, commands);
+		world->player->Open(position, commands);
 		return Open;
 	}
 	
 	//'CLOSE' COMMANDS
 	else if (commands[0] == "close")
 	{
-		world->Close(position, commands);
+		world->player->Close(position, commands);
 		return Close;
 	}
 
@@ -68,21 +68,21 @@ int GetCommand(int& position, const Vector<MyString>&commands)
 	//'INVENTORY' COMMANDS
 	else if (commands[0] == "i" || commands[0] == "inv" || commands[0] == "inventory")
 	{
-		world->Inventory();
+		world->player->Inventory();
 		return Inventory;
 	}
 
 	//'EQUIP' COMMAND
 	else if (commands[0] == "equip")
 	{
-		world->Equip(commands);
+		world->player->Equip(commands);
 		return Equip;
 	}
 
 	//'UNEQUIP' COMMAND
 	else if (commands[0] == "unequip")
 	{
-		world->Unequip(commands);
+		world->player->Unequip(commands);
 		return Unequip;
 	}
 
@@ -96,7 +96,7 @@ int GetCommand(int& position, const Vector<MyString>&commands)
 	//'EQUIPMENT' COMMANDS
 	else if (commands[0] == "equipment" || commands[0] == "eq")
 	{
-		world->Equipment();
+		world->player->Equipment();
 		return Equipment;
 	}
 

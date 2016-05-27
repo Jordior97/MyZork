@@ -64,7 +64,7 @@ int main()
 
 				if (command[size - 1] == '\r')
 				{
-					printf("\n");
+					printf("\n\n");
 					command[size - 1] = '\0';
 					size = 0;
 					option = command;
