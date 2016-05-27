@@ -15,7 +15,7 @@ public:
 	int armor;
 
 	Creature(const char* name, const char* desc, Type type, int at, int hp, int m, int ar);
-	~Creature();
+	~Creature(){};
 	Room* location;
 
 	//virtual functions here:

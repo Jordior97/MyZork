@@ -36,6 +36,9 @@ public:
 	void Equip(const Vector<MyString>&);
 	void Unequip(const Vector<MyString>&);
 	void Equipment() const;
+	void Buy(const Vector<MyString>&) const;
+
+
 };
 
 

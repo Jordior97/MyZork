@@ -114,6 +114,12 @@ int GetCommand(int& position, const Vector<MyString>&commands)
 		return Get;
 	}
 
+	else if (commands[0] == "buy" && commands.size() == 2)
+	{
+		world->player->Buy(commands);
+		return Buy;
+	}
+
 	//INVALID COMMAND
 	else
 	{

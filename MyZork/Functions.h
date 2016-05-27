@@ -1,7 +1,7 @@
 #ifndef _FUNCTIONS_
 #define _FUNCTIONS_
 
-enum action { Movement, Look, Open, Close, Pick, Drop, Help, Quit, Invalid_command, Inventory, Equip, Unequip, Stats, Equipment, Put, Get };
+enum action { Movement, Look, Open, Close, Pick, Drop, Help, Quit, Invalid_command, Inventory, Equip, Unequip, Stats, Equipment, Put, Get, Buy };
 
 int GetCommand(int&,const Vector<MyString>&);
 int SetDirMove(const Vector<MyString>&);

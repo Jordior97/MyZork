@@ -6,9 +6,9 @@
 class Npc :public Creature
 {
 public:
-
-	Npc(const char* name, const char* desc, Type type, int at, int hp, int m, int ar) :
-		Creature(name, desc, type, at, hp, m, ar){}
+	bool seller;
+	Npc(const char* name, const char* desc, Type type, int at, int hp, int m, int ar, bool s) :
+		Creature(name, desc, type, at, hp, m, ar), seller(s){}
 
 	void Look() const;
 

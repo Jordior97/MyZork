@@ -103,7 +103,7 @@ void Player::Look(int pos, const Vector<MyString> &commands)
 
 	else if (dir == 6) //Look Trunk
 	{
-		DList<Entity*>::DNode* it_room = world->player->location->list.first;
+		DList<Entity*>::DNode* it_room = location->list.first;
 		for (; it_room != nullptr; it_room = it_room->next)
 		{
 			if (it_room->data == world->entities[39])
@@ -381,7 +381,7 @@ void Player::Open(int pos, const Vector<MyString>&commands)
 	location = ((Room*)world->entities[pos]);
 	int dir = SetDirOpenClose(commands);
 	bool key = false;
-	DList<Entity*>::DNode* it = world->player->list.first;
+	DList<Entity*>::DNode* it = list.first;
 
 	for (; it != nullptr; it = it->next)
 	{
@@ -716,3 +716,35 @@ void Player::Equipment() const
 	printf("LEGS = %s", Legs_item.c_str());
 	printf("\n--------------------\n");
 }
+
+void Player::Buy(const Vector<MyString> &commands) const
+{
+	DList<Entity*>::DNode* it_room = location->list.first;
+
+	for (; it_room != nullptr; it_room = it_room->next)
+	{
+		if (it_room->data->name == commands[1] && it_room->data->type == NPC)
+		{
+			if (((Npc*)it_room->data)->seller == true)
+			{
+				DList<Entity*>::DNode* it_seller = it_room->data->list.first;
+				if (it_seller != nullptr)
+				{
+					printf("Items of %s:\n\n", it_room->data->name.c_str());
+					for (; it_seller != nullptr; it_seller = it_seller->next)
+					{
+						it_seller->data->Look();
+					}
+					return;
+				}
+				else
+				{
+					printf("%s haven't got more items to sell.\n\n", it_room->data->name.c_str());
+					return;
+				}
+			}
+		}
+	}
+	printf("%s is not here, sorry.\n", commands[1].c_str());
+}
+
