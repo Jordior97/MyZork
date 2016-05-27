@@ -19,6 +19,7 @@ public:
 	Room* location;
 
 	//virtual functions here:
+	virtual void Update(){};
 };
 
 #endif

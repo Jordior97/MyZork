@@ -116,11 +116,9 @@ void World::CreateWorld()
 
 	//SWORD (entities[31])
 	entities.push_back(new Item("SWORD", "This weapon is forged by The Five Blacksmiths, the best\nartisans of Aincrad, with materials whose origin is unknown.\n", (Room*)entities[1], RHand, 10, 0, 0, 0, ITEM));
-	entities[1]->list.push_back(entities[31]);
 
 	//SHIELD (entities[32])
 	entities.push_back(new Item("SHIELD", "This emblematic blue, red and white shield belonged to the Sergeant\nEurope, the protector of Aincrad. It's made with the most resistant material\nin the world: Amadantium\n", (Room*)entities[2], LHand, 0, 0, 0, 10, ITEM));
-	entities[2]->list.push_back(entities[32]);
 
 	//KEY (entities[33])
 	entities.push_back(new Item("KEY", "With this magic key you will be able to open all the doors and trapdoors\nto continue with our journey, Simon.\n", (Room*)entities[6], Non_Equipable, 0, 0, 0, 0, ITEM));
@@ -215,6 +213,11 @@ void World::CreateWorld()
 	//THE INNKEEPER(entities[52])
 	entities.push_back(new Npc("KARLA, THE INNKEEPER", "She's the dwarven partron of the tavern.\nShe has some interesting items you can buy.\n", NPC, 100, 500, 0, 0));
 	entities[2]->list.push_back(entities[52]);
+	
+	//you can buy the sword and the shield from the innkeeper
+	entities[52]->list.push_back(entities[31]);
+	entities[52]->list.push_back(entities[32]);
+	
 
 	//DRAGON(entities[53])
 	entities.push_back(new Npc("SMUAG", "He is a powerful, intelligent, malevolent and fearsome dragon\nwho invaded this zone 1000 years ago.\n ", NPC, 100, 500, 0, 0));

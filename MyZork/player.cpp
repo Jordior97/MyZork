@@ -42,9 +42,19 @@ void Player::Movement(int &pos, const Vector<MyString> &commands)
 						{
 							pos = j;
 							printf("\n%s\n%s\n", ((Room*)world->entities[j])->name.c_str(), ((Room*)world->entities[j])->description.c_str());
-							DList<Entity*>::DNode* it_npc = ((Room*)world->entities[pos])->list.first;
-							if (it_npc != nullptr)
+							bool npc = false;
+							DList<Entity*>::DNode* it_check = ((Room*)world->entities[pos])->list.first;
+							for (; it_check != nullptr; it_check = it_check->next)
 							{
+								if (it_check->data->type == NPC)
+								{
+									npc = true;
+								}
+							}
+
+							if (npc == true)
+							{
+								DList<Entity*>::DNode* it_npc = ((Room*)world->entities[pos])->list.first;
 								printf("\n--------------------------\n");
 								printf("\nThere are some creatures around:\n\n");
 								for (; it_npc != nullptr; it_npc = it_npc->next)
@@ -113,29 +123,47 @@ void Player::Look(int pos, const Vector<MyString> &commands)
 	else if (commands.size() == 1)//Case 3: name and description of the room you are. It shows items that are in the room too.
 	{
 		((Room*)world->entities[pos])->Look();
-		DList<Entity*>::DNode* it_items = ((Room*)world->entities[pos])->list.first;
-		if (it_items != nullptr)
+
+		bool items = false;
+		bool npc = false;
+		DList<Entity*>::DNode* it_check = nullptr;
+
+		for (it_check = ((Room*)world->entities[pos])->list.first; it_check != nullptr; it_check = it_check->next)
+		{
+			if (it_check->data->type == ITEM)
+			{
+				items = true;
+			}
+			if (it_check->data->type == NPC)
+			{
+				npc = true;
+			}
+		}
+
+		DList<Entity*>::DNode* it = nullptr;
+		if (items == true)
 		{
 			printf("\n--------------------------\n");
 			printf("\nItems you can find here:\n\n");
-			for (; it_items != nullptr; it_items = it_items->next)
+			for (it = ((Room*)world->entities[pos])->list.first; it != nullptr; it = it->next)
 			{
-				if (it_items->data->type == ITEM)
+				if (it->data->type == ITEM)
 				{
-					it_items->data->Look();
+					it->data->Look();
 				}
 			}
 		}
-		DList<Entity*>::DNode* it_npc = ((Room*)world->entities[pos])->list.first;
-		if (it_npc != nullptr)
+		
+		if (npc == true)
 		{
 			printf("\n--------------------------\n");
 			printf("\nThere are some creatures around:\n\n");
-			for (; it_npc != nullptr; it_npc = it_npc->next)
+			for (it = ((Room*)world->entities[pos])->list.first; it != nullptr; it = it->next)
 			{
-				if (it_npc->data->type == NPC)
+				if (it->data->type == NPC)
 				{
-					it_npc->data->Look();
+					it->data->Look();
+
 				}
 			}
 		}

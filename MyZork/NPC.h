@@ -11,6 +11,7 @@ public:
 		Creature(name, desc, type, at, hp, m, ar){}
 
 	void Look() const;
+
 };
 
 #endif
