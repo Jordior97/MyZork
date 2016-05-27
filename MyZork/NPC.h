@@ -3,11 +3,14 @@
 
 #include"creature.h"
 
-class NPC :public Creature
+class Npc :public Creature
 {
 public:
-	NPC(const char* name, const char* desc, Type type, int at, int hp, int m, int ar) :
+
+	Npc(const char* name, const char* desc, Type type, int at, int hp, int m, int ar) :
 		Creature(name, desc, type, at, hp, m, ar){}
+
+	void Look() const;
 };
 
 #endif

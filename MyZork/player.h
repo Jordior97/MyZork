@@ -1,12 +1,15 @@
 #ifndef _PLAYER_
 #define _PLAYER_
 
+
 #include"creature.h"
 
-class Player:public Creature
+class Player :public Creature
 {
 public:
-	Player(const char*, const char*, Type, int, int, int, int);
+	Player(const char* name, const char* desc, Type type, int at, int h, int m, int ar) :
+		Creature(name, desc, type, at, h, m, ar){}
+	~Player(){};
 
 	//Inventory
 	unsigned int num_items = 0;
@@ -33,8 +36,6 @@ public:
 	void Equip(const Vector<MyString>&);
 	void Unequip(const Vector<MyString>&);
 	void Equipment() const;
-
-
 };
 
 

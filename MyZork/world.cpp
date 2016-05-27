@@ -193,9 +193,38 @@ void World::CreateWorld()
 	entities.push_back(new Item("VEST", "Look at this strange vest. I heared that the bearer of\nthis magic clothing gets magical powers like super strength, enhaced\nstamina and mind control.\n", (Room*)entities[11], Body, 20, 20, 20, 20, ITEM));
 	entities[11]->list.push_back(entities[47]);
 
+
+	/*---CREATE CREATURES---*/
+
 	//PLAYER (entities[48])
-	entities.push_back(new Player("SIMON", "A nice kid\n", PLAYER, 100, 500, 20, 0));
+	entities.push_back(new Player("SIMON", "A nice kid.\n", PLAYER, 100, 500, 20, 0));
 	player = (Player*)entities[48];
+
+	//GOBLIN(entities[49])
+	entities.push_back(new Npc("KIKKI JIKKI", "The goblin guide.\n", NPC, 20, 200, 0, 0));
+	entities[1]->list.push_back(entities[49]);
+
+	//SKELETONS(entities[50])
+	entities.push_back(new Npc("SKELETON HORDE", "Six weak and fragile skeletons wandering aimlessly.\n", NPC, 30, 200, 0, 0));
+	entities[9]->list.push_back(entities[50]);
+
+	//RAKDOS(entities[51])
+	entities.push_back(new Npc("RAKDOS, THE DEVIL KING", "The Lord of the despair and desolation. He destroyed entire\nwith his own hands, so care, Simon.\n", NPC, 150, 1000, 0, 200));
+	entities[12]->list.push_back(entities[51]);
+
+	//THE INNKEEPER(entities[52])
+	entities.push_back(new Npc("KARLA, THE INNKEEPER", "She's the dwarven partron of the tavern.\nShe has some interesting items you can buy.\n", NPC, 100, 500, 0, 0));
+	entities[2]->list.push_back(entities[52]);
+
+	//DRAGON(entities[53])
+	entities.push_back(new Npc("SMUAG", "He is a powerful, intelligent, malevolent and fearsome dragon\nwho invaded this zone 1000 years ago.\n ", NPC, 100, 500, 0, 0));
+	entities[8]->list.push_back(entities[53]);
+
+	//TOTEM(entities[54])
+	entities.push_back(new Npc("SHOK'TAR, THE MAGIC TOTEM", "This magical totem was created by a powerful shamman\ncalled Throll. It's unique prupose is to keep the treasure\nroom safe.Try to talk to him but care, it loves riddles.\n", NPC, 100, 500, 0, 0));
+	entities[10]->list.push_back(entities[54]);
+
+
 }
 
 
