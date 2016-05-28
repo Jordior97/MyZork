@@ -4,10 +4,13 @@
 #include"Entity.h"
 #include"rooms.h"
 
+enum CType{ HERO, SELLER, HOSTILE, PASSIVE };
 
 class Creature : public Entity
 {
 public:
+
+	CType c_type;
 
 	//Stats
 	int hp;
@@ -15,9 +18,9 @@ public:
 	int attack;
 	int armor;
 	int money;
-	bool seller;
+	
 
-	Creature(const char* name, const char* desc, Type type, int at, int hp, int m, int ar, bool seller, int money);
+	Creature(const char* name, const char* desc, Type type, int at, int hp, int m, int ar, CType c_type, int money);
 	~Creature(){};
 	Room* location;
 

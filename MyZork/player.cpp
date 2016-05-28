@@ -727,7 +727,7 @@ void Player::Buy(const Vector<MyString>& commands) const
 	{
 		if (it_room->data->name == commands[1] && it_room->data->type == NPC)
 		{
-			if (((Creature*)it_room->data)->seller == true)
+			if (((Creature*)it_room->data)->c_type == SELLER)
 			{
 				DList<Entity*>::DNode* it_seller = it_room->data->list.first;
 				if (it_seller != nullptr)
@@ -745,9 +745,14 @@ void Player::Buy(const Vector<MyString>& commands) const
 					return;
 				}
 			}
+			else if (((Creature*)it_room->data)->c_type != SELLER)
+			{
+				printf("You can't buy items from %s.\n", it_room->data->name.c_str());
+				return;
+			}
 		}
 	}
-	printf("Specify which item and the character to make the trade.\n");
+	printf("Specify correctly which item and the character to make the trade.\n");
 	return;
 }
 
@@ -771,7 +776,7 @@ void Player::BuyFrom(const Vector<MyString>& commands)
 		}
 		for (it_room = location->list.first; it_room != nullptr; it_room = it_room->next)
 		{
-			if (it_room->data->name == commands[3] && ((Creature*)it_room->data)->seller == true)
+			if (it_room->data->name == commands[3] && ((Creature*)it_room->data)->c_type == SELLER)
 			{
 				for (it_seller = it_room->data->list.first; it_seller != nullptr; it_seller = it_seller->next)
 				{
@@ -826,7 +831,7 @@ void Player::SellTo(const Vector<MyString> &commands)
 						if (it_room->data->type == NPC && it_room->data->name == commands[3])
 						{
 							//checks if the last command introduced is the name of the container
-							if (((Creature*)it_room->data)->seller == true)
+							if (((Creature*)it_room->data)->c_type == SELLER)
 							{
 								int earned = ((Item*)it_player->data)->money / 2;
 								money += earned;
@@ -838,7 +843,7 @@ void Player::SellTo(const Vector<MyString> &commands)
 								return;
 							}
 
-							else if (((Creature*)it_room->data)->seller == false)
+							else if (((Creature*)it_room->data)->c_type != SELLER)
 							{
 								printf("You can't sell items to %s.\n", it_room->data->name.c_str());
 								return;

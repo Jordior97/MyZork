@@ -48,8 +48,8 @@
     <ClCompile Include="creature.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
-    <ClCompile Include="Karla.cpp">
-      <Filter>NPCS</Filter>
+    <ClCompile Include="KikkiJikki.cpp">
+      <Filter>Archivos de código fuente</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
