@@ -115,37 +115,37 @@ void World::CreateWorld()
 	/*---CREATE ITEMS---*/
 
 	//SWORD (entities[31])
-	entities.push_back(new Item("SWORD", "This weapon is forged by The Five Blacksmiths, the best\nartisans of Aincrad, with materials whose origin is unknown.\n", (Room*)entities[1], RHand, 10, 0, 0, 0, ITEM));
+	entities.push_back(new Item("SWORD", "This weapon is forged by The Five Blacksmiths, the best\nartisans of Aincrad, with materials whose origin is unknown.\n", (Room*)entities[1], RHand, 10, 0, 0, 0, ITEM, 150));
 
 	//SHIELD (entities[32])
-	entities.push_back(new Item("SHIELD", "This emblematic blue, red and white shield belonged to the Sergeant\nEurope, the protector of Aincrad. It's made with the most resistant material\nin the world: Amadantium\n", (Room*)entities[2], LHand, 0, 0, 0, 10, ITEM));
+	entities.push_back(new Item("SHIELD", "This emblematic blue, red and white shield belonged to the Sergeant\nEurope, the protector of Aincrad. It's made with the most resistant material\nin the world: Amadantium\n", (Room*)entities[2], LHand, 0, 0, 0, 10, ITEM, 150));
 
 	//KEY (entities[33])
-	entities.push_back(new Item("KEY", "With this magic key you will be able to open all the doors and trapdoors\nto continue with our journey, Simon.\n", (Room*)entities[6], Non_Equipable, 0, 0, 0, 0, ITEM));
+	entities.push_back(new Item("KEY", "With this magic key you will be able to open all the doors and trapdoors\nto continue with our journey, Simon.\n", (Room*)entities[6], Non_Equipable, 0, 0, 0, 0, ITEM, 20));
 	entities[6]->list.push_back(entities[33]);
 
 	//HELMET (entities[34])
-	entities.push_back(new Item("HELMET", "I've heard that the one who goes to battle with this\niron helmet equipped is invencible, but this story is just a myth.\n", (Room*)entities[5], Head, 0, 0, 5, 5, ITEM));
+	entities.push_back(new Item("HELMET", "I've heard that the one who goes to battle with this\niron helmet equipped is invencible, but this story is just a myth.\n", (Room*)entities[5], Head, 0, 0, 5, 5, ITEM,100));
 	entities[5]->list.push_back(entities[34]);
 
 	//BREADSPLATE (entities[35])
-	entities.push_back(new Item("BREADSPLATE", "What a beautiful armor! It gives more stamina and resistance\nagainst monsters and creatures\n", (Room*)entities[4], Body, 0, 0, 5, 5, ITEM));
+	entities.push_back(new Item("BREADSPLATE", "What a beautiful armor! It gives more stamina and resistance\nagainst monsters and creatures\n", (Room*)entities[4], Body, 0, 0, 5, 5, ITEM,200));
 	entities[4]->list.push_back(entities[35]);
 
 	//GREAVES (entities[36])
-	entities.push_back(new Item("GREAVES", "This greaves will give you more speed, but this is not useful in this game...\n", (Room*)entities[9], Legs, 0, 0, 0, 5, ITEM));
+	entities.push_back(new Item("GREAVES", "This greaves will give you more speed, but this is not useful in this game...\n", (Room*)entities[9], Legs, 0, 0, 0, 5, ITEM, 50));
 	entities[9]->list.push_back(entities[36]);
 
 	//AXE (entities[37])
-	entities.push_back(new Item("AXE", "Use this powerful and big axe to destroy hundreds and hundreds of enemies,\nlike Nanoc the Barbarian.\n", (Room*)entities[7], RHand, 10, 0, 0, 0, ITEM));
+	entities.push_back(new Item("AXE", "Use this powerful and big axe to destroy hundreds and hundreds of enemies,\nlike Nanoc the Barbarian.\n", (Room*)entities[7], RHand, 10, 0, 0, 0, ITEM, 150));
 	entities[7]->list.push_back(entities[37]);
 
 	//RING (entities[38])
-	entities.push_back(new Item("RING", "This magic artefact is called 'The One Ring' it can increase your magical\npower.Look closely, there is an inscription: 'One ring to rule them all'.\n", (Room*)entities[8], LHand, 0, 20, 10, 0, ITEM));
+	entities.push_back(new Item("RING", "This magic artefact is called 'The One Ring' it can increase your magical\npower.Look closely, there is an inscription: 'One ring to rule them all'.\n", (Room*)entities[8], LHand, 0, 20, 10, 0, ITEM,200));
 	entities[8]->list.push_back(entities[38]);
 
 	//TRUNK (entities[39])
-	entities.push_back(new Item("TRUNK", "You can put all the items you want into this magic trunk if\nyou run out of inventory space.\n", (Room*)entities[2], Non_Equipable, 0, 0, 0, 0, ITEM));
+	entities.push_back(new Item("TRUNK", "You can put all the items you want into this magic trunk if\nyou run out of inventory space.\n", (Room*)entities[2], Non_Equipable, 0, 0, 0, 0, ITEM, 0));
 	((Item*)entities[39])->container = true;
 	entities[2]->list.push_back(entities[39]);
 
@@ -153,76 +153,76 @@ void World::CreateWorld()
 
 	/*  Magic Gems  */
 	//AKA (entities[40])
-	entities.push_back(new Item("AKA", "This is the red gem. It allows you to control fire\n", (Room*)entities[8], Non_Equipable, 0, 0, 0, 0, ITEM));
+	entities.push_back(new Item("AKA", "This is the red gem. It allows you to control fire\n", (Room*)entities[8], Non_Equipable, 0, 0, 0, 0, ITEM, 0));
 	((Item*)entities[40])->magic_gem = true;
 	entities[8]->list.push_back(entities[40]);
 
 	//AO (entities[41])
-	entities.push_back(new Item("AO", "This is the blue gem. It allows you to control water\n", (Room*)entities[3], Non_Equipable, 0, 0, 0, 0, ITEM));
+	entities.push_back(new Item("AO", "This is the blue gem. It allows you to control water\n", (Room*)entities[3], Non_Equipable, 0, 0, 0, 0, ITEM, 0));
 	((Item*)entities[41])->magic_gem = true;
 	entities[3]->list.push_back(entities[41]);
 
 	//KIIRO (entities[42])
-	entities.push_back(new Item("KIIRO", "This is the yellow gem. It allows you to control electricity\n", (Room*)entities[5], Non_Equipable, 0, 0, 0, 0, ITEM));
+	entities.push_back(new Item("KIIRO", "This is the yellow gem. It allows you to control electricity\n", (Room*)entities[5], Non_Equipable, 0, 0, 0, 0, ITEM, 0));
 	((Item*)entities[42])->magic_gem = true;
 	entities[5]->list.push_back(entities[42]);
 
 	//KURO (entities[43])
-	entities.push_back(new Item("KURO", "This is the black gem. It allows you to control darkness\n", (Room*)entities[6], Non_Equipable, 0, 0, 0, 0, ITEM));
+	entities.push_back(new Item("KURO", "This is the black gem. It allows you to control darkness\n", (Room*)entities[6], Non_Equipable, 0, 0, 0, 0, ITEM, 0));
 	((Item*)entities[43])->magic_gem = true;
 	entities[6]->list.push_back(entities[43]);
 
 	//SHIRO (entities[44])
-	entities.push_back(new Item("SHIRO", "This is the white gem. It allows you to control brightness\n", (Room*)entities[9], Non_Equipable, 0, 0, 0, 0, ITEM));
+	entities.push_back(new Item("SHIRO", "This is the white gem. It allows you to control brightness\n", (Room*)entities[9], Non_Equipable, 0, 0, 0, 0, ITEM, 0));
 	((Item*)entities[44])->magic_gem = true;
 	entities[9]->list.push_back(entities[44]);
 	
 	/*----------------------*/
 
 	//EXCALIBUR (entities[45])
-	entities.push_back(new Item("EXCABILUR", "This legendary weapon belonged to King Bradley, the king of kings,\nwho has goberned Aincriad since his death, 500 years ago.\nIt's said this sword has extraordinary properties.\n", (Room*)entities[11], RHand, 50, 50, 0, 0, ITEM));
+	entities.push_back(new Item("EXCABILUR", "This legendary weapon belonged to King Bradley, the king of kings,\nwho has goberned Aincriad since his death, 500 years ago.\nIt's said this sword has extraordinary properties.\n", (Room*)entities[11], RHand, 50, 50, 0, 0, ITEM,500));
 	entities[11]->list.push_back(entities[45]);
 
 	//EAGIS (entities[46])
-	entities.push_back(new Item("EAGIS", "What is that!? This is the mythic shield of Seuz,\nthe strongest god of all times! I think it will give you the enough\nresistance to withstand the last battle.\n", (Room*)entities[11], LHand, 0, 50, 0, 50, ITEM));
+	entities.push_back(new Item("EAGIS", "What is that!? This is the mythic shield of Seuz,\nthe strongest god of all times! I think it will give you the enough\nresistance to withstand the last battle.\n", (Room*)entities[11], LHand, 0, 50, 0, 50, ITEM, 500));
 	entities[11]->list.push_back(entities[46]);
 
 	//VEST (entities[47])
-	entities.push_back(new Item("VEST", "Look at this strange vest. I heared that the bearer of\nthis magic clothing gets magical powers like super strength, enhaced\nstamina and mind control.\n", (Room*)entities[11], Body, 20, 20, 20, 20, ITEM));
+	entities.push_back(new Item("VEST", "Look at this strange vest. I heared that the bearer of\nthis magic clothing gets magical powers like super strength, enhaced\nstamina and mind control.\n", (Room*)entities[11], Body, 20, 20, 20, 20, ITEM, 500));
 	entities[11]->list.push_back(entities[47]);
 
 
 	/*---CREATE CREATURES---*/
 
 	//PLAYER (entities[48])
-	entities.push_back(new Player("SIMON", "A nice kid.\n", PLAYER, 100, 500, 20, 0));
+	entities.push_back(new Player("SIMON", "A nice kid.\n", PLAYER, 100, 500, 20, 0,false, 150));
 	player = (Player*)entities[48];
 
 	//GOBLIN(entities[49])
-	entities.push_back(new Npc("KIKKI JIKKI", "The goblin guide.\n", NPC, 20, 200, 0, 0,false));
+	entities.push_back(new Goblin("KIKKI JIKKI", "The goblin guide.\n", NPC, 20, 200, 0, 0,false,100));
 	entities[1]->list.push_back(entities[49]);
 
 	//SKELETONS(entities[50])
-	entities.push_back(new Npc("SKELETON HORDE", "Six weak and fragile skeletons wandering aimlessly.\n", NPC, 30, 200, 0, 0, false));
+	entities.push_back(new Skeletons("SKELETON HORDE", "Six weak and fragile skeletons wandering aimlessly.\n", NPC, 30, 200, 0, 0, false,200));
 	entities[9]->list.push_back(entities[50]);
 
 	//RAKDOS(entities[51])
-	entities.push_back(new Npc("RAKDOS, THE DEVIL KING", "The Lord of the despair and desolation. He destroyed entire\nwith his own hands, so care, Simon.\n", NPC, 150, 1000, 0, 200, false));
+	entities.push_back(new Rakdos("RAKDOS, THE DEVIL KING", "The Lord of the despair and desolation. He destroyed entire\nwith his own hands, so care, Simon.\n", NPC, 150, 1000, 0, 200, false,1000));
 	entities[12]->list.push_back(entities[51]);
 
 	//THE INNKEEPER(entities[52])
-	entities.push_back(new Npc("KARLA", "She's the dwarven partron of the tavern.\nShe has some interesting items you can buy.\n", NPC, 100, 500, 0, 0, true));
+	entities.push_back(new Karla("KARLA", "She's the dwarven partron of the tavern.\nShe has some interesting items you can buy.\n", NPC, 100, 500, 0, 0, true,500));
 	entities[2]->list.push_back(entities[52]);
 	//you can buy the sword and the shield from the innkeeper
 	entities[52]->list.push_back(entities[31]);
 	entities[52]->list.push_back(entities[32]);
 	
 	//DRAGON(entities[53])
-	entities.push_back(new Npc("SMUAG", "He is a powerful, intelligent, malevolent and fearsome dragon\nwho invaded this zone 1000 years ago.\n ", NPC, 100, 500, 0, 0, false));
+	entities.push_back(new Dragon("SMUAG", "He is a powerful, intelligent, malevolent and fearsome dragon\nwho invaded this zone 1000 years ago.\n ", NPC, 100, 500, 0, 0, false,400));
 	entities[8]->list.push_back(entities[53]);
 
 	//TOTEM(entities[54])
-	entities.push_back(new Npc("SHOK'TAR, THE MAGIC TOTEM", "This magical totem was created by a powerful shamman\ncalled Throll. It's unique prupose is to keep the treasure\nroom safe.Try to talk to him but care, it loves riddles.\n", NPC, 100, 500, 0, 0, false));
+	entities.push_back(new Totem("SHOK'TAR, THE MAGIC TOTEM", "This magical totem was created by a powerful shamman\ncalled Throll. It's unique prupose is to keep the treasure\nroom safe.Try to talk to him but care, it loves riddles.\n", NPC, 100, 500, 0, 0, false, 500));
 	entities[10]->list.push_back(entities[54]);
 
 

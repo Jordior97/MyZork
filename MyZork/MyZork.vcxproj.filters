@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="NPCS">
+      <UniqueIdentifier>{79ff5cc2-866c-455e-be75-2c987fe9b5d5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -42,11 +45,11 @@
     <ClCompile Include="Entity.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
-    <ClCompile Include="NPC.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
     <ClCompile Include="creature.cpp">
       <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
+    <ClCompile Include="Karla.cpp">
+      <Filter>NPCS</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -86,8 +89,23 @@
     <ClInclude Include="creature.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="NPC.h">
-      <Filter>Archivos de encabezado</Filter>
+    <ClInclude Include="KikkiJikki.h">
+      <Filter>NPCS</Filter>
+    </ClInclude>
+    <ClInclude Include="Karla.h">
+      <Filter>NPCS</Filter>
+    </ClInclude>
+    <ClInclude Include="Rakdos.h">
+      <Filter>NPCS</Filter>
+    </ClInclude>
+    <ClInclude Include="Skeletons.h">
+      <Filter>NPCS</Filter>
+    </ClInclude>
+    <ClInclude Include="Dragon.h">
+      <Filter>NPCS</Filter>
+    </ClInclude>
+    <ClInclude Include="Totem.h">
+      <Filter>NPCS</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -19,10 +19,6 @@ public:
 	bool inside = false; //indicates if the item is inside the container
 	bool container = false; //indicates if the item is a container
 
-	/*In my case, I only use the TRUNK to put items inside it.
-	With this code structure I avoid indicating, in every element, a list of the elements
-	it contains (only the trunk can contain other items)*/
-
 	bool magic_gem = false; //indicates if the item is a magic gem
 
 	slot part; //indicates the slot it occupies
@@ -32,8 +28,9 @@ public:
 	int hp;
 	int mana;
 	int armor;
+	int money;
 
-	Item(const char*, const char*, Room*, slot, int, int, int, int,Type);
+	Item(const char*, const char*, Room*, slot, int, int, int, int,Type,int);
 	~Item();
 };
 

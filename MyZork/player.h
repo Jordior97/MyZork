@@ -7,8 +7,8 @@
 class Player :public Creature
 {
 public:
-	Player(const char* name, const char* desc, Type type, int at, int h, int m, int ar) :
-		Creature(name, desc, type, at, h, m, ar){}
+	Player(const char* name, const char* desc, Type type, int at, int h, int m, int ar,bool seller, int money) :
+		Creature(name, desc, type, at, h, m, ar,seller, money){}
 	~Player(){};
 
 	//Inventory

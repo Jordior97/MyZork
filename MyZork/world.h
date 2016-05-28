@@ -12,7 +12,13 @@
 #include"items.h"
 #include"vector.h"
 #include"creature.h"
-#include"NPC.h"
+#include"Karla.h"
+#include"Dragon.h"
+#include"Skeletons.h"
+#include"Rakdos.h"
+#include"Totem.h"
+#include"KikkiJikki.h"
+
 
 #define NUM_ROOMS 13
 #define NUM_EXITS 18

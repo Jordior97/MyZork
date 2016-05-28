@@ -18,7 +18,7 @@
     <ClCompile Include="items.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MyString.cpp" />
-    <ClCompile Include="NPC.cpp" />
+    <ClCompile Include="Karla.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="rooms.cpp" />
     <ClCompile Include="world.cpp" />
@@ -26,15 +26,20 @@
   <ItemGroup>
     <ClInclude Include="creature.h" />
     <ClInclude Include="Dlist.h" />
+    <ClInclude Include="Dragon.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="exits.h" />
     <ClInclude Include="Functions.h" />
     <ClInclude Include="items.h" />
+    <ClInclude Include="Karla.h" />
+    <ClInclude Include="KikkiJikki.h" />
     <ClInclude Include="MemLeaks.h" />
     <ClInclude Include="MyString.h" />
-    <ClInclude Include="NPC.h" />
     <ClInclude Include="player.h" />
+    <ClInclude Include="Rakdos.h" />
     <ClInclude Include="rooms.h" />
+    <ClInclude Include="Skeletons.h" />
+    <ClInclude Include="Totem.h" />
     <ClInclude Include="vector.h" />
     <ClInclude Include="world.h" />
   </ItemGroup>

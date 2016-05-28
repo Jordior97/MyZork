@@ -18,6 +18,7 @@ public:
 
 	Entity(const char*,const char*,Type);
 	~Entity();
+
 	virtual void Look() const{};
 
 };

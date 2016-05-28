@@ -10,7 +10,8 @@ void Player::Stats()
 	printf("HP = %i\n", hp);
 	printf("ARMOR = %i\n", armor);
 	printf("ATTACK = %i\n", attack);
-	printf("MANA = %i", mana);
+	printf("MANA = %i\n", mana);
+	printf("MONEY = %i", money);
 	printf("\n------------\n");
 }
 
@@ -725,7 +726,7 @@ void Player::Buy(const Vector<MyString> &commands) const
 	{
 		if (it_room->data->name == commands[1] && it_room->data->type == NPC)
 		{
-			if (((Npc*)it_room->data)->seller == true)
+			if (((Creature*)it_room->data)->seller == true)
 			{
 				DList<Entity*>::DNode* it_seller = it_room->data->list.first;
 				if (it_seller != nullptr)
@@ -745,6 +746,6 @@ void Player::Buy(const Vector<MyString> &commands) const
 			}
 		}
 	}
-	printf("%s is not here, sorry.\n", commands[1].c_str());
+	printf("This is an invalid action, sorry.\n", commands[1].c_str());
 }
 
