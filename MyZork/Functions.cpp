@@ -4,7 +4,7 @@
 #include"world.h"
 
 
-int GetCommand(int& position, const Vector<MyString>&commands)
+int GetCommand(const Vector<MyString>&commands)
 {
 	//'GO' COMMANDS
 	if (commands[0] == "go" || commands[0] == "n" || commands[0] == "s" || commands[0] == "e" ||
@@ -13,28 +13,28 @@ int GetCommand(int& position, const Vector<MyString>&commands)
 		commands[0] == "down")
 	{
 
-		world->player->Movement(position, commands);
+		world->player->Movement(commands);
 		return Movement;
 	}
 
 	//'LOOK' COMMANDS
 	else if (commands[0] == "look")
 	{
-		world->player->Look(position, commands);
+		world->player->Look( commands);
 		return Look;
 	}
 	
 	//'OPEN' COMMANDS
 	else if (commands[0] == "open")
 	{
-		world->player->Open(position, commands);
+		world->player->Open(commands);
 		return Open;
 	}
 	
 	//'CLOSE' COMMANDS
 	else if (commands[0] == "close")
 	{
-		world->player->Close(position, commands);
+		world->player->Close( commands);
 		return Close;
 	}
 

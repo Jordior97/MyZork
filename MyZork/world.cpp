@@ -201,6 +201,7 @@ void World::CreateWorld()
 	//GOBLIN(entities[49])
 	entities.push_back(new Goblin("KIKKI JIKKI", "The goblin guide. He looks like a little cute monster.\nTry to fight him to take his shiny key.\n", NPC, 20, 200, 0, 0,PASSIVE,100));
 	entities[1]->list.push_back(entities[49]);
+	((Creature*)entities[49])->location = (Room*)world->entities[1];
 
 	//SKELETONS(entities[50])
 	entities.push_back(new Skeletons("SKELETON HORDE", "Six weak and fragile skeletons wandering aimlessly.\n", NPC, 30, 200, 0, 0, HOSTILE,200));

@@ -3,6 +3,7 @@
 
 #include"Entity.h"
 #include"rooms.h"
+#include"windows.h"
 
 enum CType{ HERO, SELLER, HOSTILE, PASSIVE };
 
@@ -20,13 +21,24 @@ public:
 	int money;
 	
 
+	//time counter
+	unsigned int timer = GetTickCount();
+	unsigned int actual_time;
+
+	Room* location;
+	Creature* enemy = nullptr;
+
 	Creature(const char* name, const char* desc, Type type, int at, int hp, int m, int ar, CType c_type, int money);
 	~Creature(){};
-	Room* location;
 
-	//virtual functions here:
-	virtual void Update(){};
+
+	//functions 
+	void Update(){};
+	virtual void Movement(const Vector<MyString>&){};
+	virtual void Drop(const Vector<MyString>&){};
+
 	void Look() const;
+	
 };
 
 #endif

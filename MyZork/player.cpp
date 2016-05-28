@@ -15,13 +15,13 @@ void Player::Stats()
 	printf("\n------------\n");
 }
 
-void Player::Movement(int &pos, const Vector<MyString> &commands)
+void Player::Movement(const Vector<MyString> &commands)
 {
 	fflush(stdin);
 
 	int i, j; //counters that consider the correct room/exit when you move.
 	int dir = SetDirMove(commands);
-	location = (Room*)world->entities[pos];
+	
 	
 	if (dir >= north && dir <= down)
 	{
@@ -29,7 +29,7 @@ void Player::Movement(int &pos, const Vector<MyString> &commands)
 		{
 			if (world->entities[i]->type == EXIT && ((Exit*)world->entities[i])->src == location && ((Exit*)world->entities[i])->direction == dir)
 			{
-				location = ((Exit*)world->entities[i])->dst;
+			
 				for (j = 0; j < world->entities.size(); j++)
 				{
 					if (((Exit*)world->entities[i])->dst == ((Room*)world->entities[j]))
@@ -41,10 +41,10 @@ void Player::Movement(int &pos, const Vector<MyString> &commands)
 						}
 						else
 						{
-							pos = j;
-							printf("\n%s\n%s\n", ((Room*)world->entities[j])->name.c_str(), ((Room*)world->entities[j])->description.c_str());
+							location = (Room*)world->entities[j];
+							printf("\n%s\n%s\n", location->name.c_str(), location->description.c_str());
 							bool npc = false;
-							DList<Entity*>::DNode* it_check = ((Room*)world->entities[pos])->list.first;
+							DList<Entity*>::DNode* it_check = location->list.first;
 							for (; it_check != nullptr; it_check = it_check->next)
 							{
 								if (it_check->data->type == NPC)
@@ -55,7 +55,7 @@ void Player::Movement(int &pos, const Vector<MyString> &commands)
 
 							if (npc == true)
 							{
-								DList<Entity*>::DNode* it_npc = ((Room*)world->entities[pos])->list.first;
+								DList<Entity*>::DNode* it_npc = location->list.first;
 								printf("\n--------------------------\n");
 								printf("\nThere are some creatures around:\n\n");
 								for (; it_npc != nullptr; it_npc = it_npc->next)
@@ -83,10 +83,10 @@ void Player::Movement(int &pos, const Vector<MyString> &commands)
 }
 
 /*---LOOK FUNCTION---*/
-void Player::Look(int pos, const Vector<MyString> &commands) 
+void Player::Look(const Vector<MyString> &commands) const
 {
 	int i; //Counters to consider the correct room/exit when you are looking
-	location = (Room*)world->entities[pos];
+	
 	int dir = SetDirLook(commands);
 
 	if (dir >= north && dir <= down)
@@ -123,13 +123,13 @@ void Player::Look(int pos, const Vector<MyString> &commands)
 
 	else if (commands.size() == 1)//Case 3: name and description of the room you are. It shows items that are in the room too.
 	{
-		((Room*)world->entities[pos])->Look();
+		location->Look();
 
 		bool items = false;
 		bool npc = false;
 		DList<Entity*>::DNode* it_check = nullptr;
 
-		for (it_check = ((Room*)world->entities[pos])->list.first; it_check != nullptr; it_check = it_check->next)
+		for (it_check = location->list.first; it_check != nullptr; it_check = it_check->next)
 		{
 			if (it_check->data->type == ITEM)
 			{
@@ -146,7 +146,7 @@ void Player::Look(int pos, const Vector<MyString> &commands)
 		{
 			printf("\n--------------------------\n");
 			printf("\nItems you can find here:\n\n");
-			for (it = ((Room*)world->entities[pos])->list.first; it != nullptr; it = it->next)
+			for (it = location->list.first; it != nullptr; it = it->next)
 			{
 				if (it->data->type == ITEM)
 				{
@@ -159,7 +159,7 @@ void Player::Look(int pos, const Vector<MyString> &commands)
 		{
 			printf("\n--------------------------\n");
 			printf("\nThere are some creatures around:\n\n");
-			for (it = ((Room*)world->entities[pos])->list.first; it != nullptr; it = it->next)
+			for (it = location->list.first; it != nullptr; it = it->next)
 			{
 				if (it->data->type == NPC)
 				{
@@ -376,10 +376,9 @@ void Player::Get(const Vector<MyString> &commands)
 }
 
 /*---OPEN FUNCTION---*/
-void Player::Open(int pos, const Vector<MyString>&commands) 
+void Player::Open(const Vector<MyString>&commands) 
 {
 	int i;  //Counter to consider the correct exit
-	location = ((Room*)world->entities[pos]);
 	int dir = SetDirOpenClose(commands);
 	bool key = false;
 	DList<Entity*>::DNode* it = list.first;
@@ -423,10 +422,9 @@ void Player::Open(int pos, const Vector<MyString>&commands)
 }
 
 /*---CLOSE FUNCTION---*/
-void Player::Close(int pos, const Vector<MyString> &commands) 
+void Player::Close(const Vector<MyString> &commands) 
 {
 	int i;
-	location = (Room*)world->entities[pos];
 	int dir = SetDirOpenClose(commands);
 
 	if (dir >= north && dir <= down && commands[2] == "door") //checks if commands introduced are correct

@@ -20,6 +20,7 @@ public:
 	~Entity();
 
 	virtual void Look() const{};
+	virtual void Update(){};
 
 };
 

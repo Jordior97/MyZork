@@ -24,14 +24,14 @@ public:
 
 	//Functions
 	void Stats();
-	void Movement(int&, const Vector<MyString>&);
+	void Movement(const Vector<MyString>&);
 	void Pick(const Vector<MyString>&);
 	void Drop(const Vector<MyString>&);
 	void Put(const Vector<MyString>&);
 	void Get(const Vector<MyString>&);
-	void Look(int, const Vector<MyString>&);
-	void Open(int, const Vector<MyString>&);
-	void Close(int, const Vector<MyString>&);
+	void Look( const Vector<MyString>&) const;
+	void Open( const Vector<MyString>&);
+	void Close( const Vector<MyString>&);
 	void Inventory() const;
 	void Equip(const Vector<MyString>&);
 	void Unequip(const Vector<MyString>&);
@@ -39,6 +39,8 @@ public:
 	void Buy(const Vector<MyString>&) const;
 	void BuyFrom(const Vector<MyString>&);
 	void SellTo(const Vector<MyString>&);
+
+	void Update(){};
 
 
 };

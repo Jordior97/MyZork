@@ -13,12 +13,9 @@ World* world = nullptr;
 
 int main()
 {
-	uint init_time = 0;
-	uint current_time = 0;
+	
 	uint size = 0;
 	char input = 0;
-
-	init_time = GetTickCount();
 
 	ReportMemoryLeaks();
 	bool quit =false; //variable used to quit the game
@@ -33,16 +30,20 @@ int main()
 	char command[BUFFER];
 
 	//Sets initial position to rooms[0](BEDROOM)
-	int position = 0; 
-	(Room*)world->player->location = (Room*)world->entities[position];
+	(Room*)world->player->location = (Room*)world->entities[0];
 
 	do
-	{
-		current_time = GetTickCount();
+	{	
 		fflush(stdin);
+
+		for (int i = 0; i < world->entities.size(); i++)
+		{
+			world->entities[i]->Update();
+		}
 
 		if (_kbhit())
 		{
+			
 			if (size < BUFFER - 2)
 			{
 				input = _getch();
@@ -75,7 +76,7 @@ int main()
 					if (command[0] != NULL && command[0] != ' ' && command[0] != '\b')
 					{
 
-						int Action = GetCommand(position, commands);
+						int Action = GetCommand(commands);
 						//If the player introduces an incorrect command
 						if (Action == Invalid_command)
 						{
