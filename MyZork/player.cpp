@@ -718,7 +718,8 @@ void Player::Equipment() const
 	printf("\n--------------------\n");
 }
 
-void Player::Buy(const Vector<MyString> &commands) const
+/*---BUY(look items to buy) FUNCTION---*/
+void Player::Buy(const Vector<MyString>& commands) const
 {
 	DList<Entity*>::DNode* it_room = location->list.first;
 
@@ -746,6 +747,120 @@ void Player::Buy(const Vector<MyString> &commands) const
 			}
 		}
 	}
-	printf("This is an invalid action, sorry.\n", commands[1].c_str());
+	printf("Specify which item and the character to make the trade.\n");
+	return;
 }
 
+
+/*---BUY ITEMS FUNCTION---*/
+void Player::BuyFrom(const Vector<MyString>& commands)
+{
+	if (num_items < max_items)
+	{
+		DList<Entity*>::DNode* it_player = nullptr;
+		DList<Entity*>::DNode* it_room = nullptr;
+		DList<Entity*>::DNode* it_seller = nullptr;
+
+		for (it_player = list.first; it_player != nullptr; it_player = it_player->next)
+		{
+			if (it_player->data->type == ITEM && commands[1] == it_player->data->name)
+			{
+				printf("You already have this item in your inventory.\n");
+				return;
+			}
+		}
+		for (it_room = location->list.first; it_room != nullptr; it_room = it_room->next)
+		{
+			if (it_room->data->name == commands[3] && ((Creature*)it_room->data)->seller == true)
+			{
+				for (it_seller = it_room->data->list.first; it_seller != nullptr; it_seller = it_seller->next)
+				{
+					if (it_seller->data->name == commands[1])
+					{
+						if (money >= ((Item*)it_seller->data)->money)
+						{
+							printf("You wasted %i conins to buy %s.\n", ((Item*)it_seller->data)->money, it_seller->data->name.c_str());
+							list.push_back(it_seller->data);
+							money -= ((Item*)it_seller->data)->money;
+							it_room->data->list.erase(it_seller);
+							num_items++;
+							return;
+						}
+						else
+						{
+							printf("You don't have enough money to buy %s.\n", it_seller->data->name.c_str());
+							return;
+						}
+					}
+				}
+				printf("%s haven't got this item ,sorry.\n", it_room->data->name.c_str());
+				return;
+			}
+		}
+		printf("This action is not possible, Simon.\n");
+		return;
+	}
+	else
+	{
+		printf("Your inventory is full, try to put some items into the trunk.\n");
+		return;
+	}
+}
+
+
+/*---SELL FUNCTION---*/
+void Player::SellTo(const Vector<MyString> &commands)
+{
+	if (commands.size() == 4 && commands[2] == "to")
+	{
+		DList<Entity*>::DNode* it_player = nullptr;
+		DList<Entity*>::DNode* it_room = nullptr;
+		for (it_player = list.first; it_player != nullptr; it_player = it_player->next)
+		{
+			if (it_player->data->type == ITEM)
+			{
+				if (commands[1] == it_player->data->name && ((Item*)it_player->data)->equipped == false && ((Item*)it_player->data)->money > 0)
+				{
+					for (it_room = location->list.first; it_room != nullptr; it_room = it_room->next)
+					{
+						if (it_room->data->type == NPC && it_room->data->name == commands[3])
+						{
+							//checks if the last command introduced is the name of the container
+							if (((Creature*)it_room->data)->seller == true)
+							{
+								int earned = ((Item*)it_player->data)->money / 2;
+								money += earned;
+								printf("You sold %s to %s.\n", it_player->data->name.c_str(), it_room->data->name.c_str());
+								printf("%s has given you %i coins for the %s.\n", it_room->data->name.c_str(), earned, it_player->data->name.c_str());
+								it_room->data->list.push_back(it_player->data);
+								list.erase(it_player);
+								num_items--;
+								return;
+							}
+
+							else if (((Creature*)it_room->data)->seller == false)
+							{
+								printf("You can't sell items to %s.\n", it_room->data->name.c_str());
+								return;
+							}
+						}
+					}
+					printf("Sorry, you can't do this.\n");
+					return;
+				}
+				else if (commands[1] == it_player->data->name && ((Item*)it_player->data)->equipped == true)
+				{
+					printf("You have to unequip this item first.\n");
+					return;
+				}
+				else if (commands[1] == it_player->data->name && ((Item*)it_player->data)->money == 0)
+				{
+					printf("This item is crucial to keep our journey, so you can't sell it.\n");
+				}
+			}
+		}
+		printf("You haven't got this item in you inventory.\n");
+		return;
+	}
+	printf("Specify correctly the item you want to sell and the character you want to interact.\n");
+}

@@ -121,7 +121,7 @@ void World::CreateWorld()
 	entities.push_back(new Item("SHIELD", "This emblematic blue, red and white shield belonged to the Sergeant\nEurope, the protector of Aincrad. It's made with the most resistant material\nin the world: Amadantium\n", (Room*)entities[2], LHand, 0, 0, 0, 10, ITEM, 150));
 
 	//KEY (entities[33])
-	entities.push_back(new Item("KEY", "With this magic key you will be able to open all the doors and trapdoors\nto continue with our journey, Simon.\n", (Room*)entities[6], Non_Equipable, 0, 0, 0, 0, ITEM, 20));
+	entities.push_back(new Item("KEY", "With this magic key you will be able to open all the doors and trapdoors\nto continue with our journey, Simon.\n", (Room*)entities[6], Non_Equipable, 0, 0, 0, 0, ITEM, 0));
 	entities[6]->list.push_back(entities[33]);
 
 	//HELMET (entities[34])
@@ -199,7 +199,7 @@ void World::CreateWorld()
 	player = (Player*)entities[48];
 
 	//GOBLIN(entities[49])
-	entities.push_back(new Goblin("KIKKI JIKKI", "The goblin guide.\n", NPC, 20, 200, 0, 0,false,100));
+	entities.push_back(new Goblin("KIKKI JIKKI", "The goblin guide. He looks like a little cute monster.\nTry to fight him to take his shiny key.\n", NPC, 20, 200, 0, 0,false,100));
 	entities[1]->list.push_back(entities[49]);
 
 	//SKELETONS(entities[50])

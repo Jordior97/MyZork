@@ -114,11 +114,27 @@ int GetCommand(int& position, const Vector<MyString>&commands)
 		return Get;
 	}
 
-	else if (commands[0] == "buy" && commands.size() == 2)
+	//'BUY' COMMANDS
+	else if (commands.size() == 2 && commands[0] == "buy")
 	{
 		world->player->Buy(commands);
 		return Buy;
 	}
+
+	//'BUY FROM' COMMANDS
+	else if (commands.size() == 4 && commands[0] == "buy" && commands[2] == "from")
+	{
+		world->player->BuyFrom(commands);
+		return BuyFrom;
+	}
+
+	//'SELL TO' COMMANDS
+	else if (commands[0] == "sell")
+	{
+		world->player->SellTo(commands);
+		return SellTo;
+	}
+
 
 	//INVALID COMMAND
 	else

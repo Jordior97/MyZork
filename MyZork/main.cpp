@@ -79,7 +79,7 @@ int main()
 						//If the player introduces an incorrect command
 						if (Action == Invalid_command)
 						{
-							printf("Invalid command\n");
+							printf("You have to be more accurate telling what you want to do.\n");
 						}
 
 						//To exit the game
