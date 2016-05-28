@@ -39,6 +39,7 @@ public:
 	void Buy(const Vector<MyString>&) const;
 	void BuyFrom(const Vector<MyString>&);
 	void SellTo(const Vector<MyString>&);
+	void Attack(const Vector<MyString>&);
 
 	void Update(){};
 

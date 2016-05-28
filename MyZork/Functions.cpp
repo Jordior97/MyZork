@@ -135,6 +135,11 @@ int GetCommand(const Vector<MyString>&commands)
 		return SellTo;
 	}
 
+	//'ATTACK' COMMANDS
+	else if (commands[0] == "attack" || commands[0] == "a")
+	{
+		world->player->Attack(commands);
+	}
 
 	//INVALID COMMAND
 	else

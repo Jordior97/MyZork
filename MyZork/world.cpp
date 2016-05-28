@@ -122,7 +122,6 @@ void World::CreateWorld()
 
 	//KEY (entities[33])
 	entities.push_back(new Item("KEY", "With this magic key you will be able to open all the doors and trapdoors\nto continue with our journey, Simon.\n", (Room*)entities[6], Non_Equipable, 0, 0, 0, 0, ITEM, 0));
-	entities[6]->list.push_back(entities[33]);
 
 	//HELMET (entities[34])
 	entities.push_back(new Item("HELMET", "I've heard that the one who goes to battle with this\niron helmet equipped is invencible, but this story is just a myth.\n", (Room*)entities[5], Head, 0, 0, 5, 5, ITEM,100));
@@ -179,7 +178,7 @@ void World::CreateWorld()
 	
 	/*----------------------*/
 
-	//EXCALIBUR (entities[45])
+	//EXCABILUR (entities[45])
 	entities.push_back(new Item("EXCABILUR", "This legendary weapon belonged to King Bradley, the king of kings,\nwho has goberned Aincriad since his death, 500 years ago.\nIt's said this sword has extraordinary properties.\n", (Room*)entities[11], RHand, 50, 50, 0, 0, ITEM,500));
 	entities[11]->list.push_back(entities[45]);
 
@@ -199,16 +198,18 @@ void World::CreateWorld()
 	player = (Player*)entities[48];
 
 	//GOBLIN(entities[49])
-	entities.push_back(new Goblin("KIKKI JIKKI", "The goblin guide. He looks like a little cute monster.\nTry to fight him to take his shiny key.\n", NPC, 20, 200, 0, 0,PASSIVE,100));
+	entities.push_back(new Goblin("JIKKI", "The goblin guide. He looks like a little cute monster.\nTry to fight him to take his shiny key.\n", NPC, 20, 200, 0, 0,PASSIVE,100));
 	entities[1]->list.push_back(entities[49]);
 	((Creature*)entities[49])->location = (Room*)world->entities[1];
+	entities[49]->list.push_back(entities[33]);
+	
 
 	//SKELETONS(entities[50])
-	entities.push_back(new Skeletons("SKELETON HORDE", "Six weak and fragile skeletons wandering aimlessly.\n", NPC, 30, 200, 0, 0, HOSTILE,200));
+	entities.push_back(new Skeletons("SKELETONS", "Six weak and fragile skeletons wandering aimlessly.\n", NPC, 30, 200, 0, 0, HOSTILE,200));
 	entities[9]->list.push_back(entities[50]);
 
 	//RAKDOS(entities[51])
-	entities.push_back(new Rakdos("RAKDOS, THE DEVIL KING", "The Lord of the despair and desolation. He destroyed entire\nwith his own hands, so care, Simon.\n", NPC, 150, 1000, 0, 200, HOSTILE, 1000));
+	entities.push_back(new Rakdos("RAKDOS", "The Lord of the despair and desolation. He destroyed entire\nwith his own hands, so care, Simon.\n", NPC, 150, 1000, 0, 200, HOSTILE, 1000));
 	entities[12]->list.push_back(entities[51]);
 
 	//THE INNKEEPER(entities[52])
@@ -223,7 +224,7 @@ void World::CreateWorld()
 	entities[8]->list.push_back(entities[53]);
 
 	//TOTEM(entities[54])
-	entities.push_back(new Totem("SHOK'TAR, THE MAGIC TOTEM", "This magical totem was created by a powerful shamman\ncalled Throll. It's unique prupose is to keep the treasure\nroom safe.Try to talk to him but care, it loves riddles.\n", NPC, 100, 500, 0, 0, PASSIVE, 500));
+	entities.push_back(new Totem("SHOK'TAR", "This magical totem was created by a powerful shamman\ncalled Throll. It's unique prupose is to keep the treasure\nroom safe.Try to talk to him but care, it loves riddles.\n", NPC, 100, 500, 0, 0, PASSIVE, 500));
 	entities[10]->list.push_back(entities[54]);
 
 

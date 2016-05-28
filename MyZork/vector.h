@@ -147,6 +147,21 @@ public:
 		}
 	}
 
+	bool erase(uint index)
+	{
+		if (index < n_elements)
+		{
+			for (int i = index; i < n_elements; i++)
+			{
+				buffer[i] = buffer[i + 1];
+			}
+			n_elements--;
+
+			return true;
+		}
+		return false;
+	}
+
 };
 
 

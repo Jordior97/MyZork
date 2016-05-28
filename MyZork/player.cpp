@@ -18,68 +18,71 @@ void Player::Stats()
 void Player::Movement(const Vector<MyString> &commands)
 {
 	fflush(stdin);
-
-	int i, j; //counters that consider the correct room/exit when you move.
-	int dir = SetDirMove(commands);
-	
-	
-	if (dir >= north && dir <= down)
+	if (enemy == nullptr)
 	{
-		for (i = 0; i < world->entities.size(); i++)
-		{
-			if (world->entities[i]->type == EXIT && ((Exit*)world->entities[i])->src == location && ((Exit*)world->entities[i])->direction == dir)
-			{
-			
-				for (j = 0; j < world->entities.size(); j++)
-				{
-					if (((Exit*)world->entities[i])->dst == ((Room*)world->entities[j]))
-					{
-						if (((Exit*)world->entities[i])->door == true && ((Exit*)world->entities[i])->open == false)
-						{
-							printf("\nThere's a door locked here.\n");
-							return;
-						}
-						else
-						{
-							location = (Room*)world->entities[j];
-							printf("\n%s\n%s\n", location->name.c_str(), location->description.c_str());
-							bool npc = false;
-							DList<Entity*>::DNode* it_check = location->list.first;
-							for (; it_check != nullptr; it_check = it_check->next)
-							{
-								if (it_check->data->type == NPC)
-								{
-									npc = true;
-								}
-							}
+		int i, j; //counters that consider the correct room/exit when you move.
+		int dir = SetDirMove(commands);
 
-							if (npc == true)
+		if (dir >= north && dir <= down)
+		{
+			for (i = 0; i < world->entities.size(); i++)
+			{
+				if (world->entities[i]->type == EXIT && ((Exit*)world->entities[i])->src == location && ((Exit*)world->entities[i])->direction == dir)
+				{
+
+					for (j = 0; j < world->entities.size(); j++)
+					{
+						if (((Exit*)world->entities[i])->dst == ((Room*)world->entities[j]))
+						{
+							if (((Exit*)world->entities[i])->door == true && ((Exit*)world->entities[i])->open == false)
 							{
-								DList<Entity*>::DNode* it_npc = location->list.first;
-								printf("\n--------------------------\n");
-								printf("\nThere are some creatures around:\n\n");
-								for (; it_npc != nullptr; it_npc = it_npc->next)
+								printf("\nThere's a door locked here.\n");
+								return;
+							}
+							else
+							{
+								location = (Room*)world->entities[j];
+								printf("\n%s\n%s\n", location->name.c_str(), location->description.c_str());
+								bool npc = false;
+								DList<Entity*>::DNode* it_check = location->list.first;
+								for (; it_check != nullptr; it_check = it_check->next)
 								{
-									if (it_npc->data->type == NPC)
+									if (it_check->data->type == NPC)
 									{
-										it_npc->data->Look();
+										npc = true;
 									}
 								}
+
+								if (npc == true)
+								{
+									DList<Entity*>::DNode* it_npc = location->list.first;
+									printf("\n--------------------------\n");
+									printf("\nThere are some creatures around:\n\n");
+									for (; it_npc != nullptr; it_npc = it_npc->next)
+									{
+										if (it_npc->data->type == NPC)
+										{
+											it_npc->data->Look();
+										}
+									}
+								}
+								return;
 							}
-							return;
 						}
 					}
 				}
 			}
+			printf("\nYou can't move into that way.\n");
 		}
-		printf("\nYou can't move into that way.\n");
-	}
 
-	else
-	{
-		printf("\nYou have to specify in which direction you want to move.\n");
-		return;
+		else
+		{
+			printf("\nYou have to specify in which direction you want to move.\n");
+			return;
+		}
 	}
+	printf("You are in combat, Simon! You can't leave this room.\n");
+
 }
 
 /*---LOOK FUNCTION---*/
@@ -220,41 +223,39 @@ void Player::Drop(const Vector<MyString> &commands)
 	srand(time(NULL));
 	if (list.first != nullptr)
 	{
-		for (int i = 0; i < world->entities.size(); i++)
+
+		DList<Entity*>::DNode* it = list.first;
+		for (; it != nullptr; it = it->next)
 		{
-			DList<Entity*>::DNode* it = list.first;
-			for (; it != nullptr; it = it->next)
+			//checks if the commands introduced are correct (first command == drop && second command == <item_name>) and if the item is in the inventory
+			if (it->data->type == ITEM && commands.size() == 2 && commands[1] == it->data->name)
 			{
-				//checks if the commands introduced are correct (first command == drop && second command == <item_name>) and if the item is in the inventory
-				if (it->data->type == ITEM && commands.size() == 2 && commands[1] == it->data->name)
+				//checks if the the item is not equipped...
+				if (((Item*)it->data)->equipped == false)
 				{
-					//checks if the the item is not equipped...
-					if (((Item*)it->data)->equipped == false)
-					{
-						int random = rand() % NUM_ROOMS;
+					int random = rand() % NUM_ROOMS;
 
-						printf("\n");
-						printf("d8888b. db       .d88b.  d8888b. db\n");
-						printf("88  `8D 88      .8P  Y8. 88  `8D 88\n");
-						printf("88oodD' 88      88    88 88oodD' YP\n");
-						printf("88~~~   88      88    88 88~~~\n");
-						printf("88      88booo. `8b  d8' 88      db\n");
-						printf("88      Y88888P  `Y88P'  88      YP\n");
-						printf("\n");
+					printf("\n");
+					printf("d8888b. db       .d88b.  d8888b. db\n");
+					printf("88  `8D 88      .8P  Y8. 88  `8D 88\n");
+					printf("88oodD' 88      88    88 88oodD' YP\n");
+					printf("88~~~   88      88    88 88~~~\n");
+					printf("88      88booo. `8b  d8' 88      db\n");
+					printf("88      Y88888P  `Y88P'  88      YP\n");
+					printf("\n");
 
-						printf("You dropped %s and the Wormhole made it desappear.\n", it->data->name.c_str());
-						
-						((Room*)world->entities[random])->list.push_back(it->data);
-						list.erase(it);
-						num_items--;
-						return;
-					}
-					//...because you can't drop an equipped item
-					else
-					{
-						printf("You have to unequip this item first before drop it.\n");
-						return;
-					}
+					printf("You dropped %s and the Wormhole made it desappear. [%i]\n", it->data->name.c_str(),random);
+
+					((Room*)world->entities[random])->list.push_back(it->data);
+					list.erase(it);
+					num_items--;
+					return;
+				}
+				//...because you can't drop an equipped item
+				else
+				{
+					printf("You have to unequip this item first before drop it.\n");
+					return;
 				}
 			}
 		}
@@ -866,4 +867,31 @@ void Player::SellTo(const Vector<MyString> &commands)
 		return;
 	}
 	printf("Specify correctly the item you want to sell and the character you want to interact.\n");
+}
+
+void Player::Attack(const Vector<MyString> &commands)
+{
+	if (commands.size() == 2)
+	{
+		DList<Entity*>::DNode* it_room = location->list.first;
+		for (; it_room != nullptr; it_room = it_room->next)
+		{
+			if (it_room->data->name == commands[1] && it_room->data->type == NPC)
+			{
+				int damage = attack / 2;
+				enemy = (Creature*)it_room->data;
+				printf("You hit %s, causing %i points of damage.", enemy->name.c_str(), damage);
+				enemy->hp -= damage;
+				return;
+			}
+		}
+		printf("You can't hit a character that is not here.\n");
+		return;
+		
+	}
+	else
+	{
+		printf("Specify correctly which enemy you want to attack.\n");
+		return;
+	}
 }
