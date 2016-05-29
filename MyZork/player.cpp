@@ -904,31 +904,68 @@ void Player::Attack(const Vector<MyString> &commands)
 	}
 }
 
+/*---CHECK FOR GEMS IN YOUR INVENTORY---*/
+void Player::CheckGems(bool& red, bool& blue, bool& yellow, bool& black, bool& white)
+{
+	bool white_gem = false;
+	DList<Entity*>::DNode* it = list.first;
+	for (; it != nullptr; it = it->next)
+	{
+		if (it->data == world->entities[40])
+		{
+			red = true;
+		}
+		if (it->data == world->entities[41])
+		{
+			blue = true;
+		}
+		if (it->data == world->entities[42])
+		{
+			yellow = true;
+		}
+		if (it->data == world->entities[43])
+		{
+			black = true;
+		}
+		if (it->data == world->entities[44])
+		{
+			white = true;
+		}
+	}
+}
 
 /*---GET COMMANDS FOR SPELLS---*/
 void Player::Gem_Abilities(const Vector<MyString>& commands)
 {
 	if (enemy != nullptr)
 	{
+		bool red = false;
+		bool blue = false;
+		bool yellow = false;
+		bool black = false;
+		bool white = false;
+
+		CheckGems(red, blue, yellow, black, white);
+
 		if (commands[0] == "1")
 		{
-			Fire(commands);
+			Fire(commands, red, blue, black);
 		}
 		else if (commands[0] == "2")
 		{
-			Water(commands);
+			Water(commands, blue, red, yellow);
 		}
 		else if (commands[0] == "3")
 		{
-			Electricity(commands);
+			Electricity(commands, yellow, blue, white);
 		}
 		else if (commands[0] == "4")
 		{
-			Darkness(commands);
+			Darkness(commands, black, red, white);
 		}
 		else if (commands[0] == "5")
 		{
-			Brightness(commands);
+			Brightness(commands, white, black, yellow);
 		}
 	}
 	else

@@ -161,7 +161,7 @@ void World::CreateWorld()
 	//KIIRO (entities[42])
 	entities.push_back(new Item("KIIRO", "This is the yellow gem. It allows you to control electricity\n", (Room*)entities[5], Non_Equipable, 0, 0, 0, 0, ITEM, 0));
 	((Item*)entities[42])->magic_gem = true;
-	entities[5]->list.push_back(entities[42]);
+	
 
 	//KURO (entities[43])
 	entities.push_back(new Item("KURO", "This is the black gem. It allows you to control darkness\n", (Room*)entities[6], Non_Equipable, 0, 0, 0, 0, ITEM, 0));
@@ -199,6 +199,7 @@ void World::CreateWorld()
 	entities[5]->list.push_back(entities[49]);
 	((Creature*)entities[49])->location = (Room*)world->entities[5];
 	entities[49]->list.push_back(entities[33]);
+	entities[49]->list.push_back(entities[42]);
 	
 
 	//SKELETONS(entities[50])

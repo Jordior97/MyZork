@@ -90,9 +90,9 @@ void Goblin::Die()
 		{
 			printf("- %s\n",it->data->name.c_str());
 			location->list.push_back(it->data);
-			list.pop_front();
 			it = it->next;
 		}
+		list.clear();
 	}
 	else
 	{

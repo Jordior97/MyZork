@@ -42,6 +42,7 @@ public:
 	void Attack(const Vector<MyString>&);
 
 	void Gem_Abilities(const Vector<MyString>&);
+	void CheckGems(bool&, bool&, bool&, bool&, bool&);
 
 	void Update(){};
 
