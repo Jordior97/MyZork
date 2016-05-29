@@ -1,8 +1,11 @@
 #ifndef _PLAYER_
 #define _PLAYER_
 
-
 #include"creature.h"
+#define HEAL_DELAY 3000
+#define MANA_DELAY 3000
+
+enum PStates{ ALIVE, DEAD };
 
 class Player :public Creature
 {
@@ -10,6 +13,11 @@ public:
 	Player(const char* name, const char* desc, Type type, int at, int hp, int m, int ar, CType c_type, int money, int at_delay) :
 		Creature(name, desc, type, at, hp, m, ar, c_type, money, at_delay){}
 	~Player(){};
+
+	PStates actual_state = ALIVE;
+
+	unsigned int heal_count = GetTickCount();
+	unsigned int mana_count = GetTickCount();
 
 	//Inventory
 	unsigned int num_items = 0;
@@ -40,11 +48,14 @@ public:
 	void BuyFrom(const Vector<MyString>&);
 	void SellTo(const Vector<MyString>&);
 	void Attack(const Vector<MyString>&);
+	void Heal(const Vector<MyString>&);
+	void Mana(const Vector<MyString>&);
+
 
 	void Gem_Abilities(const Vector<MyString>&);
 	void CheckGems(bool&, bool&, bool&, bool&, bool&);
 
-	void Update(){};
+	
 
 
 };

@@ -975,3 +975,49 @@ void Player::Gem_Abilities(const Vector<MyString>& commands)
 }
 
 
+void Player::Heal(const Vector<MyString>& commands)
+{
+	if (commands.size() == 1)
+	{
+		heal_count = GetTickCount();
+
+		if (heal_count >= timer + HEAL_DELAY)
+		{
+			timer = heal_count;
+			printf("You have gained 100 life points.\n");
+			hp += 100;
+		}
+		else
+		{ 
+			printf("My magic abilities are on cooldown, wait %i seconds Simon.\n", HEAL_DELAY/1000 - (heal_count - timer)/1000);
+		}
+	}
+	else
+	{
+		printf("You have to be more accurate.\n");
+	}
+}
+
+void Player::Mana(const Vector<MyString>& commands)
+{
+	if (commands.size() == 1)
+	{
+		mana_count = GetTickCount();
+
+		if (mana_count >= timer + MANA_DELAY)
+		{
+			timer = mana_count;
+			printf("You have regenerated 100 mana points.\n");
+			mana += 100;
+		}
+		else
+		{
+			printf("My mana magic abilities are on cooldown, wait %i seconds Simon.\n", MANA_DELAY/1000 - (mana_count - timer)/1000);
+		}
+	}
+	else
+	{
+		printf("You have to be more accurate.\n");
+	}
+}
+

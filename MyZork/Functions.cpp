@@ -150,6 +150,18 @@ int GetCommand(const Vector<MyString>&commands)
 		return Spells;
 	}
 
+	else if (commands[0] == "heal" || commands[0] == "h")
+	{
+		world->player->Heal(commands);
+		return Heal;
+	}
+
+	else if (commands[0] == "mana" || commands[0] == "m")
+	{
+		world->player->Mana(commands);
+		return Mana;
+	}
+
 	//INVALID COMMAND
 	else
 	{
