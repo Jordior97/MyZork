@@ -49,7 +49,7 @@
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
     <ClCompile Include="KikkiJikki.cpp">
-      <Filter>Archivos de código fuente</Filter>
+      <Filter>NPCS</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

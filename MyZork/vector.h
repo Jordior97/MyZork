@@ -153,7 +153,7 @@ public:
 		{
 			for (int i = index; i < n_elements; i++)
 			{
-				buffer[i] = buffer[i + 1];
+				vector[i] = vector[i + 1];
 			}
 			n_elements--;
 

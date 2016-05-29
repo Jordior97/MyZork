@@ -73,6 +73,7 @@ void Player::Movement(const Vector<MyString> &commands)
 				}
 			}
 			printf("\nYou can't move into that way.\n");
+			return;
 		}
 
 		else
@@ -878,11 +879,18 @@ void Player::Attack(const Vector<MyString> &commands)
 		{
 			if (it_room->data->name == commands[1] && it_room->data->type == NPC)
 			{
-				int damage = attack / 2;
-				enemy = (Creature*)it_room->data;
-				printf("You hit %s, causing %i points of damage.", enemy->name.c_str(), damage);
-				enemy->hp -= damage;
-				return;
+				if (((Creature*)it_room->data)->c_type == SELLER || ((Creature*)it_room->data)->c_type == TALKER)
+				{
+					printf("I don't think that is a good idea, Simon.\n");
+				}
+				else
+				{
+					int damage = attack / 2;
+					enemy = (Creature*)it_room->data;
+					printf("You hit %s, causing %i points of damage.", enemy->name.c_str(), damage);
+					enemy->hp -= damage;
+					return;
+				}
 			}
 		}
 		printf("You can't hit a character that is not here.\n");

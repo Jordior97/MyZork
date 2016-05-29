@@ -10,7 +10,7 @@ void Goblin::Movement()
 		enemy = world->player;
 		actual_state = ATTACK;
 	}
-	unsigned int Delay = 5000;
+	unsigned int Delay = 3000;
 	if (actual_time >= timer + Delay)
 	{
 		timer = actual_time;
@@ -27,6 +27,11 @@ void Goblin::Movement()
 					{
 						if (((Exit*)world->entities[i])->door == false && ((Exit*)world->entities[i])->open == true)
 						{
+							if (((Exit*)world->entities[i])->src == world->player->location)
+							{
+								printf("%s crossed the %s", this->name.c_str(), ((Exit*)world->entities[i])->name.c_str());
+							}
+
 							DList<Entity*>::DNode* it = location->list.first;
 							for (; it != nullptr; it = it->next)
 							{
@@ -35,10 +40,14 @@ void Goblin::Movement()
 									break;
 								}
 							}
+
 							location->list.erase(it);
 							location = (Room*)world->entities[j];
 							location->list.push_back(this);
-							printf("%s is now in %s\n", this->name.c_str(), location->name.c_str());
+							if (world->player->location == location)
+							{
+								printf("\n%s entered the room\n", this->name.c_str());
+							}
 							actual_state = WALK;
 	
 							return;
@@ -75,31 +84,35 @@ void Goblin::Attack()
 
 void Goblin::Die()
  {
-	 world->player->enemy == nullptr;
+	world->player->enemy = nullptr;
 	if (list.first != nullptr)
 	{
-		printf("%s died and dropped:\n", this->name.c_str());
+		printf("\n%s died and dropped:\n", this->name.c_str());
 		DList<Entity*>::DNode* it = list.first;
-		for (; it != nullptr; it = it->next)
+		for (int i = 0; i < list.size();i++)
 		{
 			printf("- %s\n",it->data->name.c_str());
 			location->list.push_back(it->data);
-			list.erase(it);
+			list.pop_front();
+			it = it->next;
 		}
 	}
 	else
 	{
-		printf("%s died.\n");
+		printf("\n%s died.\n");
 	}
+	printf("You earned %i coins! Good job!\n", money);
+	world->player->money += money;
 	DList<Entity*>::DNode* to_erase = location->list.first;
 	for (; to_erase != nullptr; to_erase = to_erase->next)
 	{
 		if (to_erase->data == this)
 		{
 			location->list.erase(to_erase);
-			return;
+			break;
 		}
 	}
+	world->entities.erase(49);
 	
 }
 
