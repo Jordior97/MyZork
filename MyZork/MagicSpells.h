@@ -12,7 +12,7 @@ void Brightness(const Vector<MyString>&, bool, bool, bool);
 void HotSteam(); // fire + water
 void ElectricStorm(); // water + electricity
 void DarkFire(); // fire + darkness
-void Nothing(); //darkness + brightness
+void VoidSpear(); //darkness + brightness
 void DivineStrike(); // electricity + brightness
 
 void Rainbow(); // all gems, in order

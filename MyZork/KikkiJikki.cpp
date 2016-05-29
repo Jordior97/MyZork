@@ -10,8 +10,8 @@ void Goblin::Movement()
 		enemy = world->player;
 		actual_state = ATTACK;
 	}
-	unsigned int Delay = 3000;
-	if (actual_time >= timer + Delay)
+	
+	if (actual_time >= timer + WALK_DELAY)
 	{
 		timer = actual_time;
 		srand(time(NULL));
@@ -59,11 +59,9 @@ void Goblin::Movement()
 
 void Goblin::Attack()
 {
-	unsigned int Delay = 2000;
-
 	if (hp > 0)
 	{
-		if (actual_time >= timer + Delay)
+		if (actual_time >= timer + at_delay)
 		{
 			timer = actual_time;
 			int damage = attack / 2 - enemy->armor / 10;

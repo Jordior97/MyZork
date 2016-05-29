@@ -151,12 +151,12 @@ void World::CreateWorld()
 	//AKA (entities[40])
 	entities.push_back(new Item("AKA", "This is the red gem. It allows you to control fire\n", (Room*)entities[8], Non_Equipable, 0, 0, 0, 0, ITEM, 0));
 	((Item*)entities[40])->magic_gem = true;
-	entities[8]->list.push_back(entities[40]);
+	
 
 	//AO (entities[41])
 	entities.push_back(new Item("AO", "This is the blue gem. It allows you to control water\n", (Room*)entities[3], Non_Equipable, 0, 0, 0, 0, ITEM, 0));
 	((Item*)entities[41])->magic_gem = true;
-	entities[3]->list.push_back(entities[41]);
+	
 
 	//KIIRO (entities[42])
 	entities.push_back(new Item("KIIRO", "This is the yellow gem. It allows you to control electricity\n", (Room*)entities[5], Non_Equipable, 0, 0, 0, 0, ITEM, 0));
@@ -166,12 +166,12 @@ void World::CreateWorld()
 	//KURO (entities[43])
 	entities.push_back(new Item("KURO", "This is the black gem. It allows you to control darkness\n", (Room*)entities[6], Non_Equipable, 0, 0, 0, 0, ITEM, 0));
 	((Item*)entities[43])->magic_gem = true;
-	entities[6]->list.push_back(entities[43]);
+	
 
 	//SHIRO (entities[44])
 	entities.push_back(new Item("SHIRO", "This is the white gem. It allows you to control brightness\n", (Room*)entities[9], Non_Equipable, 0, 0, 0, 0, ITEM, 0));
 	((Item*)entities[44])->magic_gem = true;
-	entities[9]->list.push_back(entities[44]);
+
 	
 	/*----------------------*/
 
@@ -191,38 +191,48 @@ void World::CreateWorld()
 	/*---CREATE CREATURES---*/
 
 	//PLAYER (entities[48])
-	entities.push_back(new Player("SIMON", "A nice kid.\n", PLAYER, 100, 500, 20, 30, HERO, 50));
+	entities.push_back(new Player("SIMON", "A nice kid.\n", PLAYER, 50, 500, 20, 30, HERO, 50,0));
 	player = (Player*)entities[48];
+	player->list.push_back(entities[40]);
+	player->list.push_back(entities[41]);
+	player->list.push_back(entities[42]);
+	player->list.push_back(entities[43]);
+	player->list.push_back(entities[44]);
+	player->num_items = 5;
+
+
+
+
 
 	//GOBLIN(entities[49])
-	entities.push_back(new Goblin("JIKKI", "The goblin guide. He looks like a little cute monster.\nTry to fight him to take his shiny key.\n", NPC, 20, 200, 0, 10,PASSIVE,100));
+	entities.push_back(new Goblin("JIKKI", "The goblin guide. He looks like a little cute monster.\nTry to fight him to take his shiny key.\n", NPC, 20, 200, 0, 10,PASSIVE,100,1000));
 	entities[5]->list.push_back(entities[49]);
 	((Creature*)entities[49])->location = (Room*)world->entities[5];
 	entities[49]->list.push_back(entities[33]);
-	entities[49]->list.push_back(entities[42]);
+	
 	
 
 	//SKELETONS(entities[50])
-	entities.push_back(new Skeletons("SKELETONS", "Six weak and fragile skeletons wandering aimlessly.\n", NPC, 30, 200, 0, 0, HOSTILE,200));
+	entities.push_back(new Skeletons("SKELETONS", "Six weak and fragile skeletons wandering aimlessly.\n", NPC, 30, 200, 0, 0, HOSTILE,200,2000));
 	entities[9]->list.push_back(entities[50]);
 
 	//RAKDOS(entities[51])
-	entities.push_back(new Rakdos("RAKDOS", "The Lord of the despair and desolation. He destroyed entire\nwith his own hands, so care, Simon.\n", NPC, 150, 1000, 0, 200, HOSTILE, 1000));
+	entities.push_back(new Rakdos("RAKDOS", "The Lord of the despair and desolation. He destroyed entire\nwith his own hands, so care, Simon.\n", NPC, 150, 1000, 0, 200, HOSTILE, 1000,3000));
 	entities[12]->list.push_back(entities[51]);
 
 	//THE INNKEEPER(entities[52])
-	entities.push_back(new Karla("KARLA", "She's the dwarven partron of the tavern.\nShe has some interesting items you can buy.\n", NPC, 100, 500, 0, 0, SELLER,500));
+	entities.push_back(new Karla("KARLA", "She's the dwarven partron of the tavern.\nShe has some interesting items you can buy.\n", NPC, 100, 500, 0, 0, SELLER,500,500));
 	entities[2]->list.push_back(entities[52]);
 	//you can buy the sword and the shield from the innkeeper
 	entities[52]->list.push_back(entities[31]);
 	entities[52]->list.push_back(entities[32]);
 	
 	//DRAGON(entities[53])
-	entities.push_back(new Dragon("SMUAG", "He is a powerful, intelligent, malevolent and fearsome dragon\nwho invaded this zone 1000 years ago.\n ", NPC, 100, 500, 0, 0, HOSTILE,400));
+	entities.push_back(new Dragon("SMUAG", "He is a powerful, intelligent, malevolent and fearsome dragon\nwho invaded this zone 1000 years ago.\n ", NPC, 100, 500, 0, 0, HOSTILE,400,2500));
 	entities[8]->list.push_back(entities[53]);
 
 	//TOTEM(entities[54])
-	entities.push_back(new Totem("SHOK'TAR", "This magical totem was created by a powerful shamman\ncalled Throll. It's unique prupose is to keep the treasure\nroom safe.Try to talk to him but care, it loves riddles.\n", NPC, 100, 500, 0, 0, TALKER, 500));
+	entities.push_back(new Totem("SHOK'TAR", "This magical totem was created by a powerful shamman\ncalled Throll. It's unique prupose is to keep the treasure\nroom safe.Try to talk to him but care, it loves riddles.\n", NPC, 100, 500, 0, 0, TALKER, 500,1000));
 	entities[10]->list.push_back(entities[54]);
 
 }

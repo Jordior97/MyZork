@@ -1,31 +1,45 @@
 #include"MagicSpells.h"
 #include"player.h"
 #include"world.h"
+#include"creature.h"
 
 void HotSteam()
 {
-	printf("HOT STEAM!\n");
+	printf("HOT STEAM! It deals 30 points of damage to %s\nand you gain 40 mana points.\n", world->player->enemy->name.c_str());
+	world->player->enemy->hp -= 30;
+	world->player->mana += 40;
+
 }
 
 void ElectricStorm()
 {
-	printf("ELECTRIC STORM!\n");
+	printf("ELECTRIC STORM! The attack speed of %s increased,\nbut his damage is decreased.\n", world->player->enemy->name.c_str());
+	world->player->enemy->at_delay -= 500;
+	world->player->enemy->attack -= 20;
 }
 
 void DarkFire()
 {
-	printf("DARK FIRE!\n");
+	printf("DARK FIRE! You consumed 100 hp\nto cause %s 100 points of damage.\n", world->player->enemy->name.c_str());
+	world->player->hp -= 100;
+	world->player->enemy->hp -= 200;
 }
 
-
-void Nothing()
+void VoidSpear()
 {
-	printf("NOTHING!\n");
+	printf("VOID SPEAR! Your life is reduced 100 hp to increase your attack damage.\n");
+	world->player->hp -= 100;
+	world->player->attack += 60;
+	
+	
+	
 }
 
 void DivineStrike()
 {
-	printf("DIVINE STRIKE!\n");
+	printf("DIVINE STRIKE!\n An expansive wave increased your armor by 50\nand caused 50 damage points to %s", world->player->enemy->name.c_str());
+	world->player->armor += 50;
+	world->player->enemy->hp -= 50;
 }
 
 
@@ -35,7 +49,8 @@ void Fire(const Vector<MyString>& commands, bool red, bool blue, bool black)
 	{
 		if (commands.size() == 1)
 		{
-			printf("FIRE!\n");
+			printf("FIRE! You caused 30 points of damage to %s\n", world->player->enemy->name.c_str());
+			world->player->enemy->hp -= 30;
 		}
 		else if (commands.size() == 2 && commands[1] == "2")
 		{
@@ -72,7 +87,8 @@ void Water(const Vector<MyString>& commands, bool blue, bool red, bool yellow)
 	{
 		if (commands.size() == 1)
 		{
-			printf("WATER!\n");
+			printf("WATER! You reduced the attack speed of %s.\n", world->player->enemy->name.c_str());
+			world->player->enemy->at_delay += 500;
 		}
 		else if (commands.size() == 2 && commands[1] == "1")
 		{
@@ -109,7 +125,8 @@ void Electricity(const Vector<MyString>& commands, bool yellow, bool blue, bool 
 	{
 		if (commands.size() == 1)
 		{
-			printf("ELECTRICITY!\n");
+			printf("ELECTRICITY! You reduced the armor of %s\n", world->player->enemy->name.c_str());
+			world->player->enemy->armor -= 20;
 		}
 		else if (commands.size() == 2 && commands[1] == "2")
 		{
@@ -126,7 +143,7 @@ void Electricity(const Vector<MyString>& commands, bool yellow, bool blue, bool 
 		{
 			if (white == true)
 			{
-				ElectricStorm();
+				DivineStrike();
 			}
 			else
 			{
@@ -146,7 +163,9 @@ void Darkness(const Vector<MyString>& commands, bool black, bool red, bool white
 	{
 		if (commands.size() == 1)
 		{
-			printf("DARKNESS!\n");
+			printf("DARKNESS! You lifestealed 30 hp from %s\n",world->player->enemy->name.c_str());
+			world->player->enemy->hp -= 30;
+			world->player->hp += 30;
 		}
 		else if (commands.size() == 2 && commands[1] == "1")
 		{
@@ -163,7 +182,7 @@ void Darkness(const Vector<MyString>& commands, bool black, bool red, bool white
 		{
 			if (white == true)
 			{
-				Nothing();
+				VoidSpear();
 			}
 			else
 			{
@@ -183,13 +202,14 @@ void Brightness(const Vector<MyString>& commands, bool white, bool black, bool y
 	{
 		if (commands.size() == 1)
 		{
-			printf("BRIGHTNESS!\n");
+			printf("BRIGHTNESS! Your armor increased by 20.\n");
+			world->player->armor += 20;
 		}
 		else if (commands.size() == 2 && commands[1] == "4")
 		{
 			if (black == true)
 			{
-				Nothing();
+				VoidSpear();
 			}
 			else
 			{

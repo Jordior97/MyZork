@@ -1,6 +1,6 @@
 #include"creature.h"
 
-Creature::Creature(const char* name, const char* desc, Type type, int at, int hp, int m, int ar, CType c_type, int money) :Entity(name, desc, type), attack(at), hp(hp), mana(m), armor(ar), money(money), c_type(c_type){}
+Creature::Creature(const char* name, const char* desc, Type type, int at, int hp, int m, int ar, CType c_type, int money, int at_delay) :Entity(name, desc, type), attack(at), hp(hp), mana(m), armor(ar), money(money), c_type(c_type),at_delay(at_delay){}
 
 void Creature::Look() const
 {

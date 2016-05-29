@@ -246,7 +246,7 @@ void Player::Drop(const Vector<MyString> &commands)
 					printf("88      Y88888P  `Y88P'  88      YP\n");
 					printf("\n");
 
-					printf("You dropped %s and the Wormhole made it desappear. [%i]\n", it->data->name.c_str(),random);
+					printf("You dropped %s and the Wormhole made it desappear.\n", it->data->name.c_str());
 
 					((Room*)world->entities[random])->list.push_back(it->data);
 					list.erase(it);
@@ -887,7 +887,7 @@ void Player::Attack(const Vector<MyString> &commands)
 				else
 				{
 					enemy = (Creature*)it_room->data;
-					int damage = attack / 2-enemy->armor/10;
+					int damage = attack / 2 - enemy->armor/10;
 					printf("You hit %s, causing %i points of damage.", enemy->name.c_str(), damage);
 					enemy->hp -= damage;
 					return;
