@@ -139,6 +139,15 @@ int GetCommand(const Vector<MyString>&commands)
 	else if (commands[0] == "attack" || commands[0] == "a")
 	{
 		world->player->Attack(commands);
+		return Attack;
+	}
+
+	//'SPELLS' COMMANDS
+	else if (commands[0] == "1" || commands[0] == "2" || commands[0] == "3"
+		|| commands[0] == "4" || commands[0] == "5")
+	{
+		world->player->Gem_Abilities(commands);
+		return Spells;
 	}
 
 	//INVALID COMMAND

@@ -20,7 +20,6 @@ public:
 	int armor;
 	int money;
 	
-
 	//time counter
 	unsigned int timer = GetTickCount();
 	unsigned int actual_time;

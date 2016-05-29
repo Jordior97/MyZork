@@ -41,6 +41,8 @@ public:
 	void SellTo(const Vector<MyString>&);
 	void Attack(const Vector<MyString>&);
 
+	void Gem_Abilities(const Vector<MyString>&);
+
 	void Update(){};
 
 

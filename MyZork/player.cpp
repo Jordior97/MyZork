@@ -1,6 +1,7 @@
 #include"world.h"
 #include"player.h"
 #include"Functions.h"
+#include"MagicSpells.h"
 #include<time.h>
 #include<stdlib.h>
 
@@ -798,7 +799,7 @@ void Player::BuyFrom(const Vector<MyString>& commands)
 						}
 					}
 				}
-				printf("%s haven't got this item ,sorry.\n", it_room->data->name.c_str());
+				printf("%s haven't got this item, sorry.\n", it_room->data->name.c_str());
 				return;
 			}
 		}
@@ -885,8 +886,8 @@ void Player::Attack(const Vector<MyString> &commands)
 				}
 				else
 				{
-					int damage = attack / 2;
 					enemy = (Creature*)it_room->data;
+					int damage = attack / 2-enemy->armor/10;
 					printf("You hit %s, causing %i points of damage.", enemy->name.c_str(), damage);
 					enemy->hp -= damage;
 					return;
@@ -894,8 +895,7 @@ void Player::Attack(const Vector<MyString> &commands)
 			}
 		}
 		printf("You can't hit a character that is not here.\n");
-		return;
-		
+		return;	
 	}
 	else
 	{
@@ -903,3 +903,38 @@ void Player::Attack(const Vector<MyString> &commands)
 		return;
 	}
 }
+
+
+/*---GET COMMANDS FOR SPELLS---*/
+void Player::Gem_Abilities(const Vector<MyString>& commands)
+{
+	if (enemy != nullptr)
+	{
+		if (commands[0] == "1")
+		{
+			Fire(commands);
+		}
+		else if (commands[0] == "2")
+		{
+			Water(commands);
+		}
+		else if (commands[0] == "3")
+		{
+			Electricity(commands);
+		}
+		else if (commands[0] == "4")
+		{
+			Darkness(commands);
+		}
+		else if (commands[0] == "5")
+		{
+			Brightness(commands);
+		}
+	}
+	else
+	{
+		printf("You can't cast a spell without an objective, Simon.\n");
+	}
+}
+
+

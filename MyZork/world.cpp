@@ -5,10 +5,7 @@
 
 #include"world.h"
 
-World::World()
-{
-
-}
+World::World(){}
 
 void World::CreateWorld() 
 {
@@ -194,11 +191,11 @@ void World::CreateWorld()
 	/*---CREATE CREATURES---*/
 
 	//PLAYER (entities[48])
-	entities.push_back(new Player("SIMON", "A nice kid.\n", PLAYER, 100, 500, 20, 0, HERO, 150));
+	entities.push_back(new Player("SIMON", "A nice kid.\n", PLAYER, 100, 500, 20, 30, HERO, 50));
 	player = (Player*)entities[48];
 
 	//GOBLIN(entities[49])
-	entities.push_back(new Goblin("JIKKI", "The goblin guide. He looks like a little cute monster.\nTry to fight him to take his shiny key.\n", NPC, 20, 200, 0, 0,PASSIVE,100));
+	entities.push_back(new Goblin("JIKKI", "The goblin guide. He looks like a little cute monster.\nTry to fight him to take his shiny key.\n", NPC, 20, 200, 0, 10,PASSIVE,100));
 	entities[5]->list.push_back(entities[49]);
 	((Creature*)entities[49])->location = (Room*)world->entities[5];
 	entities[49]->list.push_back(entities[33]);
@@ -224,9 +221,8 @@ void World::CreateWorld()
 	entities[8]->list.push_back(entities[53]);
 
 	//TOTEM(entities[54])
-	entities.push_back(new Totem("SHOK'TAR", "This magical totem was created by a powerful shamman\ncalled Throll. It's unique prupose is to keep the treasure\nroom safe.Try to talk to him but care, it loves riddles.\n", NPC, 100, 500, 0, 0, PASSIVE, 500));
+	entities.push_back(new Totem("SHOK'TAR", "This magical totem was created by a powerful shamman\ncalled Throll. It's unique prupose is to keep the treasure\nroom safe.Try to talk to him but care, it loves riddles.\n", NPC, 100, 500, 0, 0, TALKER, 500));
 	entities[10]->list.push_back(entities[54]);
-
 
 }
 

@@ -29,7 +29,7 @@ void Goblin::Movement()
 						{
 							if (((Exit*)world->entities[i])->src == world->player->location)
 							{
-								printf("%s crossed the %s", this->name.c_str(), ((Exit*)world->entities[i])->name.c_str());
+								printf("\n%s crossed the %s\n", this->name.c_str(), ((Exit*)world->entities[i])->name.c_str());
 							}
 
 							DList<Entity*>::DNode* it = location->list.first;
@@ -49,8 +49,6 @@ void Goblin::Movement()
 								printf("\n%s entered the room\n", this->name.c_str());
 							}
 							actual_state = WALK;
-	
-							return;
 						}
 					}
 				}
@@ -63,13 +61,12 @@ void Goblin::Attack()
 {
 	unsigned int Delay = 2000;
 
-	
 	if (hp > 0)
 	{
 		if (actual_time >= timer + Delay)
 		{
 			timer = actual_time;
-			int damage = attack / 2;
+			int damage = attack / 2 - enemy->armor / 10;
 			printf("\n%s hits you for %i points of damage.\n", this->name.c_str(), damage);
 			enemy->hp -= damage;
 			actual_state = ATTACK;

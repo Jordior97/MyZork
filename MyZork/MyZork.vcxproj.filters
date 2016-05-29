@@ -51,6 +51,12 @@
     <ClCompile Include="KikkiJikki.cpp">
       <Filter>NPCS</Filter>
     </ClCompile>
+    <ClCompile Include="Totem.cpp">
+      <Filter>NPCS</Filter>
+    </ClCompile>
+    <ClCompile Include="MagicSpells.cpp">
+      <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="world.h">
@@ -106,6 +112,9 @@
     </ClInclude>
     <ClInclude Include="Totem.h">
       <Filter>NPCS</Filter>
+    </ClInclude>
+    <ClInclude Include="MagicSpells.h">
+      <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
