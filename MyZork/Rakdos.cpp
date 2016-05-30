@@ -8,7 +8,7 @@ void Rakdos::Waiting()
 	if (world->player->location == location)
 	{
 		enemy = world->player;
-		
+		world->player->enemy = this;
 		actual_state = ATTACKING;
 	}
 	else

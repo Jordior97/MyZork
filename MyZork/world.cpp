@@ -231,7 +231,7 @@ void World::CreateWorld()
 	((Creature*)entities[53])->location = (Room*)world->entities[8];
 
 	//TOTEM(entities[54])
-	entities.push_back(new Totem("SHOK'TAR", "This magical totem was created by a powerful shamman\ncalled Throll. It's unique prupose is to keep the treasure\nroom safe.It has activated a countdown, just kill it quickly!.\n", NPC, 100, 300, 0, 0, HOSTILE, 500, 1000));
+	entities.push_back(new Totem("SHOK'TAR", "This magical totem was created by a powerful shamman\ncalled Throll. It's unique prupose is to keep the treasure\nroom safe.Look! It has activated a countdown, we have to kill it quickly!.\n", NPC, 100, 300, 0, 0, HOSTILE, 500, 1000));
 	entities[10]->list.push_back(entities[54]);
 	((Creature*)entities[54])->location = (Room*)world->entities[10];
 

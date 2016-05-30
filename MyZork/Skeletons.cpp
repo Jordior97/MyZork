@@ -8,6 +8,7 @@ void Skeletons::SIdle()
 	if (world->player->location == location)
 	{
 		enemy = world->player;
+		world->player->enemy = this;
 		actual_state = N_ATTACK;
 	}
 	else
