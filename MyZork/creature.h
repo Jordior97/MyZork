@@ -5,7 +5,7 @@
 #include"rooms.h"
 #include"windows.h"
 
-enum CType{ HERO, SELLER, HOSTILE, PASSIVE, TALKER };
+enum CType{ HERO, SELLER, HOSTILE, PASSIVE };
 
 class Creature : public Entity
 {

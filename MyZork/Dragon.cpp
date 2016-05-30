@@ -26,7 +26,7 @@ void Dragon::ClawsAttack()
 			int damage = attack / 2 - enemy->armor / 10;
 			printf("\n%s hit you with his claws for %i points of damage.\n", this->name.c_str(), damage);
 			enemy->hp -= damage;
-			printf("You have %i hp now.\n", enemy->hp);
+			printf(">> You have %i hp now.\n", enemy->hp);
 			actual_state = D_ATTACK;
 		}
 
@@ -49,7 +49,7 @@ void Dragon::FireBall()
 	{
 		printf("\n%s throwed you a huge FIRE BALL,\ndealing you %i points of damage.\n", this->name.c_str(), attack);
 		enemy->hp -= attack;
-		printf("You have %i hp now.\n", enemy->hp);
+		printf(">> You have %i hp now.\n", enemy->hp);
 		actual_state = D_ATTACK;
 	}
 	else

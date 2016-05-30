@@ -6,35 +6,22 @@
 
 void Totem::Passive()
 {
-	if (world->player->enemy == this)
+	if (world->player->location == location)
 	{
 		enemy = world->player;
-		actual_state = QUEST_1;
+		actual_state = ACTIVATION;
 	}
 	actual_state = IDLE;
 }
 
-void Totem::Q1()
+void Totem::Activation()
 {
-
 }
 
-void Totem::Q2()
-{
 
-}
 
-void Totem::Q3()
-{
 
-}
-
-void Totem::Complete()
-{
-
-}
-
-void Totem::Update()
+/*void Totem::Update()
 {
 	actual_time = GetTickCount();
 
@@ -42,30 +29,24 @@ void Totem::Update()
 	{
 	case IDLE:
 	{
-		void Passive();
+		Passive();
 		break;
 	}
-	case QUEST_1:
+	case ACTIVATION:
 	{
-		void Q1();
+		Activation();
 		break;
 	}
-	case QUEST2:
+	case EXPLOSION:
 	{
-		void Q2();
+		Explosion();
 		break;
 	}
-
-	case QUEST3:
+	case EVAPORATION:
 	{
-		void Q3();
-		break;
-	}
-	case COMPLETE:
-	{
-		void Complete();
+		Die();
 		break;
 	}
 		
 	}
-}
+}*/

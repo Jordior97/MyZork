@@ -54,16 +54,16 @@
     <ClCompile Include="Totem.cpp">
       <Filter>NPCS</Filter>
     </ClCompile>
-    <ClCompile Include="MagicSpells.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
-    <ClCompile Include="Rakdos.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
     <ClCompile Include="Skeletons.cpp">
       <Filter>NPCS</Filter>
     </ClCompile>
     <ClCompile Include="Dragon.cpp">
+      <Filter>NPCS</Filter>
+    </ClCompile>
+    <ClCompile Include="MagicSpells.cpp">
+      <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
+    <ClCompile Include="Rakdos.cpp">
       <Filter>NPCS</Filter>
     </ClCompile>
   </ItemGroup>

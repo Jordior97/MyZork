@@ -201,20 +201,20 @@ void World::CreateWorld()
 
 
 	//GOBLIN(entities[49])
-	entities.push_back(new Goblin("JIKKI", "The goblin guide. He looks like a little cute monster.\nTry to fight him to take his shiny key.\n", NPC, 20, 200, 0, 10,PASSIVE,100,1000));
+	entities.push_back(new Goblin("JIKKI", "The goblin guide. He looks like a little cute monster.\nTry to fight him to take his shiny key.\n", NPC, 20, 200, 0, 10,PASSIVE,100,2000));
 	entities[5]->list.push_back(entities[49]);
 	((Creature*)entities[49])->location = (Room*)world->entities[5];
 	entities[49]->list.push_back(entities[33]);
 	
 
 	//SKELETONS(entities[50])
-	entities.push_back(new Skeletons("SKELETONS", "Six weak and fragile skeletons wandering aimlessly.\nThey are so much agressive, so prepare for fight them.\n", NPC, 50, 350, 0, 0, HOSTILE, 200, 2000));
+	entities.push_back(new Skeletons("SKELETONS", "Six weak and fragile skeletons wandering aimlessly.\nThey are so much agressive, so prepare for fight them.\n", NPC, 50, 350, 0, 0, HOSTILE, 200, 4000));
 	entities[9]->list.push_back(entities[50]);
 	((Creature*)entities[50])->location = (Room*)world->entities[9];
 	entities[50]->list.push_back(entities[36]);
 
 	//RAKDOS(entities[51])
-	entities.push_back(new Rakdos("RAKDOS", "The Lord of the despair and desolation. He destroyed entire\nwith his own hands, so care, Simon.\n", NPC, 100, 1000, 0, 200, HOSTILE, 1000,3000));
+	entities.push_back(new Rakdos("RAKDOS", "The Lord of the despair and desolation. He destroyed entire\nwith his own hands, so care, Simon.\n", NPC, 100, 1000, 0, 200, HOSTILE, 1000,5000));
 	entities[12]->list.push_back(entities[51]);
 	((Creature*)entities[51])->location = (Room*)world->entities[12];
 
@@ -226,13 +226,14 @@ void World::CreateWorld()
 	entities[52]->list.push_back(entities[32]);
 	
 	//DRAGON(entities[53])
-	entities.push_back(new Dragon("SMUAG", "He is a powerful, intelligent, malevolent and fearsome dragon\nwho invaded this zone 1000 years ago.\nHe is docile as long as you don't touch him.\n", NPC, 100, 500, 0, 0, PASSIVE,400,2500));
+	entities.push_back(new Dragon("SMUAG", "He is a powerful, intelligent, malevolent and fearsome dragon\nwho invaded this zone 1000 years ago.\nHe is docile as long as you don't touch him.\n", NPC, 100, 500, 0, 0, PASSIVE,400,4500));
 	entities[8]->list.push_back(entities[53]);
 	((Creature*)entities[53])->location = (Room*)world->entities[8];
 
 	//TOTEM(entities[54])
-	entities.push_back(new Totem("SHOK'TAR", "This magical totem was created by a powerful shamman\ncalled Throll. It's unique prupose is to keep the treasure\nroom safe.Try to talk to him but care, it loves riddles.\n", NPC, 100, 500, 0, 0, TALKER, 500,1000));
+	entities.push_back(new Totem("SHOK'TAR", "This magical totem was created by a powerful shamman\ncalled Throll. It's unique prupose is to keep the treasure\nroom safe.It has activated a countdown, just kill it quickly!.\n", NPC, 100, 300, 0, 0, HOSTILE, 500, 1000));
 	entities[10]->list.push_back(entities[54]);
+	((Creature*)entities[54])->location = (Room*)world->entities[10];
 
 }
 

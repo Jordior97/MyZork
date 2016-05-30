@@ -880,9 +880,10 @@ void Player::Attack(const Vector<MyString> &commands)
 		{
 			if (it_room->data->name == commands[1] && it_room->data->type == NPC)
 			{
-				if (((Creature*)it_room->data)->c_type == SELLER || ((Creature*)it_room->data)->c_type == TALKER)
+				if (((Creature*)it_room->data)->c_type == SELLER)
 				{
 					printf("I don't think that is a good idea, Simon.\n");
+					return;
 				}
 				else
 				{
@@ -894,7 +895,7 @@ void Player::Attack(const Vector<MyString> &commands)
 					{
 						enemy->hp = 0;
 					}
-					printf("\n%s have %i hp.\n", enemy->name.c_str(), enemy->hp);
+					printf("\n## %s have %i hp.\n", enemy->name.c_str(), enemy->hp);
 					return;
 				}
 			}
@@ -912,7 +913,6 @@ void Player::Attack(const Vector<MyString> &commands)
 /*---CHECK FOR GEMS IN YOUR INVENTORY---*/
 void Player::CheckGems(bool& red, bool& blue, bool& yellow, bool& black, bool& white)
 {
-	bool white_gem = false;
 	DList<Entity*>::DNode* it = list.first;
 	for (; it != nullptr; it = it->next)
 	{

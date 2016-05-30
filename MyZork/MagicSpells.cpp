@@ -5,56 +5,107 @@
 
 void HotSteam()
 {
-	printf("HOT STEAM! It deals 30 points of damage to %s\nand you gain 40 mana points.\n", world->player->enemy->name.c_str());
-	world->player->enemy->hp -= 30;
-	if (world->player->enemy->hp < 0)
+	if (world->player->mana >= 30)
 	{
-		world->player->enemy->hp = 0;
+		world->player->mana -= 30;
+		printf("HOT STEAM! It deals 50 points of damage to %s\nand you gain 40 mana points.\n", world->player->enemy->name.c_str());
+		world->player->enemy->hp -= 50;
+		if (world->player->enemy->hp < 0)
+		{
+			world->player->enemy->hp = 0;
+		}
+		world->player->mana += 170;
+		printf("\n%s have %i hp.\n", world->player->enemy->name.c_str(), world->player->enemy->hp);
+		printf("You have %i mana points.\n", world->player->mana);
 	}
-	world->player->mana += 40;
-	printf("\n%s have %i hp.\n", world->player->enemy->name.c_str(), world->player->enemy->hp);
-	printf("You have %i mana points.\n", world->player->mana);
+	else
+	{
+		printf("YOU HAVEN'T GOT ENOUGH MANA.\n");
+	}
 
 }
 
 void ElectricStorm()
 {
-	printf("ELECTRIC STORM! The attack speed of %s increased,\nbut his damage is decreased.\n", world->player->enemy->name.c_str());
-	world->player->enemy->at_delay -= 500;
-	world->player->enemy->attack -= 20;
+	if (world->player->mana >= 20)
+	{
+		if (world->player->enemy->attack > 10)
+		{
+			world->player->mana -= 20;
+			printf("ELECTRIC STORM! The attack speed of %s increased,\nbut his damage is decreased.\n", world->player->enemy->name.c_str());
+			world->player->enemy->at_delay -= 200;
+			world->player->enemy->attack -= 10;
+			printf("You have %i mana points.\n", world->player->mana);
+		}
+		else
+		{
+			printf("ELECTRIC STORM! You can't cast this ability on %s at the moment.\n", world->player->enemy->name.c_str());
+		}
+	}
+	else
+	{
+		printf("YOU HAVEN'T GOT ENOUGH MANA.\n");
+	}
 }
 
 void DarkFire()
 {
-	printf("DARK FIRE! You consumed 100 hp\nto cause %s 200 points of damage.\n", world->player->enemy->name.c_str());
-	world->player->hp -= 100;
-	world->player->enemy->hp -= 200;
-	if (world->player->enemy->hp < 0)
+	if (world->player->mana >= 40)
 	{
-		world->player->enemy->hp = 0;
+		world->player->mana -= 40;
+		printf("DARK FIRE! You consumed 100 hp\nto cause %s 200 points of damage.\n", world->player->enemy->name.c_str());
+		world->player->hp -= 100;
+		world->player->enemy->hp -= 200;
+		if (world->player->enemy->hp < 0)
+		{
+			world->player->enemy->hp = 0;
+		}
+		printf(">> Your hp is %i now.\n", world->player->hp);
+		printf("%s have %i hp.\n", world->player->enemy->name.c_str(), world->player->enemy->hp);
+		printf("You have %i mana points.\n", world->player->mana);
 	}
-	printf("Your hp is %i now.\n", world->player->hp);
-	printf("\n%s have %i hp.\n", world->player->enemy->name.c_str(), world->player->enemy->hp);
+	else
+	{
+		printf("YOU HAVEN'T GOT ENOUGH MANA.\n");
+	}
 }
 
 void VoidSpear()
 {
-	printf("VOID SPEAR! Your life is reduced 100 hp to increase your attack damage.\n");
-	world->player->hp -= 100;
-	world->player->attack += 60;
-	printf("Your hp is %i now.\n", world->player->hp);
+	if (world->player->mana >= 30)
+	{
+		world->player->mana -= 30;
+		printf("VOID SPEAR! Your life is reduced 100 hp to increase your attack damage.\n");
+		world->player->hp -= 100;
+		world->player->attack += 60;
+		printf(">> Your hp is %i now.\n", world->player->hp);
+		printf("You have %i mana points.\n", world->player->mana);
+	}
+	else
+	{
+		printf("YOU HAVEN'T GOT ENOUGH MANA.\n");
+	}
 }
 
 void DivineStrike()
 {
-	printf("DIVINE STRIKE!\n An expansive wave increased your armor by 50\nand caused 50 damage points to %s", world->player->enemy->name.c_str());
-	world->player->armor += 50;
-	world->player->enemy->hp -= 50;
-	if (world->player->enemy->hp < 0)
+	if (world->player->mana >= 20)
 	{
-		world->player->enemy->hp = 0;
+		world->player->mana -= 20;
+		printf("DIVINE STRIKE!\n An expansive wave increased your armor by 50\nand caused 50 damage points to %s", world->player->enemy->name.c_str());
+		world->player->armor += 50;
+		world->player->enemy->hp -= 50;
+		if (world->player->enemy->hp < 0)
+		{
+			world->player->enemy->hp = 0;
+		}
+		printf("\n%s have %i hp.\n", world->player->enemy->name.c_str(), world->player->enemy->hp);
+		printf("You have %i mana points.\n", world->player->mana);
 	}
-	printf("\n%s have %i hp.\n", world->player->enemy->name.c_str(), world->player->enemy->hp);
+	else
+	{
+		printf("YOU HAVEN'T GOT ENOUGH MANA.\n");
+	}
 }
 
 
@@ -64,13 +115,22 @@ void Fire(const Vector<MyString>& commands, bool red, bool blue, bool black)
 	{
 		if (commands.size() == 1)
 		{
-			printf("FIRE! You caused 30 points of damage to %s\n", world->player->enemy->name.c_str());
-			world->player->enemy->hp -= 30;
-			if (world->player->enemy->hp < 0)
+			if (world->player->mana >= 10)
 			{
-				world->player->enemy->hp = 0;
+				world->player->mana -= 10;
+				printf("FIRE! You caused 30 points of damage to %s\n", world->player->enemy->name.c_str());
+				world->player->enemy->hp -= 30;
+				if (world->player->enemy->hp < 0)
+				{
+					world->player->enemy->hp = 0;
+				}
+				printf("%s have %i hp.\n", world->player->enemy->name.c_str(), world->player->enemy->hp);
+				printf("You have %i mana points.\n", world->player->mana);
 			}
-			printf("%s have %i hp.\n", world->player->enemy->name.c_str(), world->player->enemy->hp);
+			else
+			{
+				printf("YOU HAVEN'T GOT ENOUGH MANA.\n");
+			}
 		}
 		else if (commands.size() == 2 && commands[1] == "2")
 		{
@@ -107,8 +167,17 @@ void Water(const Vector<MyString>& commands, bool blue, bool red, bool yellow)
 	{
 		if (commands.size() == 1)
 		{
-			printf("WATER! You reduced the attack speed of %s.\n", world->player->enemy->name.c_str());
-			world->player->enemy->at_delay += 500;
+			if (world->player->mana >= 20)
+			{
+				world->player->mana -= 20;
+				printf("WATER! You reduced the attack speed of %s.\n", world->player->enemy->name.c_str());
+				world->player->enemy->at_delay += 200;
+				printf("You have %i mana points.\n", world->player->mana);
+			}
+			else
+			{
+				printf("YOU HAVEN'T GOT ENOUGH MANA.\n");
+			}
 		}
 		else if (commands.size() == 2 && commands[1] == "1")
 		{
@@ -145,8 +214,26 @@ void Electricity(const Vector<MyString>& commands, bool yellow, bool blue, bool 
 	{
 		if (commands.size() == 1)
 		{
-			printf("ELECTRICITY! You reduced the armor of %s\n", world->player->enemy->name.c_str());
-			world->player->enemy->armor -= 20;
+			if (world->player->mana >= 10)
+			{
+				world->player->mana -= 10;
+				if (world->player->enemy->armor > 0)
+				{
+					printf("ELECTRICITY! You reduced the armor of %s\n", world->player->enemy->name.c_str());
+					world->player->enemy->armor -= 20;
+					printf("You have %i mana points.\n", world->player->mana);
+				}
+				else
+				{
+					world->player->enemy->armor = 0;
+					printf("ELECTRICITY! You CAN'T REDUCE the armor of %s because it's already 0.\n", world->player->enemy->name.c_str());
+					printf("You have %i mana points.\n", world->player->mana);
+				}		
+			}
+			else
+			{
+				printf("YOU HAVEN'T GOT ENOUGH MANA.\n");
+			}
 		}
 		else if (commands.size() == 2 && commands[1] == "2")
 		{
@@ -183,16 +270,25 @@ void Darkness(const Vector<MyString>& commands, bool black, bool red, bool white
 	{
 		if (commands.size() == 1)
 		{
-			printf("DARKNESS! You lifestealed 30 hp from %s, but his damage is increased\n",world->player->enemy->name.c_str());
-			world->player->enemy->hp -= 30;
-			world->player->hp += 30;
-			world->player->enemy->attack += 20;
-			if (world->player->enemy->hp < 0)
+			if (world->player->mana >= 20)
 			{
-				world->player->enemy->hp = 0;
+				world->player->mana -= 20;
+				printf("DARKNESS! You lifestealed 50 hp from %s, but his damage is increased\n", world->player->enemy->name.c_str());
+				world->player->enemy->hp -= 50;
+				world->player->hp += 50;
+				world->player->enemy->attack += 20;
+				if (world->player->enemy->hp < 0)
+				{
+					world->player->enemy->hp = 0;
+				}
+				printf("%s have %i hp.\n", world->player->enemy->name.c_str(), world->player->enemy->hp);
+				printf(">> Your hp is %i now.\n", world->player->hp);
+				printf("You have %i mana points.\n", world->player->mana);
 			}
-			printf("%s have %i hp.\n", world->player->enemy->name.c_str(), world->player->enemy->hp);
-			printf("Your hp is %i now.\n", world->player->hp);
+			else
+			{
+				printf("YOU HAVEN'T GOT ENOUGH MANA.\n");
+			}
 
 		}
 		else if (commands.size() == 2 && commands[1] == "1")
@@ -230,8 +326,17 @@ void Brightness(const Vector<MyString>& commands, bool white, bool black, bool y
 	{
 		if (commands.size() == 1)
 		{
-			printf("BRIGHTNESS! Your armor increased by 20.\n");
-			world->player->armor += 20;
+			if (world->player->mana >= 10)
+			{
+				world->player->mana -= 10;
+				printf("BRIGHTNESS! Your armor increased by 20.\n");
+				world->player->armor += 20;
+				printf("You have %i mana points.\n", world->player->mana);
+			}
+			else
+			{
+				printf("YOU HAVEN'T GOT ENOUGH MANA.\n");
+			}
 		}
 		else if (commands.size() == 2 && commands[1] == "4")
 		{

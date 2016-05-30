@@ -8,6 +8,7 @@ void Rakdos::Waiting()
 	if (world->player->location == location)
 	{
 		enemy = world->player;
+		
 		actual_state = ATTACKING;
 	}
 	else
@@ -29,22 +30,22 @@ void Rakdos::Attacking()
 			if (attack_type == ATTACK1)
 			{
 				int damage = attack - enemy->armor;
-				printf("%s attacked you with his big cursed axe, dealing %i damage.\n",this->name.c_str(), damage);
+				printf("%s deals %i damage to you with his big cursed axe, .\n",this->name.c_str(), damage);
 				enemy->hp -= damage;
-				printf("Simon, you have %i hp.\n", enemy->hp);
+				printf(">> Simon, you have %i hp.\n", enemy->hp);
 			}
 			else if (attack_type == ATTACK2)
 			{
-				printf("%s casted a strange spell that reduces 10 points all your stats.\n", this->name.c_str());
+				printf("%s reduced 10 points all your stats with a strange curse.\n", this->name.c_str());
 				enemy->armor -= 10;
 				enemy->attack -= 10;
 				enemy->mana -= 10;
 				enemy->hp -= 10;
-				printf("You have %i hp.\n", enemy->hp);
+				printf(">> You have %i hp.\n", enemy->hp);
 			}
 			else if (attack_type == HEAL)
 			{
-				printf("%s is healing 100 hp, what a problem!\n");
+				printf("%s is healing 100 hp, what a problem!\n", this->name.c_str());
 				hp += 100;
 			}			
 		}

@@ -50,10 +50,6 @@ void Skeletons::RageMode()
 			int damage = attack / 2;
 			printf("\n%s hit you for %i points of damage with their big swords.\n", this->name.c_str(), damage);
 			enemy->hp -= damage;
-			if (enemy->hp < 0)
-			{
-				enemy->hp = 0;
-			}
 			printf("You have %i hp now.\n", enemy->hp);
 			actual_state = RAGE;
 		}

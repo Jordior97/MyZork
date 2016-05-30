@@ -71,7 +71,7 @@ void Goblin::Attack()
 			{
 				enemy->hp = 0;
 			}
-			printf("You have %i hp now.\n", enemy->hp);
+			printf(">> You have %i hp now.\n", enemy->hp);
 			actual_state = ATTACK;
 		}
 	}
