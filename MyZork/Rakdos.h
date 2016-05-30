@@ -19,7 +19,8 @@ public:
 	void Update();
 	void Waiting();
 	void Attacking();
-	void Curse();
+
+
 };
 
 #endif

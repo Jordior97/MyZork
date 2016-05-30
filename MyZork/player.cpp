@@ -911,7 +911,7 @@ void Player::Attack(const Vector<MyString> &commands)
 }
 
 /*---CHECK FOR GEMS IN YOUR INVENTORY---*/
-void Player::CheckGems(bool& red, bool& blue, bool& yellow, bool& black, bool& white)
+bool Player::CheckGems(bool& red, bool& blue, bool& yellow, bool& black, bool& white)
 {
 	DList<Entity*>::DNode* it = list.first;
 	for (; it != nullptr; it = it->next)
@@ -936,6 +936,14 @@ void Player::CheckGems(bool& red, bool& blue, bool& yellow, bool& black, bool& w
 		{
 			white = true;
 		}
+	}
+	if (red == true && blue == true && yellow == true && black == true && white == true)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
 	}
 }
 
@@ -1003,6 +1011,18 @@ void Player::Heal(const Vector<MyString>& commands)
 	}
 }
 
+void Player::g_Heal(const Vector<MyString>& commands)
+{
+	hp = 1000000;
+	printf("Your hp is now %i.\n", hp);
+}
+
+void Player::g_Mana(const Vector<MyString>& commands)
+{
+	mana = 1000000;
+	printf("Your mana is now %i.\n", mana);
+}
+
 void Player::Mana(const Vector<MyString>& commands)
 {
 	if (commands.size() == 1)
@@ -1035,10 +1055,10 @@ void Player::Alive()
 	else
 	{
 		printf("\n\n*** GAME OVER ***\nYou are DEAD, Simon.\n");
-		printf("Keep trying.\n");
+		printf("Keep trying and you will reach the VICTORY.\n");
 		printf("Thank you for playing my game.\n");
 		printf("Author: Jordi Ona Rufi\n");
-		getchar();
+
 		actual_state = GAMEOVER;
 	}
 }
@@ -1058,3 +1078,28 @@ void Player::Update()
 	}
 }
 
+void Player::Win()
+{
+	bool red = false;
+	bool blue = false;
+	bool yellow = false;
+	bool black = false;
+	bool white = false;
+
+	if (CheckGems(red, blue, yellow, black, white) == true)
+	{
+		printf("\n\n*** GREAT JOB, SIMON!!! ***\nRakdos is defeated and the world is safe now.\n");
+		printf("Now, you can return to your world to take a break before your next adventure.\n");
+		
+	}
+	else
+	{
+		printf("\n\n*** NICE JOB, SIMON!!! *** \n");
+		printf("Wait... what is this strange feeling? Oh no! You don't have all the magic gems with you!\n");
+		printf("Now the balance of the world is broken, so you can't return to your home...\n");
+	}
+	printf("Thank you for playing my game.\n");
+	printf("Autor: Jordi Ona Rufi");
+
+	actual_state = WIN;
+}

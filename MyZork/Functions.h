@@ -4,7 +4,7 @@
 enum action	{
 	Movement, Look, Open, Close, Pick, Drop, Help, Quit,
 	Invalid_command, Inventory, Equip, Unequip, Stats, Equipment,
-	Put, Get, Buy, BuyFrom, SellTo, Attack, Spells, Heal, Mana
+	Put, Get, Buy, BuyFrom, SellTo, Attack, Spells, Heal, Mana, G_Heal, G_Mana
 };
 
 int GetCommand(const Vector<MyString>&);

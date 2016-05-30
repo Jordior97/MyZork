@@ -100,8 +100,8 @@ int main()
 				size = 0;
 			}
 		}
-	} while (quit == false && world->player->actual_state != GAMEOVER);
-
+	} while (quit == false && world->player->actual_state == ALIVE);
+	getchar();
 	return 0;
 }
 

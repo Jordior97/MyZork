@@ -30,7 +30,7 @@ void Rakdos::Attacking()
 			if (attack_type == ATTACK1)
 			{
 				int damage = attack - enemy->armor;
-				printf("%s deals %i damage to you with his big cursed axe, .\n",this->name.c_str(), damage);
+				printf("%s deals %i damage to you with his big cursed axe.\n",this->name.c_str(), damage);
 				enemy->hp -= damage;
 				if (enemy->hp < 0)
 				{
@@ -83,7 +83,7 @@ void Rakdos::Update()
 	}
 	case R_DIE:
 	{
-		Die();
+		world->player->Win();
 		break;
 	}
 	}

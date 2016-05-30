@@ -5,7 +5,7 @@
 #define HEAL_DELAY 3000
 #define MANA_DELAY 3000
 
-enum PStates{ ALIVE, GAMEOVER ,WIN};
+enum PStates{ ALIVE, GAMEOVER , WIN};
 
 class Player :public Creature
 {
@@ -51,14 +51,17 @@ public:
 	void Heal(const Vector<MyString>&);
 	void Mana(const Vector<MyString>&);
 
+	//god mode
+	void g_Mana(const Vector<MyString>&);
+	void g_Heal(const Vector<MyString>&);
 
 	void Gem_Abilities(const Vector<MyString>&);
-	void CheckGems(bool&, bool&, bool&, bool&, bool&);
+	bool CheckGems(bool&, bool&, bool&, bool&, bool&);
 
 	void Update();
 	void Alive();
-	void GameOver();
 	void Win();
+
 
 
 

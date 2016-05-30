@@ -47,5 +47,4 @@ void Creature::Die()
 		}
 	}
 	world->entities.erase(i);
-
 }

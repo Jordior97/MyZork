@@ -60,6 +60,10 @@ void DarkFire()
 		{
 			world->player->enemy->hp = 0;
 		}
+		if (world->player->hp < 0)
+		{
+			world->player->enemy->hp = 0;
+		}
 		printf(">> Your hp is %i now.\n", world->player->hp);
 		printf("%s have %i hp.\n", world->player->enemy->name.c_str(), world->player->enemy->hp);
 		printf("You have %i mana points.\n", world->player->mana);
@@ -78,6 +82,10 @@ void VoidSpear()
 		printf("VOID SPEAR! Your life is reduced 100 hp to increase your attack damage.\n");
 		world->player->hp -= 100;
 		world->player->attack += 60;
+		if (world->player->hp < 0)
+		{
+			world->player->enemy->hp = 0;
+		}
 		printf(">> Your hp is %i now.\n", world->player->hp);
 		printf("You have %i mana points.\n", world->player->mana);
 	}
