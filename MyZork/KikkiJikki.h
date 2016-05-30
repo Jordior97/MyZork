@@ -7,6 +7,7 @@
 
 enum GStates{ WALK, ATTACK, DIE };
 
+
 class Goblin :public Creature
 {
 public:

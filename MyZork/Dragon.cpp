@@ -3,8 +3,6 @@
 #include "world.h"
 #include <time.h>
 
-
-
 void Dragon::Sleep()
 {
 	if (world->player->enemy == this)

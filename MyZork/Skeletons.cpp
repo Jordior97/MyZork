@@ -35,6 +35,7 @@ void Skeletons::NormalAttack()
 		printf("Oh, no! %s are furious now! They attack damage and armor are increased!\nCare now, they have sharp swords to attack.\n", this->name.c_str());
 		attack += 50;
 		armor += 100;
+		at_delay -= 1000;
 		actual_state = RAGE;
 	}
 }

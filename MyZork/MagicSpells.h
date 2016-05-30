@@ -15,8 +15,4 @@ void DarkFire(); // fire + darkness
 void VoidSpear(); //darkness + brightness
 void DivineStrike(); // electricity + brightness
 
-void Rainbow(); // all gems, in order
-
-
-
 #endif

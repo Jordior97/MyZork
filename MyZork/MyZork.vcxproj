@@ -22,6 +22,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MyString.cpp" />
     <ClCompile Include="player.cpp" />
+    <ClCompile Include="Rakdos.cpp" />
     <ClCompile Include="rooms.cpp" />
     <ClCompile Include="Skeletons.cpp" />
     <ClCompile Include="Totem.cpp" />

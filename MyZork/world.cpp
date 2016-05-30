@@ -208,14 +208,15 @@ void World::CreateWorld()
 	
 
 	//SKELETONS(entities[50])
-	entities.push_back(new Skeletons("SKELETONS", "Six weak and fragile skeletons wandering aimlessly.\nThey are so much agressive, so prepare for fight them.\n", NPC, 50, 500, 0, 0, HOSTILE,200,2000));
+	entities.push_back(new Skeletons("SKELETONS", "Six weak and fragile skeletons wandering aimlessly.\nThey are so much agressive, so prepare for fight them.\n", NPC, 50, 350, 0, 0, HOSTILE, 200, 2000));
 	entities[9]->list.push_back(entities[50]);
 	((Creature*)entities[50])->location = (Room*)world->entities[9];
 	entities[50]->list.push_back(entities[36]);
 
 	//RAKDOS(entities[51])
-	entities.push_back(new Rakdos("RAKDOS", "The Lord of the despair and desolation. He destroyed entire\nwith his own hands, so care, Simon.\n", NPC, 150, 1000, 0, 200, HOSTILE, 1000,3000));
+	entities.push_back(new Rakdos("RAKDOS", "The Lord of the despair and desolation. He destroyed entire\nwith his own hands, so care, Simon.\n", NPC, 100, 1000, 0, 200, HOSTILE, 1000,3000));
 	entities[12]->list.push_back(entities[51]);
+	((Creature*)entities[51])->location = (Room*)world->entities[12];
 
 	//THE INNKEEPER(entities[52])
 	entities.push_back(new Karla("KARLA", "She's the dwarven partron of the tavern.\nShe has some interesting items you can buy.\n", NPC, 100, 500, 0, 0, SELLER,500,500));

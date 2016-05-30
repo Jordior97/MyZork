@@ -41,10 +41,6 @@ void VoidSpear()
 {
 	printf("VOID SPEAR! Your life is reduced 100 hp to increase your attack damage.\n");
 	world->player->hp -= 100;
-	if (world->player->enemy->hp < 0)
-	{
-		world->player->enemy->hp = 0;
-	}
 	world->player->attack += 60;
 	printf("Your hp is %i now.\n", world->player->hp);
 }
