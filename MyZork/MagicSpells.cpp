@@ -8,6 +8,8 @@ void HotSteam()
 	printf("HOT STEAM! It deals 30 points of damage to %s\nand you gain 40 mana points.\n", world->player->enemy->name.c_str());
 	world->player->enemy->hp -= 30;
 	world->player->mana += 40;
+	printf("\n%s have %i hp.\n", world->player->enemy->name.c_str(), world->player->enemy->hp);
+	printf("You have %i mana points.\n", world->player->mana);
 
 }
 
@@ -20,9 +22,11 @@ void ElectricStorm()
 
 void DarkFire()
 {
-	printf("DARK FIRE! You consumed 100 hp\nto cause %s 100 points of damage.\n", world->player->enemy->name.c_str());
+	printf("DARK FIRE! You consumed 100 hp\nto cause %s 200 points of damage.\n", world->player->enemy->name.c_str());
 	world->player->hp -= 100;
 	world->player->enemy->hp -= 200;
+	printf("Your hp is %i now.\n", world->player->hp);
+	printf("\n%s have %i hp.\n", world->player->enemy->name.c_str(), world->player->enemy->hp);
 }
 
 void VoidSpear()
@@ -30,9 +34,7 @@ void VoidSpear()
 	printf("VOID SPEAR! Your life is reduced 100 hp to increase your attack damage.\n");
 	world->player->hp -= 100;
 	world->player->attack += 60;
-	
-	
-	
+	printf("Your hp is %i now.\n", world->player->hp);
 }
 
 void DivineStrike()
@@ -40,6 +42,7 @@ void DivineStrike()
 	printf("DIVINE STRIKE!\n An expansive wave increased your armor by 50\nand caused 50 damage points to %s", world->player->enemy->name.c_str());
 	world->player->armor += 50;
 	world->player->enemy->hp -= 50;
+	printf("\n%s have %i hp.\n", world->player->enemy->name.c_str(), world->player->enemy->hp);
 }
 
 
@@ -51,6 +54,7 @@ void Fire(const Vector<MyString>& commands, bool red, bool blue, bool black)
 		{
 			printf("FIRE! You caused 30 points of damage to %s\n", world->player->enemy->name.c_str());
 			world->player->enemy->hp -= 30;
+			printf("%s have %i hp.\n", world->player->enemy->name.c_str(), world->player->enemy->hp);
 		}
 		else if (commands.size() == 2 && commands[1] == "2")
 		{
@@ -163,9 +167,13 @@ void Darkness(const Vector<MyString>& commands, bool black, bool red, bool white
 	{
 		if (commands.size() == 1)
 		{
-			printf("DARKNESS! You lifestealed 30 hp from %s\n",world->player->enemy->name.c_str());
+			printf("DARKNESS! You lifestealed 30 hp from %s, but his damage is increased\n",world->player->enemy->name.c_str());
 			world->player->enemy->hp -= 30;
 			world->player->hp += 30;
+			world->player->enemy->attack += 20;
+			printf("%s have %i hp.\n", world->player->enemy->name.c_str(), world->player->enemy->hp);
+			printf("Your hp is %i now.\n", world->player->hp);
+
 		}
 		else if (commands.size() == 2 && commands[1] == "1")
 		{

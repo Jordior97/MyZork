@@ -67,6 +67,7 @@ void Goblin::Attack()
 			int damage = attack / 2 - enemy->armor / 10;
 			printf("\n%s hits you for %i points of damage.\n", this->name.c_str(), damage);
 			enemy->hp -= damage;
+			printf("You have %i hp now.\n", enemy->hp);
 			actual_state = ATTACK;
 		}
 	}

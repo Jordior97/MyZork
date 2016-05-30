@@ -890,6 +890,7 @@ void Player::Attack(const Vector<MyString> &commands)
 					int damage = attack / 2 - enemy->armor/10;
 					printf("You hit %s, causing %i points of damage.", enemy->name.c_str(), damage);
 					enemy->hp -= damage;
+					printf("\n%s have %i hp.\n", enemy->name.c_str(), enemy->hp);
 					return;
 				}
 			}
