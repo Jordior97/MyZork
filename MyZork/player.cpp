@@ -1026,3 +1026,35 @@ void Player::Mana(const Vector<MyString>& commands)
 	}
 }
 
+void Player::Alive()
+{
+	if (hp > 0)
+	{
+		actual_state = ALIVE;
+	}
+	else
+	{
+		printf("\n\n*** GAME OVER ***\nYou are DEAD, Simon.\n");
+		printf("Keep trying.\n");
+		printf("Thank you for playing my game.\n");
+		printf("Author: Jordi Ona Rufi\n");
+		getchar();
+		actual_state = GAMEOVER;
+	}
+}
+
+
+void Player::Update()
+{
+	actual_time = GetTickCount();
+
+	switch (actual_state)
+	{
+	case ALIVE:
+	{
+		Alive();
+		break;
+	}
+	}
+}
+

@@ -32,6 +32,10 @@ void Rakdos::Attacking()
 				int damage = attack - enemy->armor;
 				printf("%s deals %i damage to you with his big cursed axe, .\n",this->name.c_str(), damage);
 				enemy->hp -= damage;
+				if (enemy->hp < 0)
+				{
+					enemy->hp = 0;
+				}
 				printf(">> Simon, you have %i hp.\n", enemy->hp);
 			}
 			else if (attack_type == ATTACK2)
@@ -41,6 +45,10 @@ void Rakdos::Attacking()
 				enemy->attack -= 10;
 				enemy->mana -= 10;
 				enemy->hp -= 10;
+				if (enemy->hp < 0)
+				{
+					enemy->hp = 0;
+				}
 				printf(">> You have %i hp.\n", enemy->hp);
 			}
 			else if (attack_type == HEAL)
@@ -73,7 +81,6 @@ void Rakdos::Update()
 		Attacking();
 		break;
 	}
-
 	case R_DIE:
 	{
 		Die();

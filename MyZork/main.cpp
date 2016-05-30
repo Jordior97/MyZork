@@ -36,9 +36,12 @@ int main()
 	{	
 		fflush(stdin);
 
-		for (int i = 0; i < world->entities.size(); i++)
+		if (world->player->actual_state == ALIVE)
 		{
-			world->entities[i]->Update();
+			for (int i = 0; i < world->entities.size(); i++)
+			{
+				world->entities[i]->Update();
+			}
 		}
 
 		if (_kbhit())
@@ -97,7 +100,7 @@ int main()
 				size = 0;
 			}
 		}
-	} while (quit == false);
+	} while (quit == false && world->player->actual_state != GAMEOVER);
 
 	return 0;
 }
