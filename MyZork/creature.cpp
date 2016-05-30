@@ -38,6 +38,14 @@ void Creature::Die()
 			break;
 		}
 	}
-	world->entities.erase(49);
+	int i;
+	for (i = 0; i < world->entities.size(); i++)
+	{
+		if (world->entities[i] == this)
+		{
+			break;
+		}
+	}
+	world->entities.erase(i);
 
 }

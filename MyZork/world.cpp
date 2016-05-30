@@ -36,7 +36,7 @@ void World::CreateWorld()
 	entities.push_back(new Room("UNDERWATER CAVE", "Echo, echo, echo ...\nWe have to care if we want to leave this cave alive.\nIt's a very big and deep cave, so we will\nhave to defeat powerful enemies if you want to continue.\n", ROOM));
 
 	//DRAGON'S RIFT (entities[8])
-	entities.push_back(new Room("DRAGON'S RIFT", "It's very hot here...Wait!\nThis is the Dragon chamber.\nWe have to leave quickly before the Dragon returns.\n", ROOM));
+	entities.push_back(new Room("DRAGON'S RIFT", "It's very hot here...Wait!\nThis is the Dragon chamber.\nWe have to care if we want to stay alive.\n", ROOM));
 
 	//FLOOR 1 (entities[9])
 	entities.push_back(new Room("FLOOR 1", "This is the first floor of the tower.\nScary monsters and skeletons can appear, so let's fight them!\nWe have to care, some trapps have been scatteret throughout the building.\n", ROOM));
@@ -225,8 +225,9 @@ void World::CreateWorld()
 	entities[52]->list.push_back(entities[32]);
 	
 	//DRAGON(entities[53])
-	entities.push_back(new Dragon("SMUAG", "He is a powerful, intelligent, malevolent and fearsome dragon\nwho invaded this zone 1000 years ago.\n ", NPC, 100, 500, 0, 0, HOSTILE,400,2500));
+	entities.push_back(new Dragon("SMUAG", "He is a powerful, intelligent, malevolent and fearsome dragon\nwho invaded this zone 1000 years ago.\nHe is docile as long as you don't touch him.\n", NPC, 100, 500, 0, 0, PASSIVE,400,2500));
 	entities[8]->list.push_back(entities[53]);
+	((Creature*)entities[53])->location = (Room*)world->entities[8];
 
 	//TOTEM(entities[54])
 	entities.push_back(new Totem("SHOK'TAR", "This magical totem was created by a powerful shamman\ncalled Throll. It's unique prupose is to keep the treasure\nroom safe.Try to talk to him but care, it loves riddles.\n", NPC, 100, 500, 0, 0, TALKER, 500,1000));
