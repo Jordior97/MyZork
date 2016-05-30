@@ -35,8 +35,7 @@ public:
 	//functions 
 	void Update(){};
 	virtual void Movement(const Vector<MyString>&){};
-	virtual void Drop(const Vector<MyString>&){};
-
+	virtual void Die();
 	void Look() const;
 	
 };

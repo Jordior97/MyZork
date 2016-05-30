@@ -130,7 +130,6 @@ void World::CreateWorld()
 
 	//GREAVES (entities[36])
 	entities.push_back(new Item("GREAVES", "This greaves will give you more speed, but this is not useful in this game...\n", (Room*)entities[9], Legs, 0, 0, 0, 5, ITEM, 50));
-	entities[9]->list.push_back(entities[36]);
 
 	//AXE (entities[37])
 	entities.push_back(new Item("AXE", "Use this powerful and big axe to destroy hundreds and hundreds of enemies,\nlike Nanoc the Barbarian.\n", (Room*)entities[7], RHand, 10, 0, 0, 0, ITEM, 150));
@@ -201,20 +200,18 @@ void World::CreateWorld()
 	player->num_items = 5;
 
 
-
-
-
 	//GOBLIN(entities[49])
 	entities.push_back(new Goblin("JIKKI", "The goblin guide. He looks like a little cute monster.\nTry to fight him to take his shiny key.\n", NPC, 20, 200, 0, 10,PASSIVE,100,1000));
 	entities[5]->list.push_back(entities[49]);
 	((Creature*)entities[49])->location = (Room*)world->entities[5];
 	entities[49]->list.push_back(entities[33]);
 	
-	
 
 	//SKELETONS(entities[50])
-	entities.push_back(new Skeletons("SKELETONS", "Six weak and fragile skeletons wandering aimlessly.\n", NPC, 30, 200, 0, 0, HOSTILE,200,2000));
+	entities.push_back(new Skeletons("SKELETONS", "Six weak and fragile skeletons wandering aimlessly.\nThey are so much agressive, so prepare for fight them.\n", NPC, 50, 500, 0, 0, HOSTILE,200,2000));
 	entities[9]->list.push_back(entities[50]);
+	((Creature*)entities[50])->location = (Room*)world->entities[9];
+	entities[50]->list.push_back(entities[36]);
 
 	//RAKDOS(entities[51])
 	entities.push_back(new Rakdos("RAKDOS", "The Lord of the despair and desolation. He destroyed entire\nwith his own hands, so care, Simon.\n", NPC, 150, 1000, 0, 200, HOSTILE, 1000,3000));

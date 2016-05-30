@@ -67,6 +67,10 @@ void Goblin::Attack()
 			int damage = attack / 2 - enemy->armor / 10;
 			printf("\n%s hits you for %i points of damage.\n", this->name.c_str(), damage);
 			enemy->hp -= damage;
+			if (enemy->hp < 0)
+			{
+				enemy->hp = 0;
+			}
 			printf("You have %i hp now.\n", enemy->hp);
 			actual_state = ATTACK;
 		}
@@ -75,41 +79,6 @@ void Goblin::Attack()
 	{
 		actual_state = DIE;
 	}
-}
-
-
-void Goblin::Die()
- {
-	world->player->enemy = nullptr;
-	if (list.first != nullptr)
-	{
-		printf("\n%s died and dropped:\n", this->name.c_str());
-		DList<Entity*>::DNode* it = list.first;
-		for (int i = 0; i < list.size();i++)
-		{
-			printf("- %s\n",it->data->name.c_str());
-			location->list.push_back(it->data);
-			it = it->next;
-		}
-		list.clear();
-	}
-	else
-	{
-		printf("\n%s died.\n");
-	}
-	printf("You earned %i coins! Good job!\n", money);
-	world->player->money += money;
-	DList<Entity*>::DNode* to_erase = location->list.first;
-	for (; to_erase != nullptr; to_erase = to_erase->next)
-	{
-		if (to_erase->data == this)
-		{
-			location->list.erase(to_erase);
-			break;
-		}
-	}
-	world->entities.erase(49);
-	
 }
 
 void Goblin::Update()
