@@ -244,7 +244,7 @@ void World::Help() const
 	printf("\nThis is 'Simon & Baxter: the magical gems'\n\nIt's an interactive textual game in which you have to explore\n");
 	printf("a fantasy world full of enemies and challenges to get\nmagical gems. With their power you will be able to defeat Rakdos,\nthe Devil King.\n");
 	printf("\nINSTRUCTIONS:\n\n");
-	printf("The BASIC COMMANDS that you can enter:\ngo / look / open ... door / close ... door / help / quit.\n\n");
+	printf("The BASIC COMMANDS that you can enter:\ngo / look / open <direction> door / close <direction> door / help / quit.\n\n");
 	printf("To specify the DIRECTION you want:\nnorth(n) / south(s) / east(e) / west(w) / up(u) / down(d)\n\n");
 	printf("To INTERACT with OBJECTS you can introduce these commands:\n");
 	printf("pick / drop <item> = to put items in your inventory / leave items\nin the room you are.\n");
@@ -260,6 +260,21 @@ void World::Help() const
 	printf("stats(st) = to look the statistics of the character.\n");
 	printf("\nSPECIAL FEATURE: WormHole\nYou have to think twice before dropping an item. Why? Because of the physical\nlaws of this world, a wormhole is created when you drop items,\nmaking them appear into another room. ");
 	printf("If you want to keep your items safe,\nyou have to put them into the trunk.\n\n");
+	printf("To INTERACT with NPCs introduce these commands:\n");
+	printf("buy <creature> = to see the items a seller has in his inventory.\n");
+	printf("buy/sell <item> from/to <creature> = to buy/sell items with a seller");
+	printf("attack <creature> = start a fight with a NPC.\n\n");
+	printf("BAXTER ABILITIES\n");
+	printf("This magical staff can heal your hp with command 'heal(h)'\n");
+	printf("It can regenerate your mana introducing 'mana(m)'\n\n");
+	printf("MAGICAL GEMS\n");
+	printf("The magical gems you can find around the map let you casting powerful abilities that consume mana\n(be careful which ability");
+	printf("you cast and alwas take care about your mana).You can combine different\nabilities to cast new powerful spells");
+	printf(" (Combinations explained in the PDF called 'SpellsCombinations').\nNOTE: if you want to cast a combinated spell, ");
+	printf("you have to do it like this = '1'(spacebar)'2'.\nYou have to pick the gems to keep them into your inventory.\n\n");
+	printf("COMBAT SYSTEM\n");
+	printf("When a combat starts (you attack a NPC or a NPC attacks you), you can't move to any other room until\nthe fight ends (a character dies).");
+	printf("Only when you are in combat you can cast magic spells with the\ncorrect comands(1, 2, 3, 4, 5).\n");
 
 }
 
