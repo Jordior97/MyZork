@@ -20,6 +20,7 @@ public:
 	//To check cooldowns for healing or mana regenerating
 	unsigned int heal_count = GetTickCount();
 	unsigned int mana_count = GetTickCount();
+	unsigned int timer_staff = GetTickCount();
 
 	//Inventory
 	unsigned int num_items = 0;

@@ -292,7 +292,7 @@ void Darkness(const Vector<MyString>& commands, bool black, bool red, bool white
 				{
 					world->player->enemy->hp = 0;
 				}
-				printf("%s have %i hp.\n", world->player->enemy->name.c_str(), world->player->enemy->hp);
+				printf("##%s have %i hp.\n", world->player->enemy->name.c_str(), world->player->enemy->hp);
 				printf(">> Your hp is %i now.\n", world->player->hp);
 				printf("You have %i mana points.\n", world->player->mana);
 			}

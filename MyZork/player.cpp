@@ -904,6 +904,7 @@ void Player::Attack(const Vector<MyString> &commands)
 				}
 				else
 				{
+					timer = GetTickCount();
 					//Sets the enemy pointer to the correct NPC
 					enemy = (Creature*)it_room->data;
 					int damage = attack / 2 - enemy->armor/10;
@@ -1012,15 +1013,15 @@ void Player::Heal(const Vector<MyString>& commands)
 	{
 		heal_count = GetTickCount();
 		//You can heal 100 hp every 3 secs
-		if (heal_count >= timer + HEAL_DELAY)
+		if (heal_count >= timer_staff + HEAL_DELAY)
 		{
-			timer = heal_count;
+			timer_staff = heal_count;
 			printf("You have gained 100 life points.\n");
 			hp += 100;
 		}
 		else
 		{ 
-			printf("My magic abilities are on cooldown, wait %i seconds Simon.\n", HEAL_DELAY/1000 - (heal_count - timer)/1000);
+			printf("My magic abilities are on cooldown, wait %i seconds Simon.\n", HEAL_DELAY / 1000 - (heal_count - timer_staff) / 1000);
 		}
 	}
 	else
@@ -1035,15 +1036,15 @@ void Player::Mana(const Vector<MyString>& commands)
 	{
 		mana_count = GetTickCount();
 		//You can regen 100 mana points every 3 secs
-		if (mana_count >= timer + MANA_DELAY)
+		if (mana_count >= timer_staff + MANA_DELAY)
 		{
-			timer = mana_count;
+			timer_staff = mana_count;
 			printf("You have regenerated 100 mana points.\n");
 			mana += 100;
 		}
 		else
 		{
-			printf("My mana magic abilities are on cooldown, wait %i seconds Simon.\n", MANA_DELAY / 1000 - (mana_count - timer) / 1000);
+			printf("My mana magic abilities are on cooldown, wait %i seconds Simon.\n", MANA_DELAY / 1000 - (mana_count - timer_staff) / 1000);
 		}
 	}
 	else
@@ -1073,6 +1074,17 @@ void Player::Alive()
 	//Checks if your hero is still alive
 	if (hp > 0)
 	{
+		if (enemy != nullptr)
+		{
+			if (actual_time >= timer + at_delay)
+			{
+				timer = actual_time;
+				int damage = attack / 2 - enemy->armor / 10;
+				printf("\nYou hit %s, causing %i points of damage.", enemy->name.c_str(), damage);
+				enemy->hp -= damage;
+				printf("\n## %s have %i hp.\n", enemy->name.c_str(), enemy->hp);
+			}
+		}
 		actual_state = ALIVE;
 	}
 	else //Player is dead

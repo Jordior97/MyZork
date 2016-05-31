@@ -189,7 +189,7 @@ void World::CreateWorld()
 	/*---CREATE CREATURES---*/
 
 	//PLAYER (entities[48])
-	entities.push_back(new Player("SIMON", "A nice kid.\n", PLAYER, 50, 200, 20, 30, HERO, 50, 0));
+	entities.push_back(new Player("SIMON", "A nice kid.\n", PLAYER, 50, 200, 20, 30, HERO, 50, 1000));
 	player = (Player*)entities[48];
 
 
@@ -263,7 +263,7 @@ void World::Help() const
 	printf("To INTERACT with NPCs introduce these commands:\n");
 	printf("buy <creature> = to see the items a seller has in his inventory.\n");
 	printf("buy/sell <item> from/to <creature> = to buy/sell items with a seller");
-	printf("attack <creature> = start a fight with a NPC.\n\n");
+	printf("attack(a) <creature> = start a fight with a NPC.\n\n");
 	printf("BAXTER ABILITIES\n");
 	printf("This magical staff can heal your hp with command 'heal(h)'\n");
 	printf("It can regenerate your mana introducing 'mana(m)'\n\n");
@@ -273,7 +273,7 @@ void World::Help() const
 	printf(" (Combinations explained in the PDF called 'SpellsCombinations').\nNOTE: if you want to cast a combinated spell, ");
 	printf("you have to do it like this = '1'(spacebar)'2'.\nYou have to pick the gems to keep them into your inventory.\n\n");
 	printf("COMBAT SYSTEM\n");
-	printf("When a combat starts (you attack a NPC or a NPC attacks you), you can't move to any other room until\nthe fight ends (a character dies).");
+	printf("When a combat starts (you attack a NPC or a NPC attacks you), you hit automatically the enemy every 1 sec.\nYou can't move to any other room until the fight ends (a character dies).\n");
 	printf("Only when you are in combat you can cast magic spells with the\ncorrect comands(1, 2, 3, 4, 5).\n");
 
 }
