@@ -8,16 +8,16 @@ a fantasy world full of enemies and challenges to get magical stones.
 Whith their power you will be able to defeat Rakdos, the Devil King
 
 
-INSTRUCTIONS:
+*INSTRUCTIONS:*
 
 
-The BASIC COMMANDS that you can enter:: go / look / open (direction) door / close (direction) door / help / quit.
+The **BASIC COMMANDS** that you can enter:: go / look / open (direction) door / close (direction) door / help / quit.
 
 
-To specify the DIRECTION you want: north(n) / south(s) / east(e) / west(w) / up(u) / down(d)
+To specify the **DIRECTION** you want: north(n) / south(s) / east(e) / west(w) / up(u) / down(d)
 
 
-To INTERACT with OBJECTS you can introduce these commands:
+To **INTERACT** with **OBJECTS** you can introduce these commands:
 
 pick / drop = to put items in your inventory / leave items\nin the room you are.
 
@@ -30,7 +30,7 @@ get from = to get an item that's inside another item (container).
 look trunk = to look items that are inside this container.
 
 
-To know basic INFORMATION related to the character:
+To know basic **INFORMATION** related to the character:
 
 You can't see which objects are in the room when you move between them.
 
@@ -43,7 +43,7 @@ equipment(eq) = it shows the equipped items.
 stats(st) = to look the statistics of the character.
 
 
-SPECIAL FEATURE: WormHole
+**SPECIAL FEATURE: WormHole**
 
 You have to think twice before dropping an item. Why? Because of the physical
 
