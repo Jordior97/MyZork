@@ -31,7 +31,6 @@ public:
 	Creature(const char* name, const char* desc, Type type, int at, int hp, int m, int ar, CType c_type, int money, int at_speed);
 	~Creature(){};
 
-
 	//functions 
 	void Update(){};
 	virtual void Movement(const Vector<MyString>&){};

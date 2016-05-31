@@ -29,7 +29,7 @@ void Rakdos::Attacking()
 			timer = actual_time;
 			if (attack_type == ATTACK1)
 			{
-				int damage = attack - enemy->armor;
+				int damage = attack - enemy->armor/10;
 				printf("%s deals %i damage to you with his big cursed axe.\n",this->name.c_str(), damage);
 				enemy->hp -= damage;
 				if (enemy->hp < 0)

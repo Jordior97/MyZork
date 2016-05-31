@@ -15,13 +15,11 @@ public:
 	Type type;
 	DList<Entity*> list;
 
-
 	Entity(const char*,const char*,Type);
 	~Entity();
 
 	virtual void Look() const{};
 	virtual void Update(){};
-
 };
 
 

@@ -7,10 +7,12 @@ enum action	{
 	Put, Get, Buy, BuyFrom, SellTo, Attack, Spells, Heal, Mana, G_Heal, G_Mana
 };
 
-int GetCommand(const Vector<MyString>&);
-int SetDirMove(const Vector<MyString>&);
+int GetCommand(const Vector<MyString>&); //Checks commands to redirect to the correct function
+
+//Indicates direction 
+int SetDirMove(const Vector<MyString>&); 
 int SetDirLook(const Vector<MyString>&);
-int SetDirOpenClose(const Vector<MyString>&);
+int SetDirOpenClose(const Vector<MyString>&); 
 
 
 #endif

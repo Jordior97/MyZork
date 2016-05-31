@@ -54,6 +54,7 @@ void Player::Movement(const Vector<MyString> &commands)
 									}
 								}
 
+								//It shows the NPCs that are in your room
 								if (npc == true)
 								{
 									DList<Entity*>::DNode* it_npc = location->list.first;
@@ -83,6 +84,7 @@ void Player::Movement(const Vector<MyString> &commands)
 			return;
 		}
 	}
+	//You can't move from your room if you have an enemy to attack
 	printf("You are in combat, Simon! You can't leave this room.\n");
 
 }
@@ -90,10 +92,11 @@ void Player::Movement(const Vector<MyString> &commands)
 /*---LOOK FUNCTION---*/
 void Player::Look(const Vector<MyString> &commands) const
 {
-	int i; //Counters to consider the correct room/exit when you are looking
+	int i; //Counter to consider the correct room/exit when you are looking
 	
 	int dir = SetDirLook(commands);
 
+	//Look an exit
 	if (dir >= north && dir <= down)
 	{
 		for (i = 0; i < world->entities.size(); i++)
@@ -107,7 +110,8 @@ void Player::Look(const Vector<MyString> &commands) const
 		printf("\nThere's nothing to look here.\n");
 	}
 
-	else if (dir == 6) //Look Trunk
+	//Look Trunk
+	else if (dir == 6) 
 	{
 		DList<Entity*>::DNode* it_room = location->list.first;
 		for (; it_room != nullptr; it_room = it_room->next)
@@ -126,10 +130,10 @@ void Player::Look(const Vector<MyString> &commands) const
 		printf("The TRUNK is not here.\n");
 	}
 
-	else if (commands.size() == 1)//Case 3: name and description of the room you are. It shows items that are in the room too.
+	//Look the actual room
+	else if (commands.size() == 1)
 	{
 		location->Look();
-
 		bool items = false;
 		bool npc = false;
 		DList<Entity*>::DNode* it_check = nullptr;
@@ -184,17 +188,18 @@ void Player::Look(const Vector<MyString> &commands) const
 /*---PICK FUNCTION---*/
 void Player::Pick(const Vector<MyString> &commands) 
 {
-	//checks if inventory is full (so you can't pick more objects)
+	//Checks if inventory is full (so you can't pick more objects)
 	if (num_items < max_items)
 	{
+		//Checks if the list of the room contains the item
 		if (location->list.first != nullptr)
 		{
 			DList<Entity*>::DNode* it = location->list.first;
 			for (; it != nullptr; it = it->next)
 			{
-				//checks if the commands introduced are correct (first command == pick && second command == <item_name>) and if the item is not in the inventory yet
 				if (it->data->type == ITEM && commands.size() == 2 && commands[1] == it->data->name)
 				{
+					//Checks if item you want to pick is not the trunk
 					if (it->data != (Item*)world->entities[39])
 					{
 						printf("You picked %s\n", it->data->name.c_str());
@@ -211,7 +216,7 @@ void Player::Pick(const Vector<MyString> &commands)
 				}
 			}
 		}
-		printf("There's any object with that name here in this place.\n");
+		printf("There isn't any object with that name here in this place.\n");
 	}
 	else
 	{
@@ -225,14 +230,13 @@ void Player::Drop(const Vector<MyString> &commands)
 	srand(time(NULL));
 	if (list.first != nullptr)
 	{
-
 		DList<Entity*>::DNode* it = list.first;
+		//Iterates the inventory to find the item
 		for (; it != nullptr; it = it->next)
 		{
-			//checks if the commands introduced are correct (first command == drop && second command == <item_name>) and if the item is in the inventory
 			if (it->data->type == ITEM && commands.size() == 2 && commands[1] == it->data->name)
 			{
-				//checks if the the item is not equipped...
+				//Checks if the the item is not equipped...
 				if (((Item*)it->data)->equipped == false)
 				{
 					int random = rand() % NUM_ROOMS;
@@ -268,7 +272,7 @@ void Player::Drop(const Vector<MyString> &commands)
 /*---PUT FUNCTION---*/
 void Player::Put(const Vector<MyString> &commands) 
 {
-	//checks if the commands introduced are correct
+	//Checks if the commands introduced are correct
 	if (commands.size() == 4 && commands[2] == "into")
 	{
 		DList<Entity*>::DNode* it_player = nullptr;
@@ -277,17 +281,17 @@ void Player::Put(const Vector<MyString> &commands)
 		{
 			if (it_player->data->type == ITEM)
 			{
-				//checks if the item you want to put is in your inventory and if it's not equipped
+				//Checks if the item you want to put is in your inventory and if it's not equipped
 				if (commands[1] == it_player->data->name && ((Item*)it_player->data)->equipped == false)
 				{
 					for (it_room = location->list.first; it_room != nullptr; it_room = it_room->next)
 					{
 						if (it_room->data->type == ITEM && it_room->data->name == commands[3])
 						{
-							//checks if the last command introduced is the name of the container
+							//Checks if the last command introduced is the name of the container
 							if (((Item*)it_room->data)->container == true)
 							{
-								//checks if the container is in the room
+								//Checks if the container is in the room
 								printf("You put %s into %s\n", it_player->data->name.c_str(), it_room->data->name.c_str());
 								it_room->data->list.push_back(it_player->data);
 								list.erase(it_player);
@@ -322,16 +326,17 @@ void Player::Put(const Vector<MyString> &commands)
 /*---GET FUNCTION---*/
 void Player::Get(const Vector<MyString> &commands)
 {
-	//checks if the commands introduced are correct
+	//Checks if the commands introduced are correct
 	if (commands.size() == 4 && commands[2] == "from")
 	{
-		//checks if your inventory is full
+		//Checks if your inventory is full
 		if (num_items < max_items)
 		{
 			DList<Entity*>::DNode* it_player = nullptr;
 			DList<Entity*>::DNode* it_room = nullptr;
 			DList<Entity*>::DNode* it_container = nullptr;
 
+			//Checks if the item is in your inventory
 			for (it_player = list.first; it_player != nullptr; it_player = it_player->next)
 			{
 				if (it_player->data->type == ITEM && commands[1] == it_player->data->name)
@@ -341,10 +346,12 @@ void Player::Get(const Vector<MyString> &commands)
 				}
 			}
 
+			//Checks if the container is in the room
 			for (it_room = location->list.first; it_room != nullptr; it_room = it_room->next)
 			{
 				if (it_room->data->name == commands[3] && ((Item*)it_room->data)->container == true)
 				{
+					//Checks if the item is in the container
 					for (it_container = it_room->data->list.first; it_container != nullptr; it_container = it_container->next)
 					{
 						if (it_container->data->name == commands[1])
@@ -386,6 +393,7 @@ void Player::Open(const Vector<MyString>&commands)
 	bool key = false;
 	DList<Entity*>::DNode* it = list.first;
 
+	//Checks if you have the key picked (necessary to open doors)
 	for (; it != nullptr; it = it->next)
 	{
 		if (it->data == world->entities[33])
@@ -394,9 +402,9 @@ void Player::Open(const Vector<MyString>&commands)
 		}
 	}
 
-	if (key == true) //checks if you have the key picked (necessary to open doors)
+	if (key == true) 
 	{
-		if (dir >= north && dir <= down && commands[2] == "door") //checks if commands introduced are correct
+		if (dir >= north && dir <= down && commands[2] == "door") //Checks if commands introduced are correct
 		{
 			for (i = 0; i < world->entities.size(); i++)
 			{
@@ -430,7 +438,7 @@ void Player::Close(const Vector<MyString> &commands)
 	int i;
 	int dir = SetDirOpenClose(commands);
 
-	if (dir >= north && dir <= down && commands[2] == "door") //checks if commands introduced are correct
+	if (dir >= north && dir <= down && commands[2] == "door") //Checks if commands introduced are correct
 	{
 		for (i = 0; i < world->entities.size(); i++)
 		{
@@ -457,14 +465,14 @@ void Player::Close(const Vector<MyString> &commands)
 void Player::Inventory() const
 {
 	int i;
-	//checks if the player has got items in his inventory
+	//Checks if the player has got items in his inventory
 	if (num_items > 0)
 	{
 		printf("In your inventory you have (%i/%i):\n\n", num_items, max_items);
 		DList<Entity*>::DNode* it = nullptr;
 		for (it = list.first; it != nullptr; it = it->next)
 		{
-			//shows the names and descriptions of the picked items
+			//Shows the names and descriptions of the picked items
 			if (((Item*)it->data)->magic_gem == false)
 			{
 				it->data->Look();
@@ -474,7 +482,7 @@ void Player::Inventory() const
 		printf("MAGIC GEMS:\n\n");
 		for (it = list.first; it != nullptr; it = it->next)
 		{
-			//shows the names and descriptions of the picked gems
+			//Shows the names and descriptions of the picked gems
 			if (((Item*)it->data)->magic_gem == true)
 			{
 				it->data->Look();
@@ -494,11 +502,11 @@ void Player::Equip(const Vector<MyString> &commands)
 	DList<Entity*>::DNode* it = list.first;
 	for (; it != nullptr; it = it->next)
 	{
-		//checks if the commands introduced are correct (first command == equip && second command == <item_name>) 
-		//it checks the slot it occupies (the part of the player where it will be equipped) too
+		//Checks if the commands introduced are correct (first command == equip && second command == <item_name>) 
+		//It checks the slot it occupies (the part of the player where it will be equipped) too
 		if (it->data->type == ITEM && commands.size() == 2 && commands[1] == it->data->name && ((Item*)it->data)->part == Head)
 		{
-			//checks if there isn't an item equipped on that part yet
+			//Checks if there isn't an item equipped on that part yet
 			if (head_item == false)
 			{
 				head_item = true;
@@ -615,13 +623,13 @@ void Player::Unequip(const Vector<MyString> &commands)
 	{
 		if (it->data->type == ITEM)
 		{
-			//checks if the commands introduced are correct (first command == unequip && second command == <item_name>) 
+			//Checks if the commands introduced are correct (first command == unequip && second command == <item_name>) 
 			if (commands.size() == 2 && commands[1] == it->data->name)
 			{
-				//checks if the item is equipped
+				//Checks if the item is equipped
 				if (((Item*)it->data)->equipped == true)
 				{
-					//to empty the slot the item occupied
+					//To empty the slot the item occupied
 					switch (((Item*)it->data)->part)
 					{
 					case Head:
@@ -679,7 +687,7 @@ void Player::Equipment() const
 	MyString LeftH_item;
 	MyString RightH_item;
 
-	//to show every item equipped 
+	//To show every item equipped 
 	for (int i = 0; i < world->entities.size(); i++)
 	{
 		if (world->entities[i]->type == ITEM)
@@ -724,6 +732,7 @@ void Player::Buy(const Vector<MyString>& commands) const
 {
 	DList<Entity*>::DNode* it_room = location->list.first;
 
+	//Checks if the seller is in the room
 	for (; it_room != nullptr; it_room = it_room->next)
 	{
 		if (it_room->data->name == commands[1] && it_room->data->type == NPC)
@@ -734,6 +743,7 @@ void Player::Buy(const Vector<MyString>& commands) const
 				if (it_seller != nullptr)
 				{
 					printf("Items of %s:\n\n", it_room->data->name.c_str());
+					//Iterates the list of items of the seller
 					for (; it_seller != nullptr; it_seller = it_seller->next)
 					{
 						it_seller->data->Look();
@@ -767,6 +777,7 @@ void Player::BuyFrom(const Vector<MyString>& commands)
 		DList<Entity*>::DNode* it_room = nullptr;
 		DList<Entity*>::DNode* it_seller = nullptr;
 
+		//Checks if the item is in your inventory
 		for (it_player = list.first; it_player != nullptr; it_player = it_player->next)
 		{
 			if (it_player->data->type == ITEM && commands[1] == it_player->data->name)
@@ -775,10 +786,12 @@ void Player::BuyFrom(const Vector<MyString>& commands)
 				return;
 			}
 		}
+		//Checks if the seller is in the room
 		for (it_room = location->list.first; it_room != nullptr; it_room = it_room->next)
 		{
 			if (it_room->data->name == commands[3] && ((Creature*)it_room->data)->c_type == SELLER)
 			{
+				//Checks if seller has got the item you want to buy
 				for (it_seller = it_room->data->list.first; it_seller != nullptr; it_seller = it_seller->next)
 				{
 					if (it_seller->data->name == commands[1])
@@ -821,17 +834,19 @@ void Player::SellTo(const Vector<MyString> &commands)
 	{
 		DList<Entity*>::DNode* it_player = nullptr;
 		DList<Entity*>::DNode* it_room = nullptr;
+
+		//Checks for the item in your inventory
 		for (it_player = list.first; it_player != nullptr; it_player = it_player->next)
 		{
 			if (it_player->data->type == ITEM)
 			{
 				if (commands[1] == it_player->data->name && ((Item*)it_player->data)->equipped == false && ((Item*)it_player->data)->money > 0)
 				{
+					//Checks if the last command introduced is the name of the seller
 					for (it_room = location->list.first; it_room != nullptr; it_room = it_room->next)
 					{
 						if (it_room->data->type == NPC && it_room->data->name == commands[3])
-						{
-							//checks if the last command introduced is the name of the container
+						{		
 							if (((Creature*)it_room->data)->c_type == SELLER)
 							{
 								int earned = ((Item*)it_player->data)->money / 2;
@@ -876,6 +891,8 @@ void Player::Attack(const Vector<MyString> &commands)
 	if (commands.size() == 2)
 	{
 		DList<Entity*>::DNode* it_room = location->list.first;
+
+		//Checks for the enemy you want to attack
 		for (; it_room != nullptr; it_room = it_room->next)
 		{
 			if (it_room->data->name == commands[1] && it_room->data->type == NPC)
@@ -887,6 +904,7 @@ void Player::Attack(const Vector<MyString> &commands)
 				}
 				else
 				{
+					//Sets the enemy pointer to the correct NPC
 					enemy = (Creature*)it_room->data;
 					int damage = attack / 2 - enemy->armor/10;
 					printf("You hit %s, causing %i points of damage.", enemy->name.c_str(), damage);
@@ -960,6 +978,7 @@ void Player::Gem_Abilities(const Vector<MyString>& commands)
 
 		CheckGems(red, blue, yellow, black, white);
 
+		//Check the command introduced for casting the correct spell
 		if (commands[0] == "1")
 		{
 			Fire(commands, red, blue, black);
@@ -987,13 +1006,12 @@ void Player::Gem_Abilities(const Vector<MyString>& commands)
 	}
 }
 
-
 void Player::Heal(const Vector<MyString>& commands)
 {
 	if (commands.size() == 1)
 	{
 		heal_count = GetTickCount();
-
+		//You can heal 100 hp every 3 secs
 		if (heal_count >= timer + HEAL_DELAY)
 		{
 			timer = heal_count;
@@ -1011,24 +1029,12 @@ void Player::Heal(const Vector<MyString>& commands)
 	}
 }
 
-void Player::g_Heal(const Vector<MyString>& commands)
-{
-	hp = 1000000;
-	printf("Your hp is now %i.\n", hp);
-}
-
-void Player::g_Mana(const Vector<MyString>& commands)
-{
-	mana = 1000000;
-	printf("Your mana is now %i.\n", mana);
-}
-
 void Player::Mana(const Vector<MyString>& commands)
 {
 	if (commands.size() == 1)
 	{
 		mana_count = GetTickCount();
-
+		//You can regen 100 mana points every 3 secs
 		if (mana_count >= timer + MANA_DELAY)
 		{
 			timer = mana_count;
@@ -1037,7 +1043,7 @@ void Player::Mana(const Vector<MyString>& commands)
 		}
 		else
 		{
-			printf("My mana magic abilities are on cooldown, wait %i seconds Simon.\n", MANA_DELAY/1000 - (mana_count - timer)/1000);
+			printf("My mana magic abilities are on cooldown, wait %i seconds Simon.\n", MANA_DELAY / 1000 - (mana_count - timer) / 1000);
 		}
 	}
 	else
@@ -1046,13 +1052,30 @@ void Player::Mana(const Vector<MyString>& commands)
 	}
 }
 
+//GOD MODE HEAL
+void Player::g_Heal(const Vector<MyString>& commands)
+{
+	hp = 1000000;
+	printf("Your hp is now %i.\n", hp);
+}
+
+//GOD MODE MANA
+void Player::g_Mana(const Vector<MyString>& commands)
+{
+	mana = 1000000;
+	printf("Your mana is now %i.\n", mana);
+}
+
+
+
 void Player::Alive()
 {
+	//Checks if your hero is still alive
 	if (hp > 0)
 	{
 		actual_state = ALIVE;
 	}
-	else
+	else //Player is dead
 	{
 		printf("\n\n*** GAME OVER ***\nYou are DEAD, Simon.\n");
 		printf("Keep trying and you will reach the VICTORY.\n");

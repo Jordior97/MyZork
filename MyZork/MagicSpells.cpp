@@ -8,13 +8,12 @@ void HotSteam()
 	if (world->player->mana >= 30)
 	{
 		world->player->mana -= 30;
-		printf("HOT STEAM! It deals 50 points of damage to %s\nand you gain 40 mana points.\n", world->player->enemy->name.c_str());
+		printf("HOT STEAM! It deals 50 points of damage to %s.\n", world->player->enemy->name.c_str());
 		world->player->enemy->hp -= 50;
 		if (world->player->enemy->hp < 0)
 		{
 			world->player->enemy->hp = 0;
 		}
-		world->player->mana += 170;
 		printf("\n%s have %i hp.\n", world->player->enemy->name.c_str(), world->player->enemy->hp);
 		printf("You have %i mana points.\n", world->player->mana);
 	}
@@ -229,6 +228,10 @@ void Electricity(const Vector<MyString>& commands, bool yellow, bool blue, bool 
 				{
 					printf("ELECTRICITY! You reduced the armor of %s\n", world->player->enemy->name.c_str());
 					world->player->enemy->armor -= 20;
+					if (world->player->enemy->armor < 0)
+					{
+						world->player->enemy->armor = 0;
+					}
 					printf("You have %i mana points.\n", world->player->mana);
 				}
 				else

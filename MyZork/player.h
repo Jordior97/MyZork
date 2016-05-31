@@ -10,12 +10,14 @@ enum PStates{ ALIVE, GAMEOVER , WIN};
 class Player :public Creature
 {
 public:
+
 	Player(const char* name, const char* desc, Type type, int at, int hp, int m, int ar, CType c_type, int money, int at_delay) :
 		Creature(name, desc, type, at, hp, m, ar, c_type, money, at_delay){}
 	~Player(){};
 
 	PStates actual_state = ALIVE;
 
+	//To check cooldowns for healing or mana regenerating
 	unsigned int heal_count = GetTickCount();
 	unsigned int mana_count = GetTickCount();
 
@@ -55,9 +57,11 @@ public:
 	void g_Mana(const Vector<MyString>&);
 	void g_Heal(const Vector<MyString>&);
 
-	void Gem_Abilities(const Vector<MyString>&);
-	bool CheckGems(bool&, bool&, bool&, bool&, bool&);
+	
+	void Gem_Abilities(const Vector<MyString>&); //Casts spells
+	bool CheckGems(bool&, bool&, bool&, bool&, bool&); //Checks for gems in inventory
 
+	//FSM
 	void Update();
 	void Alive();
 	void Win();

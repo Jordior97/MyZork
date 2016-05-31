@@ -10,15 +10,8 @@ class Item :public Entity
 {
 public:
 
-	Room* src; //source room
-	void Look() const;
-
-	bool picked = false; //indicates if the item is in the inventory
 	bool equipped = false; //indicates if the item is equipped
-
-	bool inside = false; //indicates if the item is inside the container
 	bool container = false; //indicates if the item is a container
-
 	bool magic_gem = false; //indicates if the item is a magic gem
 
 	slot part; //indicates the slot it occupies
@@ -30,8 +23,10 @@ public:
 	int armor;
 	int money;
 
-	Item(const char*, const char*, Room*, slot, int, int, int, int,Type,int);
+	Item(const char*, const char*, slot, int, int, int, int,Type,int);
 	~Item();
+
+	void Look() const;
 };
 
 #endif

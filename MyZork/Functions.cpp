@@ -164,12 +164,14 @@ int GetCommand(const Vector<MyString>&commands)
 		return Mana;
 	}
 
+	//'GOD MODE' HEAL
 	else if (commands[0] == "/heal")
 	{
 		world->player->g_Heal(commands);
 		return G_Heal;
 	}
 
+	//'GOD MODE' MANA
 	else if (commands[0] == "/mana")
 	{
 		world->player->g_Mana(commands);

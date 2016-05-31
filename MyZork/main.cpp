@@ -22,20 +22,21 @@ int main()
 
 	world = new World;
 
-	world->CreateWorld(); //Sets rooms exits and items (names, descriptions and other properties)
+	world->CreateWorld(); //Sets rooms exits, items and creatures(names, descriptions and other properties)
 
 	world->Help(); //An introduction to my game with a description and controls 
 
 	MyString option;
 	char command[BUFFER];
 
-	//Sets initial position to rooms[0](BEDROOM)
+	//Sets initial position of the player to rooms[0](BEDROOM)
 	(Room*)world->player->location = (Room*)world->entities[0];
 
 	do
 	{	
 		fflush(stdin);
 
+		//Update Loop
 		if (world->player->actual_state == ALIVE)
 		{
 			for (int i = 0; i < world->entities.size(); i++)
@@ -53,6 +54,7 @@ int main()
 				command[size++] = input;
 				printf("%c", input);
 
+				//Backspace
 				if (command[size - 1] == '\b')
 				{
 					if (size > 1)
@@ -66,6 +68,7 @@ int main()
 					}
 				}
 
+				//Enter
 				if (command[size - 1] == '\r')
 				{
 					printf("\n\n");
@@ -75,7 +78,6 @@ int main()
 
 					//Splits the command introduced to check the different words it contains
 					Vector<MyString> commands = option.SplitString(" ", command);
-
 					if (command[0] != NULL && command[0] != ' ' && command[0] != '\b')
 					{
 
@@ -101,6 +103,8 @@ int main()
 			}
 		}
 	} while (quit == false && world->player->actual_state == ALIVE);
+
+	printf("\nSee you later ;)\n");
 	getchar();
 	return 0;
 }

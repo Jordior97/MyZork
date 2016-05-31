@@ -19,24 +19,20 @@
 #include"Totem.h"
 #include"KikkiJikki.h"
 
-
 #define NUM_ROOMS 13
-#define NUM_EXITS 18
-#define NUM_ITEMS 17
-
 
 class World
 {
 public:
 
-	Vector<Entity*> entities;
-	Player* player;
+	Vector<Entity*> entities; //All the entities are contained inside this vector
+	Player* player; //Pointer to access to player
 	World();
+	~World();
 
 	void CreateWorld();
 	void Help() const;
 
-	~World();
 };
 
 extern World* world;
