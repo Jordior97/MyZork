@@ -50,6 +50,26 @@ laws of this world, a wormhole is created when you drop items, making them appea
 If you want to keep your items safe, you have to put them into the trunk.
 
 
+*VERSION 1.0 NEW IMPLEMENTATIONS*
+
+**NPCs** to fight, interact, etc. implemented (descriptions in-game or in the wiki).
+
+**NEW COMMANDS**
+
+attack (creature) = start combat with a NPC)
+
+buy (creature) = see the items you can buy from this NPC.
+
+buy/sell (item) from/to (creature) = trade with a seller NPC.
+
+heal(h) / mana(m) = the magical staff Baxter helps you with his magical abilities.
+
+GOD MODE: "/heal" or "/mana" if you want to increase tese stats to a god level.
+
+**NEW SPECIAL FEATURE: the magical gems**
+
+The magical gems you can find around the map let you casting powerful abilities that consume mana (be careful which ability you cast and alwas take care about your mana). All combine different abilities to cast new powerful spells (Combinations explained in the PDF called "SpellsCombinations"). NOTE: if you want to cast a combinated spell, you have to do it like this = "1"(spacebar)"2".
+
 
 AUTHOR: Jordi Oña Rufí.
 
@@ -60,13 +80,5 @@ WIKI: https://github.com/Jordior97/MyZork/wiki
 WEBPAGE: http://jordior97.github.io/MyZork/
 
 P.D.:	
-- En alguns dels commits que vaig realitzar, el nom i el correu que estaven establerts eren erronis, d'un altre usuari.
-	
-- In the final room (Rakdos Throne Room), you can cross it to return to the bedroom without doing anything. 
-  I want to implement, in the future, a 'win condition' to detect if you defeated Rakdos. 
-  Then, you can return to the real world.
-
-- You can find the magical gems distributed all over the map, but you can't use them at the moment. I will implement their 		  functionality in a future release, after implementing combat mechanics and enemies
-
-- I will implement a dragon that appears in the "Dragon Chamber" every 30 seconds, so you can fight and defeat him to get experience 	  and gold(future implementations);
+- Some commits I realized were made with a wrong github account.
 
