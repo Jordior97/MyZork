@@ -79,6 +79,9 @@ void Totem::Update()
 		Die();
 		break;
 	}
-		
+	default:
+	{
+		break;
+	}
 	}
 }

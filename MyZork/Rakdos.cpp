@@ -86,5 +86,9 @@ void Rakdos::Update()
 		world->player->Win();
 		break;
 	}
+	default:
+	{
+		break;
+	}
 	}
 }

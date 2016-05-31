@@ -97,5 +97,9 @@ void Skeletons::Update()
 		Die();
 		break;
 	}
+	default:
+	{
+		break;
+	}
 	}
 }

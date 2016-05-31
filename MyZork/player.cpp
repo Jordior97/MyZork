@@ -1098,6 +1098,10 @@ void Player::Update()
 		Alive();
 		break;
 	}
+	default:
+	{
+		break;
+	}
 	}
 }
 

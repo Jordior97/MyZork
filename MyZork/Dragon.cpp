@@ -95,5 +95,10 @@ void Dragon::Update()
 		Die();
 		break;
 	}
+
+	default:
+	{
+		break;
+	}
 	}
 }

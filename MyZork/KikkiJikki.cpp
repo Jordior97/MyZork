@@ -102,6 +102,10 @@ void Goblin::Update()
 		Die();
 		break;
 	}
+	default:
+	{
+		break;
+	}
 	}
 }
 
